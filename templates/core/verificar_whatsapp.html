@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titulo %}Verificar WhatsApp — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/conta.css' %}?v=2">{% endblock %}
+{% block conteudo %}
+<div class="container verificacao-pagina">
+  <section class="verificacao-card">
+    <div class="verificacao-icone" aria-hidden="true">✓</div>
+    <span class="conta-marca">PROTEÇÃO DA CONTA</span>
+    <h1>Confirme seu WhatsApp</h1>
+    <p>Enviaremos um código de uso único para <strong>{{ telefone_mascarado }}</strong>.</p>
+
+    {% for message in messages %}<div class="verificacao-aviso {{ message.tags }}" role="status">{{ message }}</div>{% endfor %}
+
+    {% if servico_configurado %}
+      <form method="post" class="verificacao-enviar">{% csrf_token %}<input type="hidden" name="acao" value="enviar"><button type="submit">Enviar código pelo WhatsApp</button></form>
+      <div class="verificacao-divisor"><span>Depois de receber</span></div>
+      <form method="post" class="verificacao-codigo">{% csrf_token %}<input type="hidden" name="acao" value="confirmar"><label for="id_codigo">Código de verificação</label><input id="id_codigo" name="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="000000" required><button type="submit">Confirmar número</button></form>
+    {% else %}
+      <div class="verificacao-aviso warning">A integração está pronta, mas as credenciais do serviço de WhatsApp ainda precisam ser adicionadas ao servidor.</div>
+    {% endif %}
+    <a class="verificacao-depois" href="{% url 'core:index' %}">Fazer isso mais tarde</a>
+  </section>
+</div>
+{% endblock %}

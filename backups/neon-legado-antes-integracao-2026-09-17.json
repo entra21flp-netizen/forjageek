@@ -1,0 +1,1675 @@
+{
+  "avaliacoes_colecionaveis": {
+    "columns": [
+      "usuario_id",
+      "colecionavel_usuario_id",
+      "criado_em"
+    ],
+    "rows": []
+  },
+  "caracteristicas": {
+    "columns": [
+      "id",
+      "nome_caracteristica",
+      "tipo_dado"
+    ],
+    "rows": [
+      {
+        "id": 1,
+        "nome_caracteristica": "Ano de lançamento",
+        "tipo_dado": "numero"
+      },
+      {
+        "id": 2,
+        "nome_caracteristica": "Escala",
+        "tipo_dado": "texto"
+      },
+      {
+        "id": 3,
+        "nome_caracteristica": "Altura (cm)",
+        "tipo_dado": "numero"
+      },
+      {
+        "id": 4,
+        "nome_caracteristica": "Material",
+        "tipo_dado": "texto"
+      },
+      {
+        "id": 5,
+        "nome_caracteristica": "Série",
+        "tipo_dado": "texto"
+      },
+      {
+        "id": 6,
+        "nome_caracteristica": "Pontos de articulação",
+        "tipo_dado": "numero"
+      },
+      {
+        "id": 7,
+        "nome_caracteristica": "Possui acessórios",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 8,
+        "nome_caracteristica": "Número de acessórios",
+        "tipo_dado": "numero"
+      },
+      {
+        "id": 9,
+        "nome_caracteristica": "Possui troca de mãos",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 10,
+        "nome_caracteristica": "Possui troca de rosto",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 11,
+        "nome_caracteristica": "Possui efeitos",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 12,
+        "nome_caracteristica": "Possui base",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 13,
+        "nome_caracteristica": "Possui LED",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 14,
+        "nome_caracteristica": "Grau/Grade",
+        "tipo_dado": "texto"
+      },
+      {
+        "id": 15,
+        "nome_caracteristica": "Número de peças",
+        "tipo_dado": "numero"
+      },
+      {
+        "id": 16,
+        "nome_caracteristica": "Necessita pintura",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 17,
+        "nome_caracteristica": "Necessita cola",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 18,
+        "nome_caracteristica": "Montado",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 19,
+        "nome_caracteristica": "Possui articulação",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 20,
+        "nome_caracteristica": "Possui decalques",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 21,
+        "nome_caracteristica": "Linha",
+        "tipo_dado": "texto"
+      },
+      {
+        "id": 22,
+        "nome_caracteristica": "Número da coleção",
+        "tipo_dado": "numero"
+      },
+      {
+        "id": 23,
+        "nome_caracteristica": "Edição",
+        "tipo_dado": "texto"
+      },
+      {
+        "id": 24,
+        "nome_caracteristica": "Exclusividade",
+        "tipo_dado": "texto"
+      },
+      {
+        "id": 25,
+        "nome_caracteristica": "É Chase",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 26,
+        "nome_caracteristica": "Possui Chase",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 27,
+        "nome_caracteristica": "Edição limitada",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 28,
+        "nome_caracteristica": "Quantidade produzida",
+        "tipo_dado": "numero"
+      },
+      {
+        "id": 29,
+        "nome_caracteristica": "Largura (cm)",
+        "tipo_dado": "numero"
+      },
+      {
+        "id": 30,
+        "nome_caracteristica": "Profundidade (cm)",
+        "tipo_dado": "numero"
+      },
+      {
+        "id": 31,
+        "nome_caracteristica": "Tipo de peça",
+        "tipo_dado": "texto"
+      },
+      {
+        "id": 32,
+        "nome_caracteristica": "Possui partes intercambiáveis",
+        "tipo_dado": "boolean"
+      },
+      {
+        "id": 33,
+        "nome_caracteristica": "Número da edição",
+        "tipo_dado": "texto"
+      },
+      {
+        "id": 34,
+        "nome_caracteristica": "Peso (kg)",
+        "tipo_dado": "numero"
+      }
+    ]
+  },
+  "colecionaveis_usuario": {
+    "columns": [
+      "id",
+      "usuario_id",
+      "modelo_id",
+      "nome_personalizado",
+      "estado_peca",
+      "condicao_caixa",
+      "nota",
+      "data_inclusao",
+      "preco_pago",
+      "local_armazenamento",
+      "visualizacoes",
+      "avaliacoes_positivas",
+      "status_privacidade",
+      "status_negociacao",
+      "preco_anunciado",
+      "interesses_troca",
+      "personalizado"
+    ],
+    "rows": []
+  },
+  "dioramas_colecionaveis": {
+    "columns": [
+      "diorama_id",
+      "colecionavel_usuario_id"
+    ],
+    "rows": []
+  },
+  "dioramas_ia": {
+    "columns": [
+      "id",
+      "usuario_id",
+      "nome",
+      "descricao",
+      "url_imagem",
+      "prompt_geracao",
+      "imagem_principal",
+      "criado_em"
+    ],
+    "rows": []
+  },
+  "estantes_virtuais": {
+    "columns": [
+      "id",
+      "usuario_id",
+      "nome_estante",
+      "status_privacidade",
+      "ordem_exibicao",
+      "tema_visual"
+    ],
+    "rows": []
+  },
+  "historico_pontos": {
+    "columns": [
+      "id",
+      "usuario_id",
+      "pontos",
+      "tipo_pontuacao",
+      "motivo",
+      "colecionavel_usuario_id",
+      "criado_em"
+    ],
+    "rows": []
+  },
+  "imagens_colecionaveis": {
+    "columns": [
+      "id",
+      "colecionavel_usuario_id",
+      "url_imagem",
+      "ordem_exibicao",
+      "imagem_principal",
+      "criado_em"
+    ],
+    "rows": []
+  },
+  "imagens_modelos": {
+    "columns": [
+      "id",
+      "modelo_id",
+      "url_imagem",
+      "ordem_exibicao",
+      "imagem_principal",
+      "criado_em"
+    ],
+    "rows": []
+  },
+  "itens_estante": {
+    "columns": [
+      "id",
+      "estante_id",
+      "colecionavel_usuario_id",
+      "posicao_slot",
+      "data_posicionamento"
+    ],
+    "rows": []
+  },
+  "modelos_caracteristicas": {
+    "columns": [
+      "modelo_id",
+      "caracteristica_id",
+      "valor"
+    ],
+    "rows": [
+      {
+        "modelo_id": 6,
+        "caracteristica_id": 1,
+        "valor": "2022"
+      },
+      {
+        "modelo_id": 5,
+        "caracteristica_id": 1,
+        "valor": "2022"
+      },
+      {
+        "modelo_id": 4,
+        "caracteristica_id": 1,
+        "valor": "2026"
+      },
+      {
+        "modelo_id": 3,
+        "caracteristica_id": 1,
+        "valor": "2027"
+      },
+      {
+        "modelo_id": 2,
+        "caracteristica_id": 1,
+        "valor": "2027"
+      },
+      {
+        "modelo_id": 1,
+        "caracteristica_id": 1,
+        "valor": "2021"
+      },
+      {
+        "modelo_id": 6,
+        "caracteristica_id": 3,
+        "valor": "16,0"
+      },
+      {
+        "modelo_id": 5,
+        "caracteristica_id": 3,
+        "valor": "14,5"
+      },
+      {
+        "modelo_id": 4,
+        "caracteristica_id": 3,
+        "valor": "14,5"
+      },
+      {
+        "modelo_id": 3,
+        "caracteristica_id": 3,
+        "valor": "14,0"
+      },
+      {
+        "modelo_id": 2,
+        "caracteristica_id": 3,
+        "valor": "13,5"
+      },
+      {
+        "modelo_id": 1,
+        "caracteristica_id": 3,
+        "valor": "14,0"
+      },
+      {
+        "modelo_id": 6,
+        "caracteristica_id": 4,
+        "valor": "PVC, ABS"
+      },
+      {
+        "modelo_id": 5,
+        "caracteristica_id": 4,
+        "valor": "PVC, ABS"
+      },
+      {
+        "modelo_id": 4,
+        "caracteristica_id": 4,
+        "valor": "PVC, ABS"
+      },
+      {
+        "modelo_id": 3,
+        "caracteristica_id": 4,
+        "valor": "PVC, ABS"
+      },
+      {
+        "modelo_id": 2,
+        "caracteristica_id": 4,
+        "valor": "PVC, ABS"
+      },
+      {
+        "modelo_id": 1,
+        "caracteristica_id": 4,
+        "valor": "PVC, ABS"
+      },
+      {
+        "modelo_id": 6,
+        "caracteristica_id": 5,
+        "valor": "S.H.Figuarts"
+      },
+      {
+        "modelo_id": 5,
+        "caracteristica_id": 5,
+        "valor": "S.H.Figuarts"
+      },
+      {
+        "modelo_id": 4,
+        "caracteristica_id": 5,
+        "valor": "S.H.Figuarts"
+      },
+      {
+        "modelo_id": 3,
+        "caracteristica_id": 5,
+        "valor": "S.H.Figuarts"
+      },
+      {
+        "modelo_id": 2,
+        "caracteristica_id": 5,
+        "valor": "S.H.Figuarts"
+      },
+      {
+        "modelo_id": 1,
+        "caracteristica_id": 5,
+        "valor": "S.H.Figuarts"
+      },
+      {
+        "modelo_id": 6,
+        "caracteristica_id": 7,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 5,
+        "caracteristica_id": 7,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 4,
+        "caracteristica_id": 7,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 3,
+        "caracteristica_id": 7,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 2,
+        "caracteristica_id": 7,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 1,
+        "caracteristica_id": 7,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 6,
+        "caracteristica_id": 9,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 5,
+        "caracteristica_id": 9,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 4,
+        "caracteristica_id": 9,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 3,
+        "caracteristica_id": 9,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 2,
+        "caracteristica_id": 9,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 1,
+        "caracteristica_id": 9,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 6,
+        "caracteristica_id": 10,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 5,
+        "caracteristica_id": 10,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 4,
+        "caracteristica_id": 10,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 3,
+        "caracteristica_id": 10,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 2,
+        "caracteristica_id": 10,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 1,
+        "caracteristica_id": 10,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 9,
+        "caracteristica_id": 1,
+        "valor": "2013"
+      },
+      {
+        "modelo_id": 7,
+        "caracteristica_id": 1,
+        "valor": "2001"
+      },
+      {
+        "modelo_id": 12,
+        "caracteristica_id": 14,
+        "valor": "Champion Class"
+      },
+      {
+        "modelo_id": 11,
+        "caracteristica_id": 14,
+        "valor": "Champion Class"
+      },
+      {
+        "modelo_id": 10,
+        "caracteristica_id": 14,
+        "valor": "Champion Class"
+      },
+      {
+        "modelo_id": 9,
+        "caracteristica_id": 14,
+        "valor": "HGUC"
+      },
+      {
+        "modelo_id": 8,
+        "caracteristica_id": 14,
+        "valor": "HG"
+      },
+      {
+        "modelo_id": 7,
+        "caracteristica_id": 14,
+        "valor": "HGUC"
+      },
+      {
+        "modelo_id": 11,
+        "caracteristica_id": 15,
+        "valor": "104"
+      },
+      {
+        "modelo_id": 12,
+        "caracteristica_id": 16,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 11,
+        "caracteristica_id": 16,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 10,
+        "caracteristica_id": 16,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 9,
+        "caracteristica_id": 16,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 8,
+        "caracteristica_id": 16,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 7,
+        "caracteristica_id": 16,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 12,
+        "caracteristica_id": 17,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 11,
+        "caracteristica_id": 17,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 10,
+        "caracteristica_id": 17,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 9,
+        "caracteristica_id": 17,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 8,
+        "caracteristica_id": 17,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 7,
+        "caracteristica_id": 17,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 12,
+        "caracteristica_id": 18,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 11,
+        "caracteristica_id": 18,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 10,
+        "caracteristica_id": 18,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 9,
+        "caracteristica_id": 18,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 8,
+        "caracteristica_id": 18,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 7,
+        "caracteristica_id": 18,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 12,
+        "caracteristica_id": 19,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 11,
+        "caracteristica_id": 19,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 10,
+        "caracteristica_id": 19,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 9,
+        "caracteristica_id": 19,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 8,
+        "caracteristica_id": 19,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 7,
+        "caracteristica_id": 19,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 12,
+        "caracteristica_id": 20,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 11,
+        "caracteristica_id": 20,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 10,
+        "caracteristica_id": 20,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 9,
+        "caracteristica_id": 20,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 8,
+        "caracteristica_id": 20,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 7,
+        "caracteristica_id": 20,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 13,
+        "caracteristica_id": 1,
+        "valor": "2011"
+      },
+      {
+        "modelo_id": 13,
+        "caracteristica_id": 21,
+        "valor": "Pop! Marvel"
+      },
+      {
+        "modelo_id": 13,
+        "caracteristica_id": 22,
+        "valor": "03"
+      },
+      {
+        "modelo_id": 13,
+        "caracteristica_id": 23,
+        "valor": "Comum"
+      },
+      {
+        "modelo_id": 13,
+        "caracteristica_id": 24,
+        "valor": "Não"
+      },
+      {
+        "modelo_id": 13,
+        "caracteristica_id": 25,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 13,
+        "caracteristica_id": 26,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 13,
+        "caracteristica_id": 27,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 14,
+        "caracteristica_id": 1,
+        "valor": "2011"
+      },
+      {
+        "modelo_id": 14,
+        "caracteristica_id": 21,
+        "valor": "Pop! Marvel"
+      },
+      {
+        "modelo_id": 14,
+        "caracteristica_id": 22,
+        "valor": "04"
+      },
+      {
+        "modelo_id": 14,
+        "caracteristica_id": 23,
+        "valor": "Comum"
+      },
+      {
+        "modelo_id": 14,
+        "caracteristica_id": 24,
+        "valor": "Não"
+      },
+      {
+        "modelo_id": 14,
+        "caracteristica_id": 25,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 14,
+        "caracteristica_id": 26,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 14,
+        "caracteristica_id": 27,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 15,
+        "caracteristica_id": 1,
+        "valor": "2011"
+      },
+      {
+        "modelo_id": 15,
+        "caracteristica_id": 21,
+        "valor": "Pop! Marvel"
+      },
+      {
+        "modelo_id": 15,
+        "caracteristica_id": 22,
+        "valor": "06"
+      },
+      {
+        "modelo_id": 15,
+        "caracteristica_id": 23,
+        "valor": "Comum"
+      },
+      {
+        "modelo_id": 15,
+        "caracteristica_id": 24,
+        "valor": "Não"
+      },
+      {
+        "modelo_id": 15,
+        "caracteristica_id": 25,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 15,
+        "caracteristica_id": 26,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 15,
+        "caracteristica_id": 27,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 16,
+        "caracteristica_id": 1,
+        "valor": "2015"
+      },
+      {
+        "modelo_id": 16,
+        "caracteristica_id": 21,
+        "valor": "Pop! Animation"
+      },
+      {
+        "modelo_id": 16,
+        "caracteristica_id": 22,
+        "valor": "71"
+      },
+      {
+        "modelo_id": 16,
+        "caracteristica_id": 23,
+        "valor": "Comum"
+      },
+      {
+        "modelo_id": 16,
+        "caracteristica_id": 24,
+        "valor": "Não"
+      },
+      {
+        "modelo_id": 16,
+        "caracteristica_id": 25,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 16,
+        "caracteristica_id": 26,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 16,
+        "caracteristica_id": 27,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 17,
+        "caracteristica_id": 1,
+        "valor": "2015"
+      },
+      {
+        "modelo_id": 17,
+        "caracteristica_id": 21,
+        "valor": "Pop! Animation"
+      },
+      {
+        "modelo_id": 17,
+        "caracteristica_id": 22,
+        "valor": "72"
+      },
+      {
+        "modelo_id": 17,
+        "caracteristica_id": 23,
+        "valor": "Comum"
+      },
+      {
+        "modelo_id": 17,
+        "caracteristica_id": 24,
+        "valor": "Não"
+      },
+      {
+        "modelo_id": 17,
+        "caracteristica_id": 25,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 17,
+        "caracteristica_id": 26,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 17,
+        "caracteristica_id": 27,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 18,
+        "caracteristica_id": 1,
+        "valor": "2014"
+      },
+      {
+        "modelo_id": 18,
+        "caracteristica_id": 21,
+        "valor": "Pop! Animation"
+      },
+      {
+        "modelo_id": 18,
+        "caracteristica_id": 22,
+        "valor": "09"
+      },
+      {
+        "modelo_id": 18,
+        "caracteristica_id": 23,
+        "valor": "Comum"
+      },
+      {
+        "modelo_id": 18,
+        "caracteristica_id": 24,
+        "valor": "Hot Topic"
+      },
+      {
+        "modelo_id": 18,
+        "caracteristica_id": 25,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 18,
+        "caracteristica_id": 26,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 18,
+        "caracteristica_id": 27,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 25,
+        "caracteristica_id": 1,
+        "valor": "2019"
+      },
+      {
+        "modelo_id": 25,
+        "caracteristica_id": 3,
+        "valor": "18.5"
+      },
+      {
+        "modelo_id": 25,
+        "caracteristica_id": 4,
+        "valor": "PVC/ABS"
+      },
+      {
+        "modelo_id": 25,
+        "caracteristica_id": 5,
+        "valor": "Figuarts ZERO"
+      },
+      {
+        "modelo_id": 25,
+        "caracteristica_id": 11,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 25,
+        "caracteristica_id": 12,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 25,
+        "caracteristica_id": 31,
+        "valor": "Estátua"
+      },
+      {
+        "modelo_id": 25,
+        "caracteristica_id": 32,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 26,
+        "caracteristica_id": 1,
+        "valor": "2017"
+      },
+      {
+        "modelo_id": 26,
+        "caracteristica_id": 3,
+        "valor": "19"
+      },
+      {
+        "modelo_id": 26,
+        "caracteristica_id": 4,
+        "valor": "ABS/PVC"
+      },
+      {
+        "modelo_id": 26,
+        "caracteristica_id": 5,
+        "valor": "Figuarts ZERO"
+      },
+      {
+        "modelo_id": 26,
+        "caracteristica_id": 11,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 26,
+        "caracteristica_id": 31,
+        "valor": "Estátua"
+      },
+      {
+        "modelo_id": 26,
+        "caracteristica_id": 32,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 27,
+        "caracteristica_id": 1,
+        "valor": "2017"
+      },
+      {
+        "modelo_id": 27,
+        "caracteristica_id": 3,
+        "valor": "20"
+      },
+      {
+        "modelo_id": 27,
+        "caracteristica_id": 4,
+        "valor": "ABS/PVC"
+      },
+      {
+        "modelo_id": 27,
+        "caracteristica_id": 5,
+        "valor": "Figuarts ZERO"
+      },
+      {
+        "modelo_id": 27,
+        "caracteristica_id": 31,
+        "valor": "Estátua"
+      },
+      {
+        "modelo_id": 27,
+        "caracteristica_id": 32,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 28,
+        "caracteristica_id": 1,
+        "valor": "2021"
+      },
+      {
+        "modelo_id": 28,
+        "caracteristica_id": 3,
+        "valor": "21"
+      },
+      {
+        "modelo_id": 28,
+        "caracteristica_id": 4,
+        "valor": "PVC/ABS"
+      },
+      {
+        "modelo_id": 28,
+        "caracteristica_id": 5,
+        "valor": "Figuarts ZERO"
+      },
+      {
+        "modelo_id": 28,
+        "caracteristica_id": 31,
+        "valor": "Estátua"
+      },
+      {
+        "modelo_id": 28,
+        "caracteristica_id": 32,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 29,
+        "caracteristica_id": 1,
+        "valor": "2025"
+      },
+      {
+        "modelo_id": 29,
+        "caracteristica_id": 3,
+        "valor": "19.5"
+      },
+      {
+        "modelo_id": 29,
+        "caracteristica_id": 4,
+        "valor": "PVC/ABS/PC"
+      },
+      {
+        "modelo_id": 29,
+        "caracteristica_id": 5,
+        "valor": "Figuarts ZERO"
+      },
+      {
+        "modelo_id": 29,
+        "caracteristica_id": 11,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 29,
+        "caracteristica_id": 31,
+        "valor": "Estátua"
+      },
+      {
+        "modelo_id": 29,
+        "caracteristica_id": 32,
+        "valor": "false"
+      },
+      {
+        "modelo_id": 30,
+        "caracteristica_id": 1,
+        "valor": "2025"
+      },
+      {
+        "modelo_id": 30,
+        "caracteristica_id": 3,
+        "valor": "19.5"
+      },
+      {
+        "modelo_id": 30,
+        "caracteristica_id": 4,
+        "valor": "PVC/ABS"
+      },
+      {
+        "modelo_id": 30,
+        "caracteristica_id": 5,
+        "valor": "Figuarts ZERO"
+      },
+      {
+        "modelo_id": 30,
+        "caracteristica_id": 11,
+        "valor": "true"
+      },
+      {
+        "modelo_id": 30,
+        "caracteristica_id": 31,
+        "valor": "Estátua"
+      },
+      {
+        "modelo_id": 30,
+        "caracteristica_id": 32,
+        "valor": "false"
+      }
+    ]
+  },
+  "modelos_colecionaveis": {
+    "columns": [
+      "id",
+      "tipo_id",
+      "nome_personagem",
+      "franquia",
+      "fabricante",
+      "codigo_barras_ean_jan",
+      "codigo_fabricante_sku",
+      "nome_modelo"
+    ],
+    "rows": [
+      {
+        "id": 1,
+        "tipo_id": 1,
+        "nome_personagem": "Son Goku",
+        "franquia": "Dragon Ball Z",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "S.H.Figuarts Super Saiyan Full Power SON GOKU"
+      },
+      {
+        "id": 2,
+        "tipo_id": 1,
+        "nome_personagem": "Vegeta",
+        "franquia": "Dragon Ball Z",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "S.H.Figuarts VEGETA <Z-FIGHTERS>"
+      },
+      {
+        "id": 3,
+        "tipo_id": 1,
+        "nome_personagem": "Trunks",
+        "franquia": "Dragon Ball Z",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "S.H.Figuarts Trunks <Z-FIGHTERS>"
+      },
+      {
+        "id": 4,
+        "tipo_id": 1,
+        "nome_personagem": "Naruto Uzumaki",
+        "franquia": "Naruto: Shippuden",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "S.H.Figuarts NARUTO UZUMAKI -The Hope Entrusted to the Nine-Tailed Fox Jinchuriki-"
+      },
+      {
+        "id": 5,
+        "tipo_id": 1,
+        "nome_personagem": "Sasuke Uchiha",
+        "franquia": "Naruto: Shippuden",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "S.H.Figuarts SASUKE UCHIHA -He who bears all Hatred-"
+      },
+      {
+        "id": 6,
+        "tipo_id": 1,
+        "nome_personagem": "Kakashi Hatake",
+        "franquia": "Naruto: Shippuden",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "S.H.Figuarts KAKASHI HATAKE -The Legendary Hero of the Sharingan-"
+      },
+      {
+        "id": 7,
+        "tipo_id": 2,
+        "nome_personagem": "RX-78-2 Gundam",
+        "franquia": "Mobile Suit Gundam",
+        "fabricante": "Bandai",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "HGUC 1/144 RX-78-2 Gundam"
+      },
+      {
+        "id": 8,
+        "tipo_id": 2,
+        "nome_personagem": "Gundam Sandrock Custom",
+        "franquia": "Mobile Suit Gundam Wing Endless Waltz",
+        "fabricante": "Bandai",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "HG 1/144 Gundam Sandrock Custom EW"
+      },
+      {
+        "id": 9,
+        "tipo_id": 2,
+        "nome_personagem": "MS-06R-2 Zaku II",
+        "franquia": "Mobile Suit Gundam",
+        "fabricante": "Bandai",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Bandai HGUC MS-06R-2 Zaku II Johnny Ridden Custom"
+      },
+      {
+        "id": 10,
+        "tipo_id": 2,
+        "nome_personagem": "Pegasus Seiya",
+        "franquia": "Saint Seiya",
+        "fabricante": "Blokees",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Saint Seiya Champion Class Pegasus Seiya"
+      },
+      {
+        "id": 11,
+        "tipo_id": 2,
+        "nome_personagem": "Dragon Shiryu",
+        "franquia": "Saint Seiya",
+        "fabricante": "Blokees",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Saint Seiya Champion Class Dragon Shiryu"
+      },
+      {
+        "id": 12,
+        "tipo_id": 2,
+        "nome_personagem": "Cygnus Hyoga",
+        "franquia": "Saint Seiya",
+        "fabricante": "Blokees",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Saint Seiya Champion Class Cygnus Hyoga"
+      },
+      {
+        "id": 13,
+        "tipo_id": 3,
+        "nome_personagem": "Spider-Man",
+        "franquia": "Marvel",
+        "fabricante": "Funko",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Funko Pop! Spider-Man #03"
+      },
+      {
+        "id": 14,
+        "tipo_id": 3,
+        "nome_personagem": "Iron Man",
+        "franquia": "Marvel",
+        "fabricante": "Funko",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Funko Pop! Iron Man #04"
+      },
+      {
+        "id": 15,
+        "tipo_id": 3,
+        "nome_personagem": "Captain America",
+        "franquia": "Marvel",
+        "fabricante": "Funko",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Funko Pop! Captain America #06"
+      },
+      {
+        "id": 16,
+        "tipo_id": 3,
+        "nome_personagem": "Naruto Uzumaki",
+        "franquia": "Naruto: Shippuden",
+        "fabricante": "Funko",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Funko Pop! Naruto #71"
+      },
+      {
+        "id": 17,
+        "tipo_id": 3,
+        "nome_personagem": "Sasuke Uchiha",
+        "franquia": "Naruto: Shippuden",
+        "fabricante": "Funko",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Funko Pop! Sasuke #72"
+      },
+      {
+        "id": 18,
+        "tipo_id": 3,
+        "nome_personagem": "Goku",
+        "franquia": "Dragon Ball Z",
+        "fabricante": "Funko",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Funko Pop! Goku #09"
+      },
+      {
+        "id": 25,
+        "tipo_id": 4,
+        "nome_personagem": "Uchiha Madara",
+        "franquia": "Naruto: Shippuden",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Figuarts ZERO UCHIHA MADARA -ISOU SUSANOO- Kizuna Relation"
+      },
+      {
+        "id": 26,
+        "tipo_id": 4,
+        "nome_personagem": "Sasuke Uchiha",
+        "franquia": "Naruto",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Figuarts ZERO Sasuke Bond Relation"
+      },
+      {
+        "id": 27,
+        "tipo_id": 4,
+        "nome_personagem": "Super Saiyan Gogeta",
+        "franquia": "Dragon Ball Z",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Figuarts ZERO Super Saiyan Gogeta"
+      },
+      {
+        "id": 28,
+        "tipo_id": 4,
+        "nome_personagem": "Son Goku",
+        "franquia": "Dragon Ball Z",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Figuarts ZERO Super Saiyan 3 Son Goku -Dragon fist explosion-"
+      },
+      {
+        "id": 29,
+        "tipo_id": 4,
+        "nome_personagem": "Tanjiro Kamado",
+        "franquia": "Demon Slayer: Kimetsu no Yaiba",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Figuarts ZERO Tanjiro Kamado Rengoku Guard ver."
+      },
+      {
+        "id": 30,
+        "tipo_id": 4,
+        "nome_personagem": "Naruto Uzumaki",
+        "franquia": "Naruto: Shippuden",
+        "fabricante": "Bandai Spirits",
+        "codigo_barras_ean_jan": null,
+        "codigo_fabricante_sku": null,
+        "nome_modelo": "Figuarts ZERO NARUTO UZUMAKI -NARUTO 72 series-"
+      }
+    ]
+  },
+  "tipos_caracteristicas": {
+    "columns": [
+      "tipo_id",
+      "caracteristica_id"
+    ],
+    "rows": [
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 1
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 1
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 1
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 1
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 2
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 3
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 4
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 5
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 6
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 7
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 8
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 9
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 10
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 11
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 12
+      },
+      {
+        "tipo_id": 1,
+        "caracteristica_id": 13
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 2
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 4
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 5
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 13
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 14
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 15
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 16
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 17
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 18
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 19
+      },
+      {
+        "tipo_id": 2,
+        "caracteristica_id": 20
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 4
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 5
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 12
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 21
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 22
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 23
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 24
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 25
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 26
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 27
+      },
+      {
+        "tipo_id": 3,
+        "caracteristica_id": 28
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 2
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 3
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 4
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 5
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 11
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 12
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 13
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 27
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 28
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 29
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 30
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 31
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 32
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 33
+      },
+      {
+        "tipo_id": 4,
+        "caracteristica_id": 34
+      }
+    ]
+  },
+  "tipos_colecionaveis": {
+    "columns": [
+      "id",
+      "nome_tipo"
+    ],
+    "rows": [
+      {
+        "id": 1,
+        "nome_tipo": "Action Figure"
+      },
+      {
+        "id": 2,
+        "nome_tipo": "Model Kit"
+      },
+      {
+        "id": 3,
+        "nome_tipo": "Funko Pop"
+      },
+      {
+        "id": 4,
+        "nome_tipo": "Estátuas/Bustos"
+      }
+    ]
+  },
+  "transacoes_venda": {
+    "columns": [
+      "id",
+      "comprador_id",
+      "vendedor_id",
+      "colecionavel_usuario_id",
+      "valor_item",
+      "taxa_plataforma",
+      "valor_liquido_vendedor",
+      "whatsapp_comprador",
+      "whatsapp_vendedor",
+      "status_transacao",
+      "criado_em",
+      "concluido_em"
+    ],
+    "rows": []
+  },
+  "usuarios": {
+    "columns": [
+      "id",
+      "nome",
+      "cpf",
+      "login",
+      "senha",
+      "email",
+      "telefone_whatsapp",
+      "whatsapp_validado",
+      "pontos",
+      "criado_em"
+    ],
+    "rows": []
+  }
+}

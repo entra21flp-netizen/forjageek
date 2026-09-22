@@ -1,0 +1,4371 @@
+[
+{
+  "model": "usuarios.usuario",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$5XoIzLS6MTh0DKQB81HEut$qXH5sRENwaSdDm2JxPAE/uA98TPzSzN7T7gjWTf5kUU=",
+    "last_login": "2026-09-16T11:38:42.020Z",
+    "is_superuser": false,
+    "username": "rafageek",
+    "first_name": "Rafa",
+    "last_name": "Geek",
+    "email": "rafa@forjageek.com.br",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-09T11:14:03.144Z",
+    "cpf": "11111111111",
+    "telefone_whatsapp": "+5547991110001",
+    "whatsapp_validado": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "usuarios.usuario",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$DBx9SSp3sbqzfpvNF8uwqT$/og7qStesphXx/9/45Y9pfmDCzz/BYMHMxOP0wRLOGU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "colecionasp",
+    "first_name": "Coleciona",
+    "last_name": "SP",
+    "email": "colecionasp@forjageek.com.br",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-09T11:14:03.689Z",
+    "cpf": "22222222222",
+    "telefone_whatsapp": "+5511992220002",
+    "whatsapp_validado": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "usuarios.usuario",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$ggKnEoF4T54WvKUP6qEXPq$ULGpeCs4picZDyp2k7j4qrD4OzGNGZob7EziTBN8xd4=",
+    "last_login": "2026-09-16T11:08:06.738Z",
+    "is_superuser": false,
+    "username": "mesageek",
+    "first_name": "Mesa",
+    "last_name": "Geek",
+    "email": "mesageek@forjageek.com.br",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-09T11:14:04.190Z",
+    "cpf": "33333333333",
+    "telefone_whatsapp": "+5547993330003",
+    "whatsapp_validado": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "usuarios.usuario",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$yP0nFOr4GzuMIbruAog82q$CLQyQibeaHkgtIctQuOuIFVsLJS6DkYR+GqgYQRNhFQ=",
+    "last_login": "2026-09-16T11:15:36.095Z",
+    "is_superuser": false,
+    "username": "GabrielGeek@2",
+    "first_name": "Gabriel",
+    "last_name": "Reuter",
+    "email": "reutergabriel88@gmail.ckm",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-16T11:15:35.277Z",
+    "cpf": "12668007941",
+    "telefone_whatsapp": "+5547999577037",
+    "whatsapp_validado": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "usuarios.usuario",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$nfIbmiXCUoBF8Ix1KOWbSg$pFwbWLY93tj18GqpDMucB/E+IIPCGKc06wbmOonMTxo=",
+    "last_login": "2026-09-16T11:16:11.872Z",
+    "is_superuser": false,
+    "username": "dudu",
+    "first_name": "Eduardo",
+    "last_name": "Miguel",
+    "email": "eduart.arte@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-16T11:16:11.375Z",
+    "cpf": "11032998911",
+    "telefone_whatsapp": "+5547991759214",
+    "whatsapp_validado": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "usuarios.usuario",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$bV8WtRTV28mMh2ZNpWIWzZ$tChXzBykxAwLZNqUcrVcaJAAB5FJhhoErrPqDcsP1xc=",
+    "last_login": "2026-09-16T11:37:27.200Z",
+    "is_superuser": false,
+    "username": "Flesch",
+    "first_name": "Gustavo",
+    "last_name": "Flesch",
+    "email": "rebert.eita@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-16T11:37:26.702Z",
+    "cpf": "09740659942",
+    "telefone_whatsapp": "+550000000000",
+    "whatsapp_validado": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "catalogo.tipocolecionavel",
+  "pk": 1,
+  "fields": {
+    "nome_tipo": "Action Figure"
+  }
+},
+{
+  "model": "catalogo.tipocolecionavel",
+  "pk": 2,
+  "fields": {
+    "nome_tipo": "Model Kit"
+  }
+},
+{
+  "model": "catalogo.tipocolecionavel",
+  "pk": 3,
+  "fields": {
+    "nome_tipo": "Funko Pop"
+  }
+},
+{
+  "model": "catalogo.tipocolecionavel",
+  "pk": 4,
+  "fields": {
+    "nome_tipo": "Estátua"
+  }
+},
+{
+  "model": "catalogo.tipocolecionavel",
+  "pk": 5,
+  "fields": {
+    "nome_tipo": "Estátuas/Bustos"
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 1,
+  "fields": {
+    "nome_modelo": "Optimus Prime Studio Series — Transformers",
+    "tipo": 1,
+    "nome_personagem": "Optimus Prime Studio Series",
+    "franquia": "Transformers",
+    "fabricante": "Hasbro",
+    "codigo_barras_ean_jan": "7891234560017",
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 2,
+  "fields": {
+    "nome_modelo": "Batman Beyond — DC Comics",
+    "tipo": 1,
+    "nome_personagem": "Batman Beyond",
+    "franquia": "DC Comics",
+    "fabricante": "McFarlane Toys",
+    "codigo_barras_ean_jan": "7891234560024",
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 3,
+  "fields": {
+    "nome_modelo": "Pikachu Celebrations — Pokémon",
+    "tipo": 3,
+    "nome_personagem": "Pikachu Celebrations",
+    "franquia": "Pokémon",
+    "fabricante": "Funko",
+    "codigo_barras_ean_jan": "7891234560031",
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 4,
+  "fields": {
+    "nome_modelo": "Gundam RX-78-2 HG — Mobile Suit Gundam",
+    "tipo": 2,
+    "nome_personagem": "Gundam RX-78-2 HG",
+    "franquia": "Mobile Suit Gundam",
+    "fabricante": "Bandai",
+    "codigo_barras_ean_jan": "7891234560048",
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 5,
+  "fields": {
+    "nome_modelo": "Gandalf, o Cinzento — O Senhor dos Anéis",
+    "tipo": 4,
+    "nome_personagem": "Gandalf, o Cinzento",
+    "franquia": "O Senhor dos Anéis",
+    "fabricante": "Weta Workshop",
+    "codigo_barras_ean_jan": "7891234560055",
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 6,
+  "fields": {
+    "nome_modelo": "Jurassic Park T-Rex — Jurassic Park",
+    "tipo": 1,
+    "nome_personagem": "Jurassic Park T-Rex",
+    "franquia": "Jurassic Park",
+    "fabricante": "NECA",
+    "codigo_barras_ean_jan": "7891234560062",
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 7,
+  "fields": {
+    "nome_modelo": "S.H.Figuarts Super Saiyan Full Power SON GOKU",
+    "tipo": 1,
+    "nome_personagem": "Son Goku",
+    "franquia": "Dragon Ball Z",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 8,
+  "fields": {
+    "nome_modelo": "S.H.Figuarts VEGETA <Z-FIGHTERS>",
+    "tipo": 1,
+    "nome_personagem": "Vegeta",
+    "franquia": "Dragon Ball Z",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 9,
+  "fields": {
+    "nome_modelo": "S.H.Figuarts Trunks <Z-FIGHTERS>",
+    "tipo": 1,
+    "nome_personagem": "Trunks",
+    "franquia": "Dragon Ball Z",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 10,
+  "fields": {
+    "nome_modelo": "S.H.Figuarts NARUTO UZUMAKI -The Hope Entrusted to the Nine-Tailed Fox Jinchuriki-",
+    "tipo": 1,
+    "nome_personagem": "Naruto Uzumaki",
+    "franquia": "Naruto: Shippuden",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 11,
+  "fields": {
+    "nome_modelo": "S.H.Figuarts SASUKE UCHIHA -He who bears all Hatred-",
+    "tipo": 1,
+    "nome_personagem": "Sasuke Uchiha",
+    "franquia": "Naruto: Shippuden",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 12,
+  "fields": {
+    "nome_modelo": "S.H.Figuarts KAKASHI HATAKE -The Legendary Hero of the Sharingan-",
+    "tipo": 1,
+    "nome_personagem": "Kakashi Hatake",
+    "franquia": "Naruto: Shippuden",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 13,
+  "fields": {
+    "nome_modelo": "HGUC 1/144 RX-78-2 Gundam",
+    "tipo": 2,
+    "nome_personagem": "RX-78-2 Gundam",
+    "franquia": "Mobile Suit Gundam",
+    "fabricante": "Bandai",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 14,
+  "fields": {
+    "nome_modelo": "HG 1/144 Gundam Sandrock Custom EW",
+    "tipo": 2,
+    "nome_personagem": "Gundam Sandrock Custom",
+    "franquia": "Mobile Suit Gundam Wing Endless Waltz",
+    "fabricante": "Bandai",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 15,
+  "fields": {
+    "nome_modelo": "Bandai HGUC MS-06R-2 Zaku II Johnny Ridden Custom",
+    "tipo": 2,
+    "nome_personagem": "MS-06R-2 Zaku II",
+    "franquia": "Mobile Suit Gundam",
+    "fabricante": "Bandai",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 16,
+  "fields": {
+    "nome_modelo": "Saint Seiya Champion Class Pegasus Seiya",
+    "tipo": 2,
+    "nome_personagem": "Pegasus Seiya",
+    "franquia": "Saint Seiya",
+    "fabricante": "Blokees",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 17,
+  "fields": {
+    "nome_modelo": "Saint Seiya Champion Class Dragon Shiryu",
+    "tipo": 2,
+    "nome_personagem": "Dragon Shiryu",
+    "franquia": "Saint Seiya",
+    "fabricante": "Blokees",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 18,
+  "fields": {
+    "nome_modelo": "Saint Seiya Champion Class Cygnus Hyoga",
+    "tipo": 2,
+    "nome_personagem": "Cygnus Hyoga",
+    "franquia": "Saint Seiya",
+    "fabricante": "Blokees",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 19,
+  "fields": {
+    "nome_modelo": "Funko Pop! Spider-Man #03",
+    "tipo": 3,
+    "nome_personagem": "Spider-Man",
+    "franquia": "Marvel",
+    "fabricante": "Funko",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 20,
+  "fields": {
+    "nome_modelo": "Funko Pop! Iron Man #04",
+    "tipo": 3,
+    "nome_personagem": "Iron Man",
+    "franquia": "Marvel",
+    "fabricante": "Funko",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 21,
+  "fields": {
+    "nome_modelo": "Funko Pop! Captain America #06",
+    "tipo": 3,
+    "nome_personagem": "Captain America",
+    "franquia": "Marvel",
+    "fabricante": "Funko",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 22,
+  "fields": {
+    "nome_modelo": "Funko Pop! Naruto #71",
+    "tipo": 3,
+    "nome_personagem": "Naruto Uzumaki",
+    "franquia": "Naruto: Shippuden",
+    "fabricante": "Funko",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 23,
+  "fields": {
+    "nome_modelo": "Funko Pop! Sasuke #72",
+    "tipo": 3,
+    "nome_personagem": "Sasuke Uchiha",
+    "franquia": "Naruto: Shippuden",
+    "fabricante": "Funko",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 24,
+  "fields": {
+    "nome_modelo": "Funko Pop! Goku #09",
+    "tipo": 3,
+    "nome_personagem": "Goku",
+    "franquia": "Dragon Ball Z",
+    "fabricante": "Funko",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 25,
+  "fields": {
+    "nome_modelo": "Figuarts ZERO UCHIHA MADARA -ISOU SUSANOO- Kizuna Relation",
+    "tipo": 5,
+    "nome_personagem": "Uchiha Madara",
+    "franquia": "Naruto: Shippuden",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 26,
+  "fields": {
+    "nome_modelo": "Figuarts ZERO Sasuke Bond Relation",
+    "tipo": 5,
+    "nome_personagem": "Sasuke Uchiha",
+    "franquia": "Naruto",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 27,
+  "fields": {
+    "nome_modelo": "Figuarts ZERO Super Saiyan Gogeta",
+    "tipo": 5,
+    "nome_personagem": "Super Saiyan Gogeta",
+    "franquia": "Dragon Ball Z",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 28,
+  "fields": {
+    "nome_modelo": "Figuarts ZERO Super Saiyan 3 Son Goku -Dragon fist explosion-",
+    "tipo": 5,
+    "nome_personagem": "Son Goku",
+    "franquia": "Dragon Ball Z",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 29,
+  "fields": {
+    "nome_modelo": "Figuarts ZERO Tanjiro Kamado Rengoku Guard ver.",
+    "tipo": 5,
+    "nome_personagem": "Tanjiro Kamado",
+    "franquia": "Demon Slayer: Kimetsu no Yaiba",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 30,
+  "fields": {
+    "nome_modelo": "Figuarts ZERO NARUTO UZUMAKI -NARUTO 72 series-",
+    "tipo": 5,
+    "nome_personagem": "Naruto Uzumaki",
+    "franquia": "Naruto: Shippuden",
+    "fabricante": "Bandai Spirits",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.modelocolecionavel",
+  "pk": 31,
+  "fields": {
+    "nome_modelo": "Jhonatan",
+    "tipo": 4,
+    "nome_personagem": "Timboense",
+    "franquia": "Timbo",
+    "fabricante": "A mae dele",
+    "codigo_barras_ean_jan": null,
+    "codigo_fabricante_sku": null
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 1,
+  "fields": {
+    "nome_caracteristica": "Escala",
+    "tipo_dado": "texto",
+    "tipos": [
+      1,
+      5,
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 2,
+  "fields": {
+    "nome_caracteristica": "Material",
+    "tipo_dado": "texto",
+    "tipos": [
+      1,
+      5,
+      3,
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 3,
+  "fields": {
+    "nome_caracteristica": "Origem dos dados",
+    "tipo_dado": "texto",
+    "tipos": []
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 4,
+  "fields": {
+    "nome_caracteristica": "Nome",
+    "tipo_dado": "texto",
+    "tipos": []
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 5,
+  "fields": {
+    "nome_caracteristica": "Série",
+    "tipo_dado": "texto",
+    "tipos": [
+      1,
+      5,
+      3,
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 6,
+  "fields": {
+    "nome_caracteristica": "Ano de lançamento",
+    "tipo_dado": "numero",
+    "tipos": [
+      1,
+      5,
+      3,
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 7,
+  "fields": {
+    "nome_caracteristica": "Altura (cm)",
+    "tipo_dado": "numero",
+    "tipos": [
+      1,
+      5
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 8,
+  "fields": {
+    "nome_caracteristica": "Possui acessórios",
+    "tipo_dado": "boolean",
+    "tipos": [
+      1
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 9,
+  "fields": {
+    "nome_caracteristica": "Possui troca de rosto",
+    "tipo_dado": "boolean",
+    "tipos": [
+      1
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 10,
+  "fields": {
+    "nome_caracteristica": "Possui troca de mãos",
+    "tipo_dado": "boolean",
+    "tipos": [
+      1
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 11,
+  "fields": {
+    "nome_caracteristica": "Pontos de articulação",
+    "tipo_dado": "numero",
+    "tipos": [
+      1
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 12,
+  "fields": {
+    "nome_caracteristica": "Número de acessórios",
+    "tipo_dado": "numero",
+    "tipos": [
+      1
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 13,
+  "fields": {
+    "nome_caracteristica": "Possui efeitos",
+    "tipo_dado": "boolean",
+    "tipos": [
+      1,
+      5
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 14,
+  "fields": {
+    "nome_caracteristica": "Possui base",
+    "tipo_dado": "boolean",
+    "tipos": [
+      1,
+      5,
+      3
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 15,
+  "fields": {
+    "nome_caracteristica": "Possui LED",
+    "tipo_dado": "boolean",
+    "tipos": [
+      1,
+      5,
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 16,
+  "fields": {
+    "nome_caracteristica": "Grau/Grade",
+    "tipo_dado": "texto",
+    "tipos": [
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 17,
+  "fields": {
+    "nome_caracteristica": "Número de peças",
+    "tipo_dado": "numero",
+    "tipos": [
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 18,
+  "fields": {
+    "nome_caracteristica": "Necessita pintura",
+    "tipo_dado": "boolean",
+    "tipos": [
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 19,
+  "fields": {
+    "nome_caracteristica": "Necessita cola",
+    "tipo_dado": "boolean",
+    "tipos": [
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 20,
+  "fields": {
+    "nome_caracteristica": "Montado",
+    "tipo_dado": "boolean",
+    "tipos": [
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 21,
+  "fields": {
+    "nome_caracteristica": "Possui articulação",
+    "tipo_dado": "boolean",
+    "tipos": [
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 22,
+  "fields": {
+    "nome_caracteristica": "Possui decalques",
+    "tipo_dado": "boolean",
+    "tipos": [
+      2
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 23,
+  "fields": {
+    "nome_caracteristica": "Linha",
+    "tipo_dado": "texto",
+    "tipos": [
+      3
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 24,
+  "fields": {
+    "nome_caracteristica": "Número da coleção",
+    "tipo_dado": "numero",
+    "tipos": [
+      3
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 25,
+  "fields": {
+    "nome_caracteristica": "Edição",
+    "tipo_dado": "texto",
+    "tipos": [
+      3
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 26,
+  "fields": {
+    "nome_caracteristica": "Exclusividade",
+    "tipo_dado": "texto",
+    "tipos": [
+      3
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 27,
+  "fields": {
+    "nome_caracteristica": "É Chase",
+    "tipo_dado": "boolean",
+    "tipos": [
+      3
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 28,
+  "fields": {
+    "nome_caracteristica": "Possui Chase",
+    "tipo_dado": "boolean",
+    "tipos": [
+      3
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 29,
+  "fields": {
+    "nome_caracteristica": "Edição limitada",
+    "tipo_dado": "boolean",
+    "tipos": [
+      5,
+      3
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 30,
+  "fields": {
+    "nome_caracteristica": "Quantidade produzida",
+    "tipo_dado": "numero",
+    "tipos": [
+      5,
+      3
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 31,
+  "fields": {
+    "nome_caracteristica": "Largura (cm)",
+    "tipo_dado": "numero",
+    "tipos": [
+      5
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 32,
+  "fields": {
+    "nome_caracteristica": "Profundidade (cm)",
+    "tipo_dado": "numero",
+    "tipos": [
+      5
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 33,
+  "fields": {
+    "nome_caracteristica": "Tipo de peça",
+    "tipo_dado": "texto",
+    "tipos": [
+      5
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 34,
+  "fields": {
+    "nome_caracteristica": "Possui partes intercambiáveis",
+    "tipo_dado": "boolean",
+    "tipos": [
+      5
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 35,
+  "fields": {
+    "nome_caracteristica": "Número da edição",
+    "tipo_dado": "texto",
+    "tipos": [
+      5
+    ]
+  }
+},
+{
+  "model": "catalogo.caracteristica",
+  "pk": 36,
+  "fields": {
+    "nome_caracteristica": "Peso (kg)",
+    "tipo_dado": "numero",
+    "tipos": [
+      5
+    ]
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 1,
+  "fields": {
+    "modelo": 1,
+    "caracteristica": 1,
+    "valor": "6 polegadas"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 2,
+  "fields": {
+    "modelo": 1,
+    "caracteristica": 2,
+    "valor": "PVC/ABS"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 3,
+  "fields": {
+    "modelo": 2,
+    "caracteristica": 1,
+    "valor": "7 polegadas"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 4,
+  "fields": {
+    "modelo": 2,
+    "caracteristica": 2,
+    "valor": "PVC"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 5,
+  "fields": {
+    "modelo": 3,
+    "caracteristica": 1,
+    "valor": "N/A"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 6,
+  "fields": {
+    "modelo": 3,
+    "caracteristica": 2,
+    "valor": "Vinil"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 7,
+  "fields": {
+    "modelo": 4,
+    "caracteristica": 1,
+    "valor": "1/144"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 8,
+  "fields": {
+    "modelo": 4,
+    "caracteristica": 2,
+    "valor": "Plástico injetado"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 9,
+  "fields": {
+    "modelo": 5,
+    "caracteristica": 1,
+    "valor": "1/6"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 10,
+  "fields": {
+    "modelo": 5,
+    "caracteristica": 2,
+    "valor": "Polystone"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 11,
+  "fields": {
+    "modelo": 6,
+    "caracteristica": 1,
+    "valor": "1/12"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 12,
+  "fields": {
+    "modelo": 6,
+    "caracteristica": 2,
+    "valor": "PVC"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 13,
+  "fields": {
+    "modelo": 7,
+    "caracteristica": 3,
+    "valor": "Exemplo fornecido pelo usuário"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 14,
+  "fields": {
+    "modelo": 7,
+    "caracteristica": 4,
+    "valor": "S.H.Figuarts Super Saiyan Full Power SON GOKU"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 15,
+  "fields": {
+    "modelo": 7,
+    "caracteristica": 5,
+    "valor": "S.H.Figuarts"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 16,
+  "fields": {
+    "modelo": 7,
+    "caracteristica": 6,
+    "valor": "2021"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 17,
+  "fields": {
+    "modelo": 7,
+    "caracteristica": 7,
+    "valor": "14,0"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 18,
+  "fields": {
+    "modelo": 7,
+    "caracteristica": 2,
+    "valor": "PVC, ABS"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 19,
+  "fields": {
+    "modelo": 7,
+    "caracteristica": 8,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 20,
+  "fields": {
+    "modelo": 7,
+    "caracteristica": 9,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 21,
+  "fields": {
+    "modelo": 7,
+    "caracteristica": 10,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 22,
+  "fields": {
+    "modelo": 8,
+    "caracteristica": 3,
+    "valor": "Exemplo fornecido pelo usuário"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 23,
+  "fields": {
+    "modelo": 8,
+    "caracteristica": 4,
+    "valor": "S.H.Figuarts VEGETA <Z-FIGHTERS>"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 24,
+  "fields": {
+    "modelo": 8,
+    "caracteristica": 5,
+    "valor": "S.H.Figuarts"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 25,
+  "fields": {
+    "modelo": 8,
+    "caracteristica": 6,
+    "valor": "2027"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 26,
+  "fields": {
+    "modelo": 8,
+    "caracteristica": 7,
+    "valor": "13,5"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 27,
+  "fields": {
+    "modelo": 8,
+    "caracteristica": 2,
+    "valor": "PVC, ABS"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 28,
+  "fields": {
+    "modelo": 8,
+    "caracteristica": 8,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 29,
+  "fields": {
+    "modelo": 8,
+    "caracteristica": 9,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 30,
+  "fields": {
+    "modelo": 8,
+    "caracteristica": 10,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 31,
+  "fields": {
+    "modelo": 9,
+    "caracteristica": 3,
+    "valor": "Exemplo fornecido pelo usuário"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 32,
+  "fields": {
+    "modelo": 9,
+    "caracteristica": 4,
+    "valor": "S.H.Figuarts Trunks <Z-FIGHTERS>"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 33,
+  "fields": {
+    "modelo": 9,
+    "caracteristica": 5,
+    "valor": "S.H.Figuarts"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 34,
+  "fields": {
+    "modelo": 9,
+    "caracteristica": 6,
+    "valor": "2027"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 35,
+  "fields": {
+    "modelo": 9,
+    "caracteristica": 7,
+    "valor": "14,0"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 36,
+  "fields": {
+    "modelo": 9,
+    "caracteristica": 2,
+    "valor": "PVC, ABS"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 37,
+  "fields": {
+    "modelo": 9,
+    "caracteristica": 8,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 38,
+  "fields": {
+    "modelo": 9,
+    "caracteristica": 9,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 39,
+  "fields": {
+    "modelo": 9,
+    "caracteristica": 10,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 40,
+  "fields": {
+    "modelo": 10,
+    "caracteristica": 3,
+    "valor": "Exemplo fornecido pelo usuário"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 41,
+  "fields": {
+    "modelo": 10,
+    "caracteristica": 4,
+    "valor": "S.H.Figuarts NARUTO UZUMAKI -The Hope Entrusted to the Nine-Tailed Fox Jinchuriki-"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 42,
+  "fields": {
+    "modelo": 10,
+    "caracteristica": 5,
+    "valor": "S.H.Figuarts"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 43,
+  "fields": {
+    "modelo": 10,
+    "caracteristica": 6,
+    "valor": "2026"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 44,
+  "fields": {
+    "modelo": 10,
+    "caracteristica": 7,
+    "valor": "14,5"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 45,
+  "fields": {
+    "modelo": 10,
+    "caracteristica": 2,
+    "valor": "PVC, ABS"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 46,
+  "fields": {
+    "modelo": 10,
+    "caracteristica": 8,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 47,
+  "fields": {
+    "modelo": 10,
+    "caracteristica": 9,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 48,
+  "fields": {
+    "modelo": 10,
+    "caracteristica": 10,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 49,
+  "fields": {
+    "modelo": 11,
+    "caracteristica": 3,
+    "valor": "Exemplo fornecido pelo usuário"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 50,
+  "fields": {
+    "modelo": 11,
+    "caracteristica": 4,
+    "valor": "S.H.Figuarts SASUKE UCHIHA -He who bears all Hatred-"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 51,
+  "fields": {
+    "modelo": 11,
+    "caracteristica": 5,
+    "valor": "S.H.Figuarts"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 52,
+  "fields": {
+    "modelo": 11,
+    "caracteristica": 6,
+    "valor": "2022"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 53,
+  "fields": {
+    "modelo": 11,
+    "caracteristica": 7,
+    "valor": "14,5"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 54,
+  "fields": {
+    "modelo": 11,
+    "caracteristica": 2,
+    "valor": "PVC, ABS"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 55,
+  "fields": {
+    "modelo": 11,
+    "caracteristica": 8,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 56,
+  "fields": {
+    "modelo": 11,
+    "caracteristica": 9,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 57,
+  "fields": {
+    "modelo": 11,
+    "caracteristica": 10,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 58,
+  "fields": {
+    "modelo": 12,
+    "caracteristica": 3,
+    "valor": "Exemplo fornecido pelo usuário"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 59,
+  "fields": {
+    "modelo": 12,
+    "caracteristica": 4,
+    "valor": "S.H.Figuarts KAKASHI HATAKE -The Legendary Hero of the Sharingan-"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 60,
+  "fields": {
+    "modelo": 12,
+    "caracteristica": 5,
+    "valor": "S.H.Figuarts"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 61,
+  "fields": {
+    "modelo": 12,
+    "caracteristica": 6,
+    "valor": "2022"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 62,
+  "fields": {
+    "modelo": 12,
+    "caracteristica": 7,
+    "valor": "16,0"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 63,
+  "fields": {
+    "modelo": 12,
+    "caracteristica": 2,
+    "valor": "PVC, ABS"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 64,
+  "fields": {
+    "modelo": 12,
+    "caracteristica": 8,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 65,
+  "fields": {
+    "modelo": 12,
+    "caracteristica": 9,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 66,
+  "fields": {
+    "modelo": 12,
+    "caracteristica": 10,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 67,
+  "fields": {
+    "modelo": 13,
+    "caracteristica": 6,
+    "valor": "2001"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 68,
+  "fields": {
+    "modelo": 13,
+    "caracteristica": 16,
+    "valor": "HGUC"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 69,
+  "fields": {
+    "modelo": 13,
+    "caracteristica": 20,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 70,
+  "fields": {
+    "modelo": 13,
+    "caracteristica": 19,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 71,
+  "fields": {
+    "modelo": 13,
+    "caracteristica": 18,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 72,
+  "fields": {
+    "modelo": 13,
+    "caracteristica": 21,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 73,
+  "fields": {
+    "modelo": 13,
+    "caracteristica": 22,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 74,
+  "fields": {
+    "modelo": 14,
+    "caracteristica": 16,
+    "valor": "HG"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 75,
+  "fields": {
+    "modelo": 14,
+    "caracteristica": 20,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 76,
+  "fields": {
+    "modelo": 14,
+    "caracteristica": 19,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 77,
+  "fields": {
+    "modelo": 14,
+    "caracteristica": 18,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 78,
+  "fields": {
+    "modelo": 14,
+    "caracteristica": 21,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 79,
+  "fields": {
+    "modelo": 14,
+    "caracteristica": 22,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 80,
+  "fields": {
+    "modelo": 15,
+    "caracteristica": 6,
+    "valor": "2013"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 81,
+  "fields": {
+    "modelo": 15,
+    "caracteristica": 16,
+    "valor": "HGUC"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 82,
+  "fields": {
+    "modelo": 15,
+    "caracteristica": 20,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 83,
+  "fields": {
+    "modelo": 15,
+    "caracteristica": 19,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 84,
+  "fields": {
+    "modelo": 15,
+    "caracteristica": 18,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 85,
+  "fields": {
+    "modelo": 15,
+    "caracteristica": 21,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 86,
+  "fields": {
+    "modelo": 15,
+    "caracteristica": 22,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 87,
+  "fields": {
+    "modelo": 16,
+    "caracteristica": 16,
+    "valor": "Champion Class"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 88,
+  "fields": {
+    "modelo": 16,
+    "caracteristica": 20,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 89,
+  "fields": {
+    "modelo": 16,
+    "caracteristica": 19,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 90,
+  "fields": {
+    "modelo": 16,
+    "caracteristica": 18,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 91,
+  "fields": {
+    "modelo": 16,
+    "caracteristica": 21,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 92,
+  "fields": {
+    "modelo": 16,
+    "caracteristica": 22,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 93,
+  "fields": {
+    "modelo": 17,
+    "caracteristica": 16,
+    "valor": "Champion Class"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 94,
+  "fields": {
+    "modelo": 17,
+    "caracteristica": 20,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 95,
+  "fields": {
+    "modelo": 17,
+    "caracteristica": 19,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 96,
+  "fields": {
+    "modelo": 17,
+    "caracteristica": 18,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 97,
+  "fields": {
+    "modelo": 17,
+    "caracteristica": 17,
+    "valor": "104"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 98,
+  "fields": {
+    "modelo": 17,
+    "caracteristica": 21,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 99,
+  "fields": {
+    "modelo": 17,
+    "caracteristica": 22,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 100,
+  "fields": {
+    "modelo": 18,
+    "caracteristica": 16,
+    "valor": "Champion Class"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 101,
+  "fields": {
+    "modelo": 18,
+    "caracteristica": 20,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 102,
+  "fields": {
+    "modelo": 18,
+    "caracteristica": 19,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 103,
+  "fields": {
+    "modelo": 18,
+    "caracteristica": 18,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 104,
+  "fields": {
+    "modelo": 18,
+    "caracteristica": 21,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 105,
+  "fields": {
+    "modelo": 18,
+    "caracteristica": 22,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 106,
+  "fields": {
+    "modelo": 19,
+    "caracteristica": 6,
+    "valor": "2011"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 107,
+  "fields": {
+    "modelo": 19,
+    "caracteristica": 25,
+    "valor": "Comum"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 108,
+  "fields": {
+    "modelo": 19,
+    "caracteristica": 29,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 109,
+  "fields": {
+    "modelo": 19,
+    "caracteristica": 26,
+    "valor": "Não"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 110,
+  "fields": {
+    "modelo": 19,
+    "caracteristica": 23,
+    "valor": "Pop! Marvel"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 111,
+  "fields": {
+    "modelo": 19,
+    "caracteristica": 24,
+    "valor": "03"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 112,
+  "fields": {
+    "modelo": 19,
+    "caracteristica": 28,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 113,
+  "fields": {
+    "modelo": 19,
+    "caracteristica": 27,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 114,
+  "fields": {
+    "modelo": 20,
+    "caracteristica": 6,
+    "valor": "2011"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 115,
+  "fields": {
+    "modelo": 20,
+    "caracteristica": 25,
+    "valor": "Comum"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 116,
+  "fields": {
+    "modelo": 20,
+    "caracteristica": 29,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 117,
+  "fields": {
+    "modelo": 20,
+    "caracteristica": 26,
+    "valor": "Não"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 118,
+  "fields": {
+    "modelo": 20,
+    "caracteristica": 23,
+    "valor": "Pop! Marvel"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 119,
+  "fields": {
+    "modelo": 20,
+    "caracteristica": 24,
+    "valor": "04"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 120,
+  "fields": {
+    "modelo": 20,
+    "caracteristica": 28,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 121,
+  "fields": {
+    "modelo": 20,
+    "caracteristica": 27,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 122,
+  "fields": {
+    "modelo": 21,
+    "caracteristica": 6,
+    "valor": "2011"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 123,
+  "fields": {
+    "modelo": 21,
+    "caracteristica": 25,
+    "valor": "Comum"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 124,
+  "fields": {
+    "modelo": 21,
+    "caracteristica": 29,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 125,
+  "fields": {
+    "modelo": 21,
+    "caracteristica": 26,
+    "valor": "Não"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 126,
+  "fields": {
+    "modelo": 21,
+    "caracteristica": 23,
+    "valor": "Pop! Marvel"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 127,
+  "fields": {
+    "modelo": 21,
+    "caracteristica": 24,
+    "valor": "06"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 128,
+  "fields": {
+    "modelo": 21,
+    "caracteristica": 28,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 129,
+  "fields": {
+    "modelo": 21,
+    "caracteristica": 27,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 130,
+  "fields": {
+    "modelo": 22,
+    "caracteristica": 6,
+    "valor": "2015"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 131,
+  "fields": {
+    "modelo": 22,
+    "caracteristica": 25,
+    "valor": "Comum"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 132,
+  "fields": {
+    "modelo": 22,
+    "caracteristica": 29,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 133,
+  "fields": {
+    "modelo": 22,
+    "caracteristica": 26,
+    "valor": "Não"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 134,
+  "fields": {
+    "modelo": 22,
+    "caracteristica": 23,
+    "valor": "Pop! Animation"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 135,
+  "fields": {
+    "modelo": 22,
+    "caracteristica": 24,
+    "valor": "71"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 136,
+  "fields": {
+    "modelo": 22,
+    "caracteristica": 28,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 137,
+  "fields": {
+    "modelo": 22,
+    "caracteristica": 27,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 138,
+  "fields": {
+    "modelo": 23,
+    "caracteristica": 6,
+    "valor": "2015"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 139,
+  "fields": {
+    "modelo": 23,
+    "caracteristica": 25,
+    "valor": "Comum"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 140,
+  "fields": {
+    "modelo": 23,
+    "caracteristica": 29,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 141,
+  "fields": {
+    "modelo": 23,
+    "caracteristica": 26,
+    "valor": "Não"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 142,
+  "fields": {
+    "modelo": 23,
+    "caracteristica": 23,
+    "valor": "Pop! Animation"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 143,
+  "fields": {
+    "modelo": 23,
+    "caracteristica": 24,
+    "valor": "72"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 144,
+  "fields": {
+    "modelo": 23,
+    "caracteristica": 28,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 145,
+  "fields": {
+    "modelo": 23,
+    "caracteristica": 27,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 146,
+  "fields": {
+    "modelo": 24,
+    "caracteristica": 6,
+    "valor": "2014"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 147,
+  "fields": {
+    "modelo": 24,
+    "caracteristica": 25,
+    "valor": "Comum"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 148,
+  "fields": {
+    "modelo": 24,
+    "caracteristica": 29,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 149,
+  "fields": {
+    "modelo": 24,
+    "caracteristica": 26,
+    "valor": "Hot Topic"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 150,
+  "fields": {
+    "modelo": 24,
+    "caracteristica": 23,
+    "valor": "Pop! Animation"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 151,
+  "fields": {
+    "modelo": 24,
+    "caracteristica": 24,
+    "valor": "09"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 152,
+  "fields": {
+    "modelo": 24,
+    "caracteristica": 28,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 153,
+  "fields": {
+    "modelo": 24,
+    "caracteristica": 27,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 154,
+  "fields": {
+    "modelo": 25,
+    "caracteristica": 7,
+    "valor": "18.5"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 155,
+  "fields": {
+    "modelo": 25,
+    "caracteristica": 6,
+    "valor": "2019"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 156,
+  "fields": {
+    "modelo": 25,
+    "caracteristica": 2,
+    "valor": "PVC/ABS"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 157,
+  "fields": {
+    "modelo": 25,
+    "caracteristica": 14,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 158,
+  "fields": {
+    "modelo": 25,
+    "caracteristica": 13,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 159,
+  "fields": {
+    "modelo": 25,
+    "caracteristica": 34,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 160,
+  "fields": {
+    "modelo": 25,
+    "caracteristica": 5,
+    "valor": "Figuarts ZERO"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 161,
+  "fields": {
+    "modelo": 25,
+    "caracteristica": 33,
+    "valor": "Estátua"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 162,
+  "fields": {
+    "modelo": 26,
+    "caracteristica": 7,
+    "valor": "19"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 163,
+  "fields": {
+    "modelo": 26,
+    "caracteristica": 6,
+    "valor": "2017"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 164,
+  "fields": {
+    "modelo": 26,
+    "caracteristica": 2,
+    "valor": "ABS/PVC"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 165,
+  "fields": {
+    "modelo": 26,
+    "caracteristica": 13,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 166,
+  "fields": {
+    "modelo": 26,
+    "caracteristica": 34,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 167,
+  "fields": {
+    "modelo": 26,
+    "caracteristica": 5,
+    "valor": "Figuarts ZERO"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 168,
+  "fields": {
+    "modelo": 26,
+    "caracteristica": 33,
+    "valor": "Estátua"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 169,
+  "fields": {
+    "modelo": 27,
+    "caracteristica": 7,
+    "valor": "20"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 170,
+  "fields": {
+    "modelo": 27,
+    "caracteristica": 6,
+    "valor": "2017"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 171,
+  "fields": {
+    "modelo": 27,
+    "caracteristica": 2,
+    "valor": "ABS/PVC"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 172,
+  "fields": {
+    "modelo": 27,
+    "caracteristica": 34,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 173,
+  "fields": {
+    "modelo": 27,
+    "caracteristica": 5,
+    "valor": "Figuarts ZERO"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 174,
+  "fields": {
+    "modelo": 27,
+    "caracteristica": 33,
+    "valor": "Estátua"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 175,
+  "fields": {
+    "modelo": 28,
+    "caracteristica": 7,
+    "valor": "21"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 176,
+  "fields": {
+    "modelo": 28,
+    "caracteristica": 6,
+    "valor": "2021"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 177,
+  "fields": {
+    "modelo": 28,
+    "caracteristica": 2,
+    "valor": "PVC/ABS"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 178,
+  "fields": {
+    "modelo": 28,
+    "caracteristica": 34,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 179,
+  "fields": {
+    "modelo": 28,
+    "caracteristica": 5,
+    "valor": "Figuarts ZERO"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 180,
+  "fields": {
+    "modelo": 28,
+    "caracteristica": 33,
+    "valor": "Estátua"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 181,
+  "fields": {
+    "modelo": 29,
+    "caracteristica": 7,
+    "valor": "19.5"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 182,
+  "fields": {
+    "modelo": 29,
+    "caracteristica": 6,
+    "valor": "2025"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 183,
+  "fields": {
+    "modelo": 29,
+    "caracteristica": 2,
+    "valor": "PVC/ABS/PC"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 184,
+  "fields": {
+    "modelo": 29,
+    "caracteristica": 13,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 185,
+  "fields": {
+    "modelo": 29,
+    "caracteristica": 34,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 186,
+  "fields": {
+    "modelo": 29,
+    "caracteristica": 5,
+    "valor": "Figuarts ZERO"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 187,
+  "fields": {
+    "modelo": 29,
+    "caracteristica": 33,
+    "valor": "Estátua"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 188,
+  "fields": {
+    "modelo": 30,
+    "caracteristica": 7,
+    "valor": "19.5"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 189,
+  "fields": {
+    "modelo": 30,
+    "caracteristica": 6,
+    "valor": "2025"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 190,
+  "fields": {
+    "modelo": 30,
+    "caracteristica": 2,
+    "valor": "PVC/ABS"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 191,
+  "fields": {
+    "modelo": 30,
+    "caracteristica": 13,
+    "valor": "true"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 192,
+  "fields": {
+    "modelo": 30,
+    "caracteristica": 34,
+    "valor": "false"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 193,
+  "fields": {
+    "modelo": 30,
+    "caracteristica": 5,
+    "valor": "Figuarts ZERO"
+  }
+},
+{
+  "model": "catalogo.modelocaracteristica",
+  "pk": 194,
+  "fields": {
+    "modelo": 30,
+    "caracteristica": 33,
+    "valor": "Estátua"
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 3,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "",
+    "usuario": 2,
+    "modelo": 3,
+    "condicao_caixa": "MISB lacrado",
+    "data_inclusao": "2026-09-09T11:14:04.691Z",
+    "preco_pago": "119.90",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "venda_ou_troca",
+    "preco_anunciado": "149.90",
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 4,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "",
+    "usuario": 2,
+    "modelo": 5,
+    "condicao_caixa": "Loose",
+    "data_inclusao": "2026-09-09T11:14:04.691Z",
+    "preco_pago": "699.90",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "venda",
+    "preco_anunciado": "849.90",
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 5,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "",
+    "usuario": 3,
+    "modelo": 4,
+    "condicao_caixa": "MISB lacrado",
+    "data_inclusao": "2026-09-09T11:14:04.692Z",
+    "preco_pago": "89.90",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 6,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "",
+    "usuario": 3,
+    "modelo": 6,
+    "condicao_caixa": "Caixa avariada",
+    "data_inclusao": "2026-09-09T11:14:04.693Z",
+    "preco_pago": "129.90",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "troca",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 7,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 7,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.926Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 8,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 8,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.933Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 9,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 9,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.939Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 10,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 10,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.945Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 11,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 11,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.951Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 12,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 12,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.957Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 13,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 13,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.964Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 14,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 14,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.971Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 15,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 15,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.977Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 16,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 16,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.983Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 17,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 17,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.989Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 18,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 18,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:15.995Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 19,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 19,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.002Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 20,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 20,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.009Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 21,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 21,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.017Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 22,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 22,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.024Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 23,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 23,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.032Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 24,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 24,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.040Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 25,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 25,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.047Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 26,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 26,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.054Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 27,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 27,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.060Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 28,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 28,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.066Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 29,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 29,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.073Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 30,
+  "fields": {
+    "nome_personalizado": "",
+    "personalizado": false,
+    "estado_peca": "Não informado",
+    "nota": "Importado do catálogo Neon; complete os dados específicos da sua peça.",
+    "usuario": 1,
+    "modelo": 30,
+    "condicao_caixa": "Não informado",
+    "data_inclusao": "2026-09-14T12:14:16.081Z",
+    "preco_pago": "0.00",
+    "local_armazenamento": null,
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": null
+  }
+},
+{
+  "model": "inventario.colecionavelusuario",
+  "pk": 31,
+  "fields": {
+    "nome_personalizado": "JhonataTimbo",
+    "personalizado": true,
+    "estado_peca": "Muito usado",
+    "nota": "",
+    "usuario": 4,
+    "modelo": 31,
+    "condicao_caixa": "Nao tem",
+    "data_inclusao": "2026-09-16T11:31:05.899Z",
+    "preco_pago": "10.00",
+    "local_armazenamento": "Em timbó",
+    "status_privacidade": "publico",
+    "status_negociacao": "exibicao",
+    "preco_anunciado": null,
+    "interesses_troca": ""
+  }
+},
+{
+  "model": "inventario.estantevirtual",
+  "pk": 2,
+  "fields": {
+    "usuario": 2,
+    "nome_estante": "Prateleira principal",
+    "status_privacidade": "publico",
+    "ordem_exibicao": 1,
+    "tema_visual": "padrao",
+    "quantidade_dioramas": 1,
+    "diorama_destaque": 1
+  }
+},
+{
+  "model": "inventario.estantevirtual",
+  "pk": 3,
+  "fields": {
+    "usuario": 3,
+    "nome_estante": "Mesa de trabalho",
+    "status_privacidade": "publico",
+    "ordem_exibicao": 1,
+    "tema_visual": "padrao",
+    "quantidade_dioramas": 1,
+    "diorama_destaque": 1
+  }
+},
+{
+  "model": "inventario.estantevirtual",
+  "pk": 4,
+  "fields": {
+    "usuario": 1,
+    "nome_estante": "Minha estante",
+    "status_privacidade": "publico",
+    "ordem_exibicao": 1,
+    "tema_visual": "padrao",
+    "quantidade_dioramas": 3,
+    "diorama_destaque": 2
+  }
+},
+{
+  "model": "inventario.estantevirtual",
+  "pk": 5,
+  "fields": {
+    "usuario": 4,
+    "nome_estante": "Minha estante",
+    "status_privacidade": "publico",
+    "ordem_exibicao": 1,
+    "tema_visual": "padrao",
+    "quantidade_dioramas": 1,
+    "diorama_destaque": 1
+  }
+},
+{
+  "model": "inventario.estantevirtual",
+  "pk": 6,
+  "fields": {
+    "usuario": 5,
+    "nome_estante": "Minha estante",
+    "status_privacidade": "publico",
+    "ordem_exibicao": 1,
+    "tema_visual": "padrao",
+    "quantidade_dioramas": 1,
+    "diorama_destaque": 1
+  }
+},
+{
+  "model": "inventario.estantevirtual",
+  "pk": 7,
+  "fields": {
+    "usuario": 6,
+    "nome_estante": "Minha estante",
+    "status_privacidade": "publico",
+    "ordem_exibicao": 1,
+    "tema_visual": "padrao",
+    "quantidade_dioramas": 1,
+    "diorama_destaque": 1
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 4,
+  "fields": {
+    "estante": 4,
+    "titulo": "Diorama 1",
+    "descricao": "",
+    "ordem": 1,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 5,
+  "fields": {
+    "estante": 4,
+    "titulo": "Diorama 2",
+    "descricao": "",
+    "ordem": 2,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 6,
+  "fields": {
+    "estante": 4,
+    "titulo": "Diorama 3",
+    "descricao": "",
+    "ordem": 3,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 7,
+  "fields": {
+    "estante": 3,
+    "titulo": "Diorama 1",
+    "descricao": "",
+    "ordem": 1,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 8,
+  "fields": {
+    "estante": 3,
+    "titulo": "Diorama 2",
+    "descricao": "",
+    "ordem": 2,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 9,
+  "fields": {
+    "estante": 3,
+    "titulo": "Diorama 3",
+    "descricao": "",
+    "ordem": 3,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 10,
+  "fields": {
+    "estante": 5,
+    "titulo": "Diorama 1",
+    "descricao": "",
+    "ordem": 1,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 11,
+  "fields": {
+    "estante": 5,
+    "titulo": "Diorama 2",
+    "descricao": "",
+    "ordem": 2,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 12,
+  "fields": {
+    "estante": 5,
+    "titulo": "Diorama 3",
+    "descricao": "",
+    "ordem": 3,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 13,
+  "fields": {
+    "estante": 7,
+    "titulo": "Diorama 1",
+    "descricao": "",
+    "ordem": 1,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 14,
+  "fields": {
+    "estante": 7,
+    "titulo": "Diorama 2",
+    "descricao": "",
+    "ordem": 2,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.diorama",
+  "pk": 15,
+  "fields": {
+    "estante": 7,
+    "titulo": "Diorama 3",
+    "descricao": "",
+    "ordem": 3,
+    "configurado": false
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 3,
+  "fields": {
+    "estante": 2,
+    "colecionavel_usuario": 3,
+    "posicao_slot": 3,
+    "data_posicionamento": "2026-09-09T11:14:04.691Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 4,
+  "fields": {
+    "estante": 2,
+    "colecionavel_usuario": 4,
+    "posicao_slot": 4,
+    "data_posicionamento": "2026-09-09T11:14:04.691Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 5,
+  "fields": {
+    "estante": 3,
+    "colecionavel_usuario": 5,
+    "posicao_slot": 5,
+    "data_posicionamento": "2026-09-09T11:14:04.692Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 6,
+  "fields": {
+    "estante": 3,
+    "colecionavel_usuario": 6,
+    "posicao_slot": 6,
+    "data_posicionamento": "2026-09-09T11:14:04.694Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 7,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 30,
+    "posicao_slot": 4,
+    "data_posicionamento": "2026-09-14T12:15:52.545Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 8,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 29,
+    "posicao_slot": 8,
+    "data_posicionamento": "2026-09-14T12:16:01.881Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 10,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 24,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-14T12:16:05.488Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 11,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 8,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-14T12:17:09.497Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 12,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 21,
+    "posicao_slot": 11,
+    "data_posicionamento": "2026-09-14T12:17:10.025Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 13,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 20,
+    "posicao_slot": 1,
+    "data_posicionamento": "2026-09-14T12:17:10.601Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 14,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 7,
+    "posicao_slot": 12,
+    "data_posicionamento": "2026-09-16T11:20:27.905Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 15,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 28,
+    "posicao_slot": 6,
+    "data_posicionamento": "2026-09-16T11:20:30.684Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 16,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 27,
+    "posicao_slot": 2,
+    "data_posicionamento": "2026-09-16T11:20:31.210Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 17,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 9,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-16T11:20:32.299Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 18,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 19,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-16T11:20:33.595Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 19,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 15,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-16T11:20:34.610Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 20,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 13,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-16T11:20:35.755Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 21,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 14,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-16T11:20:37.179Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 22,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 26,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-16T11:20:37.812Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 23,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 12,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-16T11:20:38.323Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 24,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 22,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-16T11:20:39.425Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 25,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 10,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-16T11:20:39.811Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 26,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 11,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-16T11:20:41.283Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 27,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 23,
+    "posicao_slot": 9,
+    "data_posicionamento": "2026-09-16T11:20:41.689Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 28,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 25,
+    "posicao_slot": 7,
+    "data_posicionamento": "2026-09-16T11:20:42.369Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 30,
+  "fields": {
+    "estante": 4,
+    "colecionavel_usuario": 17,
+    "posicao_slot": 5,
+    "data_posicionamento": "2026-09-16T11:20:43.883Z"
+  }
+},
+{
+  "model": "inventario.itemestante",
+  "pk": 31,
+  "fields": {
+    "estante": 5,
+    "colecionavel_usuario": 31,
+    "posicao_slot": null,
+    "data_posicionamento": "2026-09-16T11:32:03.842Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 1,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 7,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000013505_WeELih0m_01.jpg",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.527Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 2,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 7,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000013505_WeELih0m_03.jpg",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.528Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 3,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 8,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/main/3e66cac0-6c05-40ff-b16e-cb8734951f52.webp",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.529Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 4,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 8,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/sub/47114e71-588e-4028-bd40-40c0a81ae508.webp",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.530Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 5,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 9,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/main/e30bced7-51de-4dad-b2c5-6296bfa7d191.webp",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.530Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 6,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 9,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/sub/f60316de-f813-4fb5-ab2d-4965cef4dff7.webp",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.530Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 7,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 10,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000013853_t6frueHd_01.jpg",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.531Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 8,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 10,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000013853_rlp9mq2W_03.jpg",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.531Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 9,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 11,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000013854_oWV22YuJ_01.jpg",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.531Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 10,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 11,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000013854_4EnS8lAw_03.jpg",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.532Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 11,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 12,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000014030_5rj3LTrK_01.jpg",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.532Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 12,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 12,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000014030_7fVlipNr_03.jpg",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.532Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 13,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 13,
+    "url_imagem": "https://www.gundamplanet.com/cdn/shop/files/hguc-rx-78-2-gundam-01.jpg?v=1737658705",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.532Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 14,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 13,
+    "url_imagem": "https://www.gundamplanet.com/cdn/shop/files/hguc-rx-78-2-gundam-02.jpg?v=1737658705",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.533Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 15,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 14,
+    "url_imagem": "https://www.gundamplanet.com/cdn/shop/files/hgac-xxxg-01sr2-gundam-sandrock-custom-ew-ver-base.jpg?v=1780335427&width=1946",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.533Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 16,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 14,
+    "url_imagem": "https://www.gundamplanet.com/cdn/shop/files/hgac-xxxg-01sr2-gundam-sandrock-custom-ew-ver-01.jpg?v=1780334074&width=1946",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.533Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 17,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 15,
+    "url_imagem": "https://www.gundamplanet.com/cdn/shop/files/rg-ms-06r-2-zaku-ii-johnny-ridden-custom-00_1.jpg?v=1737669636",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.533Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 18,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 15,
+    "url_imagem": "https://www.gundamplanet.com/cdn/shop/files/rg-ms-06r-2-zaku-ii-johnny-ridden-custom-01.jpg?v=1737669638",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.534Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 19,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 16,
+    "url_imagem": "https://blokees.com/cdn/shop/files/1_bbca6a2e-cfef-46f0-802e-5a52fc0a59cc.png?v=1754728511",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.534Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 20,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 16,
+    "url_imagem": "https://blokees.com/cdn/shop/files/2100_1_a4b4bbe5-de3b-469b-96f5-d5e3283a241b.png?v=1754728533",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.534Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 21,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 17,
+    "url_imagem": "https://blokees.com/cdn/shop/files/21_1e713021-3419-4be9-9613-f8edd71a9936.webp?v=1768893010",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.534Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 22,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 17,
+    "url_imagem": "https://blokees.com/cdn/shop/files/4511.webp?v=1768893010",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.534Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 23,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 18,
+    "url_imagem": "https://blokees.com/cdn/shop/files/104_c14f2bab-f3b4-4c2a-99dc-8de788bac5b2.png?v=1763608152",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.535Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 24,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 18,
+    "url_imagem": "https://blokees.com/cdn/shop/files/11_6dd5a5ed-1574-4a99-b85d-30f4cd06e00f.png?v=1763608152",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.535Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 25,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 19,
+    "url_imagem": "https://i5.walmartimages.com/asr/eaa2b211-92bc-4294-b2d6-f5d3f802c767.61fcf6b28ac13e10fb176fbbd378425e.jpeg?odnBg=FFFFFF&odnHeight=900&odnWidth=900",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.535Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 26,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 19,
+    "url_imagem": "https://i5.walmartimages.com/asr/6bbda936-2437-4a6b-9677-0c7c519ce921.41059a54d84d2a63149f53cbfb435317.jpeg?odnBg=FFFFFF&odnHeight=900&odnWidth=900",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.535Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 27,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 20,
+    "url_imagem": "https://pops.today/images/POP_MARVEL/Marvel%2B04_500x500.webp",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.536Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 28,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 20,
+    "url_imagem": "https://pops.today/images/POP_MARVEL/Marvel%2B04_160x160.webp",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.536Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 29,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 21,
+    "url_imagem": "https://pops.today/images/POP_MARVEL/Marvel%2B06_500x500.webp",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.537Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 30,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 21,
+    "url_imagem": "https://pops.today/images/POP_MARVEL/Marvel%2B06_160x160.webp",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.537Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 31,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 22,
+    "url_imagem": "https://draxu.com/cdn/shop/products/a-naruto-a.png?v=1672365533&width=1200",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.537Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 32,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 22,
+    "url_imagem": "https://draxu.com/cdn/shop/products/b-naruto.png?v=1672365533&width=1200",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.537Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 33,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 23,
+    "url_imagem": "https://draxu.com/cdn/shop/products/a-sasuke-a.png?v=1672365349&width=1200",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.538Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 34,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 23,
+    "url_imagem": "https://draxu.com/cdn/shop/products/c-sasuke-a.png?v=1672365349&width=1200",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.538Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 35,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 24,
+    "url_imagem": "https://pops.today/images/POP_ANIMATION/Dragon%2BBall%2BZ%2B09_500x500.webp",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.538Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 36,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 24,
+    "url_imagem": "https://pops.today/images/POP_ANIMATION/Dragon%2BBall%2BZ%2B09_160x160.webp",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.538Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 37,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 25,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000012791_qx1wjXYV_01.jpg",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.539Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 38,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 25,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000012791_qx1wjXYV_03.jpg",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.539Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 39,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 26,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000011807_ySgBPTIA_01.jpg",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.539Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 40,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 26,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000011807_ySgBPTIA_03.jpg",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.539Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 41,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 27,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000012230_bjP52mku_01.jpg",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.539Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 42,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 27,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000012230_bjP52mku_03.jpg",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.540Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 43,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 28,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000014623_Dc3OeMNR_01.jpg",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.540Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 44,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 28,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000014623_wVNtjjCZ_03.jpg",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.540Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 45,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 29,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000015284_KkPmx64D_01.jpg",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.540Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 46,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 29,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000015284_E35mw4ye_03.jpg",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.541Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 47,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 30,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000015358_Fm8zDns0_01.jpg",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T10:45:54.541Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 48,
+  "fields": {
+    "arquivo": "",
+    "colecionavel_usuario": 30,
+    "url_imagem": "https://tamashiiweb.com/storage/images/products/imported/item_0000015358_P1mGfe0P_03.jpg",
+    "ordem_exibicao": 1,
+    "imagem_principal": false,
+    "criado_em": "2026-09-16T10:45:54.541Z"
+  }
+},
+{
+  "model": "inventario.imagemcolecionavel",
+  "pk": 49,
+  "fields": {
+    "arquivo": "colecionaveis/2026/09/100c779d-c9f2-4553-9cb0-7fce679c2ebf.jpeg",
+    "colecionavel_usuario": 31,
+    "url_imagem": "",
+    "ordem_exibicao": 0,
+    "imagem_principal": true,
+    "criado_em": "2026-09-16T11:31:05.902Z"
+  }
+}
+]

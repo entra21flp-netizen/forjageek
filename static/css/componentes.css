@@ -1,0 +1,356 @@
+  /* ==========================================================================
+    1. CARD DO DIAGRAMA DE COLECIONÁVEIS
+    ========================================================================== */
+
+  .dashboard-chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin: 20px 0 28px 0;
+    transition: border-color 0.2s ease;
+  }
+
+  .dashboard-chart-card .chart-header {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .diorama-cabecalho { flex-direction: row !important; justify-content: space-between; align-items: center; }
+  .diorama-grade { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  .diorama-card { min-height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; padding: 18px; border: 1px dashed var(--border-strong); border-radius: var(--radius); background: radial-gradient(circle at 50% 35%, rgba(0, 240, 255, 0.12), rgba(0,0,0,0.2) 68%); text-align: center; }
+  .diorama-card p { font-size: 12px; }
+  .diorama-arte { font-size: 36px; }
+
+  .dashboard-chart-card .chart-header h2 {
+    font-size: 16px;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* Área interna reservada para o gráfico */
+  .chart-placeholder {
+    min-height: 200px;
+    width: 100%;
+    border: 2px dashed var(--border-strong);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .chart-placeholder .placeholder-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .chart-placeholder .placeholder-content p {
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+
+  /* ==========================================================================
+    2. TEMAS DA PRATELEIRA & GRADE EM CARDS
+    ========================================================================== */
+
+  /* Moldura externa geral da prateleira */
+  #prateleira-container {
+    padding: 24px;
+    border-radius: 16px;
+    background: radial-gradient(circle at center, #0b1d3a 0%, #050a14 100%);
+    border: 2px solid #00f0ff;
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.15), inset 0 0 20px rgba(0, 240, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  /* Força a distribuição em Grade (Grid Responsiva) */
+  #prateleira-container .product-grid {
+    display: grid !important;
+    /* Reduz de 180px para max 220px por card, evitando que fiquem gigantes */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 220px)) !important;
+    gap: 24px !important;
+    justify-content: start; /* Alinha os cards à esquerda */
+  }
+
+  /* Card Vertical do Produto (Estilo Original Quadrado) */
+  .product-card {
+    display: flex !important;
+    flex-direction: column !important;
+    background: rgba(10, 25, 47, 0.9) !important;
+    border: 1px solid #00f0ff !important;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.15) !important;
+    border-radius: 14px !important;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    height: 100%;
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.6), inset 0 0 20px rgba(0, 240, 255, 0.3) !important;
+    border-color: #64ffda !important;
+  }
+
+  /* Área da Foto / Ícone */
+  .product-card .card-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(0, 240, 255, 0.12) 0%, rgba(5, 10, 20, 0.6) 100%) !important;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.25);
+    padding: 16px;
+  }
+
+  .product-card .card-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  /* Área de Informações abaixo da Foto */
+  .product-card .info,
+  .product-card .card-info {
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: auto;
+  }
+
+  .product-card .price {
+    color: #00f0ff !important;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.7);
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* --------------------------------------------------------------------------
+    TEMA 2: VULCÂNICO (Lava / Fogo)
+    -------------------------------------------------------------------------- */
+  [data-theme="vulcanico"]#prateleira-container,
+  [data-theme="vulcanico"] #prateleira-container {
+    background: radial-gradient(circle at center, #2a0808 0%, #0d0202 100%) !important;
+    border-color: #ff3300 !important;
+    box-shadow: 0 0 30px rgba(255, 51, 0, 0.3) !important;
+  }
+
+  [data-theme="vulcanico"] .product-card {
+    background: radial-gradient(circle, #220606 0%, #120303 100%) !important;
+    border: 1px solid #ff4400 !important;
+    box-shadow: 0 0 18px rgba(255, 51, 0, 0.35), inset 0 0 12px rgba(255, 102, 0, 0.25) !important;
+  }
+
+  [data-theme="vulcanico"] .product-card:hover {
+    box-shadow: 0 0 30px rgba(255, 68, 0, 0.8), inset 0 0 20px rgba(255, 153, 0, 0.5) !important;
+    border-color: #ff8800 !important;
+  }
+
+  [data-theme="vulcanico"] .product-card .card-image {
+    background: radial-gradient(circle at center, rgba(255, 68, 0, 0.15) 0%, rgba(20, 5, 5, 0.8) 100%) !important;
+    border-bottom-color: rgba(255, 68, 0, 0.35);
+  }
+
+  [data-theme="vulcanico"] .product-card .price {
+    color: #ff5500 !important;
+    text-shadow: 0 0 10px rgba(255, 85, 0, 0.9);
+  }
+
+  /* --------------------------------------------------------------------------
+    TEMA 3: MADEIRA (Clássico Entalhado)
+    -------------------------------------------------------------------------- */
+  [data-theme="madeira"]#prateleira-container,
+  [data-theme="madeira"] #prateleira-container {
+    background: #1e130c !important;
+    border: 3px solid #8b5a2b !important;
+    box-shadow: inset 0 0 25px rgba(0,0,0,0.8), 0 8px 20px rgba(0,0,0,0.5) !important;
+  }
+
+  [data-theme="madeira"] .product-card {
+    background: #2b1d14 !important;
+    border: 2px solid #8b5a2b !important;
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.7), 0 4px 10px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  [data-theme="madeira"] .product-card:hover {
+    border-color: #d2b48c !important;
+    box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.9), 0 8px 18px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  [data-theme="madeira"] .product-card .card-image {
+    background: radial-gradient(circle at center, rgba(210, 180, 140, 0.1) 0%, rgba(30, 20, 12, 0.8) 100%) !important;
+    border-bottom-color: rgba(139, 90, 43, 0.35);
+  }
+
+  [data-theme="madeira"] .product-card .price {
+    color: #e2a76f !important;
+  }
+
+  /* Estilo escuro para o select do tema */
+  .field select#select-tema {
+    background-color: var(--surface-alt, #26272b);
+    color: var(--text, #f2f1ec);
+    border: 1px solid var(--border-strong, #3a3b3e);
+    border-radius: var(--radius, 8px);
+    padding: 8px 12px;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .field select#select-tema:hover {
+    border-color: #00f0ff;
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+  }
+
+  .add-card-btn {
+    border: 2px dashed rgba(0, 240, 255, 0.4) !important;
+    background: rgba(0, 240, 255, 0.03) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: rgba(0, 240, 255, 0.8) !important;
+    text-decoration: none;
+    min-height: 220px;
+  }
+
+  .add-card-btn:hover {
+    border-color: #00f0ff !important;
+    background: rgba(0, 240, 255, 0.08) !important;
+    color: #fff !important;
+  }
+
+  .add-card-btn .add-icon {
+    font-size: 32px;
+    font-weight: 300;
+  }
+
+  /* Estante com 12 nichos fixos: 4 colunas e 3 prateleiras. */
+  .estante { padding: 18px 18px 28px !important; }
+  .controles-estante { display: flex; align-items: flex-end; gap: 12px; }
+  .botao-adicionar, .adicionar-da-lista { border: 1px solid #00f0ff; border-radius: 8px; background: rgba(0, 240, 255, 0.12); color: #c8fbff; padding: 9px 12px; font-size: 13px; font-weight: 700; }
+  .botao-adicionar:hover, .adicionar-da-lista:hover { background: rgba(0, 240, 255, 0.24); }
+  .botao-editar { border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface-alt); color: var(--text-secondary); padding: 9px 12px; font-size: 13px; font-weight: 700; }
+  .botao-editar:hover { border-color: var(--accent); color: var(--text); background: rgba(255, 107, 35, 0.1); }
+  .estante-instrucoes { display: flex; justify-content: space-between; gap: 12px; margin: 0 2px 16px; color: var(--text-secondary); font-size: 13px; }
+  .estante-instrucoes strong { color: #00f0ff; font-size: 12px; }
+  .estante-grade { display: grid; gap: 14px; padding: 14px; border: 12px solid rgba(0, 240, 255, 0.32); border-radius: 8px; background: linear-gradient(135deg, #071323, #02070e); box-shadow: inset 0 0 28px rgba(0, 240, 255, 0.12); }
+  .prateleira-fileira { min-width: 0; padding: 10px; border: 1px solid rgba(0, 240, 255, 0.2); border-bottom: 7px solid rgba(0, 240, 255, 0.48); border-radius: 8px; background: rgba(0, 8, 18, 0.46); }
+  .prateleira-fileira-cabecalho { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px; min-height: 34px; margin-bottom: 8px; }
+  .prateleira-fileira-cabecalho>div { display: grid; min-width: 0; gap: 1px; }
+  .prateleira-fileira-cabecalho span { color: rgba(153, 248, 255, 0.56); font-size: 7px; font-weight: 700; letter-spacing: .85px; }
+  .prateleira-fileira-cabecalho strong { overflow: hidden; color: rgba(242, 241, 236, 0.72); font-size: 10px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+  .prateleira-fileira-cabecalho small { color: rgba(138, 138, 134, 0.72); font-size: 8px; }
+  .botao-diorama-fileira { flex: 0 0 auto; padding: 6px 8px; border: 1px solid rgba(0, 240, 255, 0.42); border-radius: 7px; background: rgba(0, 240, 255, 0.06); color: rgba(186, 250, 255, 0.86); font-size: 9px; font-weight: 700; }
+  .botao-diorama-fileira:hover { background: rgba(0, 240, 255, 0.2); }
+  .seletor-diorama-visivel { display: inline-flex; min-width: 0; align-items: center; gap: 4px; padding: 4px 7px; border: 1px solid rgba(0, 240, 255, 0.13); border-radius: 99px; background: rgba(0, 0, 0, 0.14); color: rgba(138, 138, 134, 0.78); font-size: 8px; line-height: 1; cursor: pointer; transition: color .15s,border-color .15s,background .15s; }
+  .seletor-diorama-visivel input { width: 11px; height: 11px; margin: 0; accent-color: #00f0ff; cursor: pointer; }
+  .seletor-diorama-visivel:has(input:checked) { border-color: rgba(0, 240, 255, 0.34); background: rgba(0, 240, 255, 0.07); color: rgba(153, 248, 255, 0.84); }
+  .prateleira-slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .estante-slot { position: relative; display: flex; min-width: 0; min-height: 196px; align-items: stretch; justify-content: stretch; padding: 8px; border: 1px dashed rgba(0, 240, 255, 0.35); border-radius: 8px; background: rgba(0, 8, 18, 0.64); transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease; }
+  .numero-slot { position: absolute; z-index: 1; top: 6px; left: 8px; color: rgba(0, 240, 255, 0.65); font-size: 11px; }
+  .slot-vazio { display: grid; width: 100%; place-items: center; color: var(--text-muted); font-size: 12px; }
+  .estante-slot.destino-arraste { border-color: #64ffda; background: rgba(0, 240, 255, 0.18); transform: scale(1.02); }
+  .colecionavel-estante { display: flex; width: 100%; min-width: 0; flex-direction: column; align-items: center; justify-content: center; padding: 20px 10px 10px; border: 1px solid #00f0ff; border-radius: 7px; background: radial-gradient(circle at center, rgba(0, 240, 255, 0.2), rgba(4, 13, 25, 0.96) 68%); box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.12), 0 0 12px rgba(0, 240, 255, 0.18); cursor: grab; text-align: center; }
+  .colecionavel-estante.arrastando { opacity: 0.38; }
+  .colecionavel-estante:active { cursor: grabbing; }
+  .colecionavel-arte { display: grid; width: 100%; height: 86px; margin-bottom: 8px; place-items: center; overflow: hidden; border-radius: 6px; font-size: 38px; }
+  .colecionavel-arte img { width: 100%; height: 100%; object-fit: contain; }
+  .colecionavel-estante h3, .colecionavel-estante p { overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; }
+  .colecionavel-estante p { color: var(--text-muted); font-size: 11px; }
+  .remover-da-estante { margin-top: 10px; border: 0; background: transparent; color: var(--text-muted); font-size: 11px; text-decoration: underline; }
+  .remover-da-estante:hover { color: #ff9d8f; }
+  .estante-area { display: grid; min-width: 0; }
+  .estante-area.com-bandeja { grid-template-columns: minmax(0, 1fr) 220px; gap: 18px; align-items: start; }
+  .itens-sem-posicao { position: sticky; top: 76px; display: flex; max-height: calc(100vh - 96px); min-width: 0; flex-direction: column; padding: 14px; border: 1px solid rgba(0, 240, 255, 0.28); border-radius: 10px; background: rgba(2, 9, 17, 0.72); }
+  .bandeja-cabecalho { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(0, 240, 255, 0.18); }
+  .bandeja-cabecalho span { color: #00f0ff; font-size: 9px; font-weight: 700; letter-spacing: 1.2px; }
+  .bandeja-cabecalho h3 { margin-top: 2px; font-size: 13px; }
+  .bandeja-cabecalho>strong { display: grid; width: 28px; height: 28px; flex: 0 0 28px; place-items: center; border-radius: 50%; background: rgba(0, 240, 255, 0.12); color: #99f8ff; font-size: 11px; }
+  .bandeja-dica { padding: 10px 0; color: var(--text-muted); font-size: 10px; }
+  .bandeja-itens { display: grid; gap: 10px; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+  .bandeja-itens::-webkit-scrollbar { display: none; }
+  .bandeja-itens .colecionavel-estante { width: 100%; min-width: 0; min-height: 140px; padding: 14px 8px 8px; }
+  .bandeja-itens .colecionavel-arte { height: 64px; margin-bottom: 4px; font-size: 28px; }
+  .modal-adicionar { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(0, 0, 0, 0.72); }
+  .modal-adicionar[hidden] { display: none; }
+  .modal-conteudo { width: min(560px, 100%); max-height: min(620px, 90vh); overflow: auto; border: 1px solid #00f0ff; border-radius: 14px; background: #111b28; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55); }
+  .modal-cabecalho { display: flex; justify-content: space-between; gap: 16px; padding: 20px; border-bottom: 1px solid var(--border-strong); }
+  .modal-cabecalho p { margin-top: 4px; font-size: 13px; }
+  .fechar-modal { width: 32px; height: 32px; border: 0; border-radius: 50%; background: var(--surface-alt); color: var(--text); font-size: 24px; line-height: 1; }
+  .lista-colecionaveis { padding: 8px 20px 20px; }
+  .linha-colecionavel { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .linha-colecionavel-foto { display: grid; width: 48px; height: 48px; flex: 0 0 48px; place-items: center; overflow: hidden; border-radius: 8px; background: var(--bg-alt); }
+  .linha-colecionavel-foto img { width: 100%; height: 100%; object-fit: contain; }
+  .linha-colecionavel-info { min-width: 0; flex: 1; }
+  .linha-colecionavel strong, .linha-colecionavel span { display: block; }
+  .linha-colecionavel span { color: var(--text-muted); font-size: 12px; }
+  .lista-vazia { padding: 18px 0 4px; }
+  .campo-diorama, .editor-diorama { display: flex; flex-direction: column; gap: 7px; margin: 10px 0 16px; }
+  .campo-diorama select, .editor-diorama input { width: 100%; border: 1px solid var(--border-strong); border-radius: 7px; background: var(--surface-alt); color: var(--text); padding: 9px 10px; }
+  .campo-diorama input { width: 100%; border: 1px solid var(--border-strong); border-radius: 7px; background: var(--surface-alt); color: var(--text); padding: 10px; }
+  .modal-etiqueta { color: #00f0ff; font-size: 9px; font-weight: 700; letter-spacing: 1.2px; }
+  .pecas-do-diorama { margin: 10px 0 18px; padding: 12px; border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 8px; background: rgba(0, 240, 255, 0.05); }
+  .pecas-do-diorama span { color: #99f8ff; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+  .pecas-do-diorama p { margin-top: 5px; font-size: 12px; }
+  .diorama-destaque { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 22px; align-items: center; min-height: 160px; margin: 22px 0 28px; padding: 20px; border: 1px solid rgba(0, 240, 255, 0.32); border-radius: 14px; background: radial-gradient(circle at 14% 50%, rgba(0, 240, 255, 0.15), transparent 35%), linear-gradient(135deg, #101d2a, var(--surface)); }
+  .diorama-destaque-visual { display: grid; height: 116px; place-items: center; border: 1px dashed rgba(0, 240, 255, 0.35); border-radius: 10px; background: rgba(0, 8, 18, 0.48); font-size: 42px; }
+  .diorama-destaque-conteudo>span { color: #00f0ff; font-size: 9px; font-weight: 700; letter-spacing: 1.2px; }
+  .diorama-destaque-conteudo h2 { margin: 6px 0 5px; font-size: 20px; }
+  .diorama-destaque-conteudo>p { color: var(--text-muted); font-size: 12px; }
+  .diorama-destaque-pecas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .diorama-destaque-pecas span { padding: 5px 8px; border: 1px solid var(--border-strong); border-radius: 99px; background: rgba(0,0,0,.18); color: var(--text-secondary); font-size: 9px; }
+  .salvar-dioramas { width: 100%; margin-top: 4px; }
+  .cabecalho-colecao { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+  .titulo-estante { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 4px; }
+  .seletor-estantes { display: flex; align-items: center; gap: 8px; }
+  .seletor-estantes label { color: var(--text-muted); font-size: 12px; }
+  .seletor-estantes select { border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface-alt); color: var(--text); padding: 8px 10px; }
+  .privacidade-estante { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 16px 0 24px; padding: 13px 15px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--surface); }
+  .privacidade-identidade, .privacidade-acoes { display: flex; align-items: center; gap: 11px; }
+  .privacidade-identidade > span { font-size: 22px; }
+  .privacidade-identidade strong, .privacidade-identidade small { display: block; }
+  .privacidade-identidade small { margin-top: 2px; color: var(--text-muted); font-size: 10px; }
+  .privacidade-acoes > a, .privacidade-acoes > button { padding: 7px 10px; border: 1px solid var(--border-strong); border-radius: 7px; background: var(--bg-alt); color: var(--text-secondary); font: inherit; font-size: 11px; }
+  .interruptor-privacidade { display: flex; align-items: center; gap: 7px; cursor: pointer; }
+  .interruptor-privacidade input { position: absolute; opacity: 0; }
+  .interruptor-privacidade span { position: relative; width: 38px; height: 21px; border-radius: 12px; background: var(--border-strong); transition: background .2s; }
+  .interruptor-privacidade span::after { content: ''; position: absolute; top: 3px; left: 3px; width: 15px; height: 15px; border-radius: 50%; background: #fff; transition: transform .2s; }
+  .interruptor-privacidade input:checked + span { background: var(--accent); }
+  .interruptor-privacidade input:checked + span::after { transform: translateX(17px); }
+  .interruptor-privacidade em { color: var(--text-secondary); font-size: 11px; font-style: normal; }
+  .cabecalho-colecao p { margin-top: 4px; }
+  .lista-colecao { overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); }
+  .linha-colecao { display: flex; align-items: center; gap: 16px; padding: 16px 18px; border-bottom: 1px solid var(--border); }
+  .linha-colecao:last-child { border-bottom: 0; }
+  .colecao-icone { display: grid; width: 48px; height: 48px; flex: 0 0 auto; place-items: center; border-radius: 10px; background: var(--surface-alt); font-size: 25px; }
+  .colecao-detalhes { min-width: 0; }
+  .colecao-detalhes h2 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .colecao-detalhes p, .colecao-detalhes small { color: var(--text-muted); font-size: 13px; }
+  .status-estante { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-left: auto; }
+  .badge-na-estante, .badge-fora-estante { border-radius: 99px; padding: 5px 9px; font-size: 12px; white-space: nowrap; }
+  .badge-na-estante { background: rgba(0, 240, 255, 0.12); color: #99f8ff; }
+  .badge-fora-estante { background: var(--surface-alt); color: var(--text-muted); }
+  .colecao-vazia { padding: 50px 20px; text-align: center; }
+  .colecao-vazia span { font-size: 35px; }
+  .colecao-vazia p { margin-top: 5px; }
+  [data-theme="vulcanico"] .estante-grade { border-color: rgba(255, 68, 0, 0.48); background: linear-gradient(135deg, #250707, #100202); }
+  [data-theme="vulcanico"] .prateleira-fileira { border-color: rgba(255, 102, 0, 0.4); border-bottom-color: rgba(255, 68, 0, 0.7); background: rgba(26, 3, 3, 0.58); }
+  [data-theme="vulcanico"] .estante-slot { border-color: rgba(255, 102, 0, 0.4); background: rgba(26, 3, 3, 0.7); }
+  [data-theme="vulcanico"] .colecionavel-estante { border-color: #ff5500; background: radial-gradient(circle at center, rgba(255, 85, 0, 0.23), rgba(30, 3, 3, 0.96) 68%); }
+  [data-theme="madeira"] .estante-grade { border-color: #8b5a2b; background: linear-gradient(135deg, #4b2f1c, #1f130b); }
+  [data-theme="madeira"] .prateleira-fileira { border-color: rgba(210, 180, 140, 0.38); border-bottom-color: #8b5a2b; background: rgba(30, 18, 10, 0.62); }
+  [data-theme="madeira"] .estante-slot { border-color: rgba(210, 180, 140, 0.38); background: rgba(30, 18, 10, 0.68); }
+  [data-theme="madeira"] .colecionavel-estante { border-color: #b78048; background: radial-gradient(circle at center, rgba(210, 180, 140, 0.17), rgba(43, 25, 13, 0.96) 68%); }
+  @media (max-width: 900px) { .estante-area.com-bandeja { grid-template-columns: minmax(0, 1fr) 180px; gap: 12px; } .estante-slot { min-height: 174px; } }
+  @media (max-width: 700px) { .estante-area.com-bandeja { grid-template-columns: 1fr; } .prateleira-slots { grid-template-columns: repeat(2, minmax(0, 1fr)); } .itens-sem-posicao { position: static; max-height: none; } .bandeja-itens { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 430px; } .diorama-destaque { grid-template-columns: 1fr; } .diorama-destaque-visual { height: 90px; } .estante-instrucoes, .controles-estante, .diorama-cabecalho, .cabecalho-colecao, .linha-colecao, .status-estante, .titulo-estante, .seletor-estantes { flex-direction: column !important; align-items: stretch; } .status-estante { margin-left: 0; } }

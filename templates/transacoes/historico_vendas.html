@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titulo %}Minhas vendas — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/transacoes.css' %}?v=1">{% endblock %}
+{% block conteudo %}
+<section class="container transacoes-pagina">
+  <header class="transacoes-cabecalho">
+    <div><span>PERFIL DO VENDEDOR</span><h1>Minhas vendas</h1><p>Acompanhe suas negociações e a confiança que você construiu na comunidade.</p></div>
+    <div class="reputacao-card"><small>Sua reputação</small>{% if reputacao_total %}<strong>★ {{ reputacao_media|floatformat:1 }}</strong><span>{{ reputacao_total }} avaliação{{ reputacao_total|pluralize:"ões" }} recebida{{ reputacao_total|pluralize }}</span>{% else %}<strong>—</strong><span>Ainda sem avaliações</span>{% endif %}</div>
+  </header>
+
+  <section class="transacoes-secao">
+    <div class="transacoes-titulo"><div><span>VENDAS</span><h2>Itens que você vendeu</h2></div><strong>{{ vendas|length }}</strong></div>
+    <div class="historico-lista">
+      {% for venda in vendas %}<article class="historico-item">
+        <div class="historico-icone">📦</div><div class="historico-info"><h3>{{ venda.colecionavel_usuario.nome_personalizado|default:venda.colecionavel_usuario.modelo.nome_modelo|default:venda.colecionavel_usuario.modelo.nome_personagem }}</h3><p>Comprado por @{{ venda.comprador.username }} · {{ venda.criado_em|date:"d/m/Y" }}</p>{% if venda.avaliacao %}<p class="avaliacao-recebida">★ {{ venda.avaliacao.nota }}/5{% if venda.avaliacao.comentario %} · “{{ venda.avaliacao.comentario }}”{% endif %}</p>{% endif %}</div><div class="historico-resumo"><strong>R$ {{ venda.valor_liquido_vendedor|floatformat:2 }}</strong><span class="status-venda status-{{ venda.status_transacao }}">{{ venda.get_status_transacao_display }}</span></div>
+      </article>{% empty %}<div class="historico-vazio"><span>◎</span><h3>Nenhuma venda ainda</h3><p>Quando alguém comprar um item seu, a negociação aparecerá aqui.</p></div>{% endfor %}
+    </div>
+  </section>
+
+  <section class="transacoes-secao">
+    <div class="transacoes-titulo"><div><span>COMPRAS</span><h2>Itens que você adquiriu</h2></div><strong>{{ compras|length }}</strong></div>
+    <div class="historico-lista">
+      {% for compra in compras %}<article class="historico-item">
+        <div class="historico-icone">🛍️</div><div class="historico-info"><h3>{{ compra.colecionavel_usuario.nome_personalizado|default:compra.colecionavel_usuario.modelo.nome_modelo|default:compra.colecionavel_usuario.modelo.nome_personagem }}</h3><p>Vendido por @{{ compra.vendedor.username }} · {{ compra.criado_em|date:"d/m/Y" }}</p></div><div class="historico-resumo"><strong>R$ {{ compra.valor_item|floatformat:2 }}</strong><span class="status-venda status-{{ compra.status_transacao }}">{{ compra.get_status_transacao_display }}</span>{% if compra.status_transacao == 'confirmada' or compra.status_transacao == 'concluida' %}{% if compra.avaliacao %}<span class="avaliacao-feita">Avaliado: ★ {{ compra.avaliacao.nota }}/5</span>{% else %}<a href="{% url 'transacoes:avaliar_venda' compra.id %}" class="botao-avaliar">Avaliar vendedor</a>{% endif %}{% endif %}</div>
+      </article>{% empty %}<div class="historico-vazio"><span>◌</span><h3>Nenhuma compra ainda</h3><p>Suas compras confirmadas aparecerão aqui.</p></div>{% endfor %}
+    </div>
+  </section>
+</section>
+{% endblock %}

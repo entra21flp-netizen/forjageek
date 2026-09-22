@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+
+{% block titulo %}{{ titulo_pagina }} — ForjaGeek{% endblock %}
+
+{% block conteudo %}
+<div class="container">
+  <h1>{{ titulo_pagina }}</h1>
+  <p class="page-note" style="margin-top: 14px; margin-left: 0;">
+    🚧 {{ mensagem }}
+  </p>
+</div>
+{% endblock %}

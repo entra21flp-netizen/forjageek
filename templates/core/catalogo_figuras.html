@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block titulo %}Action figures — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/catalogo.css' %}?v=2">{% endblock %}
+{% block conteudo %}
+<div class="container catalogo-figuras">
+  <header class="catalogo-abertura"><div><span class="catalogo-eyebrow">CATÁLOGO DE MODELOS</span><h1>Action figures</h1><p>Modelos cadastrados no banco de dados da comunidade.</p></div><span class="catalogo-total">{{ total }} modelo{{ total|pluralize }}</span></header>
+  <form method="get" class="catalogo-filtros">
+    <div><label for="busca-figuras">Buscar personagem ou modelo</label><input id="busca-figuras" name="q" value="{{ busca }}" placeholder="Goku, Vegeta, Kakashi…" type="search"></div>
+    <div><label for="franquia-figuras">Franquia</label><select name="franquia" id="franquia-figuras"><option value="">Todas as franquias</option>{% for nome in franquias %}<option {% if franquia == nome %}selected{% endif %}>{{ nome }}</option>{% endfor %}</select></div>
+    <button type="submit">Filtrar</button>{% if busca or franquia %}<a href="{% url 'core:catalogo_figuras' %}">Limpar</a>{% endif %}
+  </form>
+  {% regroup figuras by modelo.franquia as grupos %}
+  {% for grupo in grupos %}
+  <section class="franquia-secao"><div class="franquia-titulo"><h2>{{ grupo.grouper }}</h2><span>{{ grupo.list|length }} modelos</span></div>
+    <div class="figuras-grid">{% for figura in grupo.list %}
+      <article class="figura-card">
+        <div class="figura-identidade {% if grupo.grouper == 'Dragon Ball Z' %}figura-dbz{% else %}figura-naruto{% endif %}"><span class="serie-tag">{{ figura.serie|default:'Action Figure' }}</span>{% if figura.imagem.arquivo %}<img src="{{ figura.imagem.arquivo.url }}" alt="{{ figura.modelo.nome_personagem }}">{% elif figura.imagem.url_imagem %}<img src="{{ figura.imagem.url_imagem }}" alt="{{ figura.modelo.nome_personagem }}">{% else %}<span class="personagem-tipografia">{{ figura.modelo.nome_personagem }}</span><span class="figura-sem-foto">Imagem ainda não cadastrada</span>{% endif %}</div>
+        <div class="figura-conteudo"><p class="figura-fabricante">{{ figura.modelo.fabricante }}</p><h3>{{ figura.nome }}</h3>
+          <dl class="figura-resumo">{% if figura.ano %}<div><dt>Lançamento</dt><dd>{{ figura.ano }}</dd></div>{% endif %}{% if figura.altura %}<div><dt>Altura</dt><dd>{{ figura.altura }} cm</dd></div>{% endif %}{% if figura.material %}<div><dt>Material</dt><dd>{{ figura.material }}</dd></div>{% endif %}</dl>
+          <details class="figura-ficha"><summary>Ver ficha completa</summary><dl><div><dt>Personagem</dt><dd>{{ figura.modelo.nome_personagem }}</dd></div><div><dt>Franquia</dt><dd>{{ figura.modelo.franquia }}</dd></div><div><dt>Fabricante</dt><dd>{{ figura.modelo.fabricante }}</dd></div>{% for chave, valor in figura.ficha %}<div><dt>{{ chave }}</dt><dd>{{ valor }}</dd></div>{% endfor %}</dl></details>
+          <a class="figura-adicionar" href="{% url 'core:cadastrar_colecionavel' %}?modelo={{ figura.modelo.pk }}">+ Adicionar à minha coleção</a>
+        </div>
+      </article>{% endfor %}
+    </div>
+  </section>{% empty %}<div class="catalogo-vazio"><h2>Nenhum modelo encontrado</h2><p>Tente outro personagem ou remova os filtros.</p></div>{% endfor %}
+</div>
+{% endblock %}

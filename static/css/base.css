@@ -1,0 +1,117 @@
+/* ==========================================================================
+   base.css — reset, variáveis de marca e tipografia
+   Importado por TODAS as páginas, sempre primeiro.
+   ========================================================================== */
+
+:root {
+  /* cores de fundo */
+  --bg: #17181b;
+  --bg-alt: #111214;
+  --surface: #1f2023;
+  --surface-alt: #26272b;
+
+  /* bordas */
+  --border: #2a2b2e;
+  --border-strong: #3a3b3e;
+
+  /* texto */
+  --text: #f2f1ec;
+  --text-secondary: #c9c8c2;
+  --text-muted: #8a8a86;
+
+  /* marca */
+  --accent: #e8621f;
+  --accent-hover: #cf551a;
+  --accent-text-on: #17181b; /* texto sobre fundo laranja */
+
+  /* estados (badges de condição, avisos, etc） */
+  --success-bg: #2a3a25;
+  --success-text: #9dcf7a;
+  --warning-bg: #3a2f1f;
+  --warning-text: #e0ac5a;
+  --danger-bg: #3a2323;
+  --danger-text: #e08c8c;
+  --info-bg: #233246;
+  --info-text: #7fb0e0;
+
+  /* layout */
+  --radius: 10px;
+  --radius-lg: 16px;
+  --max-width: 1200px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+/* nota de desenvolvimento — some quando a página for finalizada */
+.page-note {
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 16px;
+}
+
+.mensagens{position:fixed;z-index:120;top:76px;left:50%;width:min(520px,calc(100% - 32px));transform:translateX(-50%)}.mensagem{margin:8px 0;padding:12px 16px;border:1px solid var(--border-strong);border-radius:9px;background:#202328;color:var(--text);box-shadow:0 10px 28px rgba(0,0,0,.3)}.mensagem-success{border-color:#3c8f67}.mensagem-error{border-color:#b74b4b}.mensagem-info{border-color:var(--accent)}

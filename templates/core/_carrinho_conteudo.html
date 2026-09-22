@@ -1,0 +1,39 @@
+{% if carrinho_itens %}
+<div class="carrinho-lista">
+  {% for item in carrinho_itens %}
+  <article class="carrinho-item">
+    <a class="carrinho-item-foto" href="{% url 'core:produto' item_id=item.id %}">
+      {% with imagem=item.imagens.first modelo_imagem=item.modelo.imagens.first %}
+        {% if imagem.arquivo %}<img src="{{ imagem.arquivo.url }}" alt="">
+        {% elif imagem.url_imagem %}<img src="{{ imagem.url_imagem }}" alt="">
+        {% elif modelo_imagem.url_imagem %}<img src="{{ modelo_imagem.url_imagem }}" alt="">
+        {% else %}<span aria-hidden="true">📦</span>{% endif %}
+      {% endwith %}
+    </a>
+    <div class="carrinho-item-info">
+      <a href="{% url 'core:produto' item_id=item.id %}">{{ item.nome_personalizado|default:item.modelo.nome_modelo|default:item.modelo.nome_personagem }}</a>
+      <small>{{ item.modelo.franquia }} · @{{ item.usuario.username }}</small>
+      <strong>R$ {{ item.preco_anunciado|floatformat:2 }}</strong>
+    </div>
+    <button type="button" class="carrinho-remover" data-carrinho-remover="{{ item.id }}" aria-label="Remover {{ item.modelo.nome_personagem }} do carrinho">×</button>
+  </article>
+  {% endfor %}
+</div>
+<footer class="carrinho-rodape">
+  <div><span>Subtotal</span><strong>R$ {{ carrinho_total|floatformat:2 }}</strong></div>
+  <p>Pagamento seguro processado pelo Stripe. O frete será combinado com o vendedor.</p>
+  {% if user.is_authenticated %}
+  <form method="post" action="{% url 'transacoes:iniciar_checkout_carrinho' %}">{% csrf_token %}<button type="submit" class="carrinho-finalizar">Finalizar compra</button></form>
+  {% else %}
+  <a class="carrinho-finalizar" href="{% url 'core:login' %}?next={% url 'core:index' %}">Finalizar compra</a>
+  {% endif %}
+  <button type="button" class="carrinho-continuar" data-carrinho-fechar>Continuar comprando</button>
+</footer>
+{% else %}
+<div class="carrinho-vazio">
+  <span aria-hidden="true">🛒</span>
+  <h3>Seu carrinho está vazio</h3>
+  <p>Abra um item à venda e adicione-o para acompanhar tudo por aqui.</p>
+  <button type="button" data-carrinho-fechar>Explorar produtos</button>
+</div>
+{% endif %}

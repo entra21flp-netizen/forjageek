@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block titulo %}ForjaGeek{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/layout.css' %}?v=4" />
+  <link rel="stylesheet" href="{% static 'css/componentes.css' %}?v=6" />
+  <link rel="stylesheet" href="{% static 'css/carrinho.css' %}?v=2" />
+  {% block css_extra %}{% endblock %}
+</head>
+<body>
+  <div class="app">
+
+    <header class="site-header">
+      {% block header_esquerda %}
+        <a href="{% url 'core:index' %}" class="logo" aria-label="ForjaGeek — Página inicial">
+          <img src="{% static 'images/logo-forjageek.png' %}" alt="" width="46" height="44">
+          <span class="logo-nome">Forja<strong>Geek</strong></span>
+        </a>
+      {% endblock %}
+      <div class="header-icons">
+        <a href="{% url 'core:catalogo_figuras' %}">Catálogo</a>
+        <a href="{% url 'core:buscar_colecionadores' %}">Colecionadores</a>
+        <a href="{% url 'core:ranking_estantes' %}">Ranking</a>
+        {% if user.is_authenticated %}
+          <div class="menu-conta">
+            <button type="button" class="menu-conta-gatilho" aria-haspopup="true">Minha conta</button>
+            <div class="menu-conta-itens" role="menu" aria-label="Menu da sua conta">
+              <a href="{% url 'core:meus_colecionaveis' %}" role="menuitem">Meus colecionáveis</a>
+              <a href="{% url 'core:prateleira' %}" role="menuitem">Minha prateleira</a>
+              <a href="{% url 'core:wishlist' %}" role="menuitem">Wishlist</a>
+              <a href="{% url 'core:chat' %}" role="menuitem">Chat</a>
+              <a href="{% url 'transacoes:historico_vendas' %}" role="menuitem">Minhas vendas</a>
+              {% if not user.whatsapp_validado %}<a href="{% url 'core:verificar_whatsapp' %}" class="whatsapp-pendente" role="menuitem">Verificar WhatsApp</a>{% endif %}
+              <form method="post" action="{% url 'core:logout' %}" class="header-logout">{% csrf_token %}<button type="submit" role="menuitem">Sair</button></form>
+            </div>
+          </div>
+        {% else %}
+          <a href="{% url 'core:login' %}">Entrar</a>
+          <a href="{% url 'core:cadastro_usuario' %}">Criar conta</a>
+        {% endif %}
+        <button type="button" class="carrinho-botao" id="abrir-carrinho" aria-controls="carrinho-lateral" aria-expanded="false"><span class="carrinho-icone" aria-hidden="true">🛒</span><span class="carrinho-texto">Carrinho</span><span class="carrinho-contagem" id="carrinho-contagem"{% if not carrinho_quantidade %} hidden{% endif %}>{{ carrinho_quantidade }}</span></button>
+      </div>
+    </header>
+
+    <main>
+      {% if messages %}<div class="mensagens" aria-live="polite">{% for message in messages %}<p class="mensagem mensagem-{{ message.tags }}">{{ message }}</p>{% endfor %}</div>{% endif %}
+      {% block conteudo %}{% endblock %}
+    </main>
+
+  </div>
+  <div class="carrinho-overlay" id="carrinho-overlay" hidden></div>
+  <aside class="carrinho-lateral" id="carrinho-lateral" data-remover-url="{% url 'core:remover_do_carrinho' %}" aria-label="Carrinho de compras" hidden>
+    <header class="carrinho-cabecalho"><div><h2>Seu carrinho</h2><span>Itens reservados para compra</span></div><button type="button" class="carrinho-fechar" data-carrinho-fechar aria-label="Fechar carrinho">×</button></header>
+    <div class="carrinho-conteudo" id="carrinho-conteudo">{% include "core/_carrinho_conteudo.html" %}</div>
+  </aside>
+  <form id="carrinho-csrf" hidden>{% csrf_token %}</form>
+  <p class="carrinho-status" id="carrinho-status" role="status" aria-live="polite"></p>
+  <script src="{% static 'js/carrinho.js' %}?v=1" defer></script>
+  <script src="{% static 'js/wishlist.js' %}?v=1" defer></script>
+</body>
+</html>

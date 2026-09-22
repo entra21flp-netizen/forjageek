@@ -1,0 +1,46 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titulo %}Editar {{ item.modelo.nome_personagem }} — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/cadastro.css' %}?v=2">{% endblock %}
+{% block conteudo %}
+<div class="container cadastro editar-colecionavel">
+  <a class="voltar-colecao" href="{% url 'core:meus_colecionaveis' %}">← Meus colecionáveis</a>
+  <h1>Editar colecionável</h1>
+  <p class="cadastro-intro">Atualize as informações da sua peça sempre que a coleção mudar.</p>
+
+  <section class="cadastro-card resumo-edicao">
+    <div class="resumo-edicao-imagem">
+      {% with imagem=item.imagens.first %}{% if imagem and imagem.arquivo %}<img src="{{ imagem.arquivo.url }}" alt="{{ item.modelo.nome_personagem }}">{% elif imagem and imagem.url_imagem %}<img src="{{ imagem.url_imagem }}" alt="{{ item.modelo.nome_personagem }}">{% else %}<span aria-hidden="true">📦</span>{% endif %}{% endwith %}
+    </div>
+    <div><small>{{ item.modelo.tipo.nome_tipo }}</small><h2>{{ item.modelo.nome_modelo|default:item.modelo.nome_personagem }}</h2><p>{{ item.modelo.franquia }} · {{ item.modelo.fabricante }}</p></div>
+  </section>
+
+  <form method="post">{% csrf_token %}
+    {% if form.errors %}<p role="alert" class="errorlist">Revise os campos destacados antes de salvar.</p>{% endif %}{{ form.non_field_errors }}
+    <section class="cadastro-card">
+      <h2>Estado da sua peça</h2>
+      <p>Registre a conservação atual e onde ela está guardada.</p>
+      <div class="cadastro-grid">
+        {% for field in form %}
+          {% if field.name == 'nome_personalizado' or field.name == 'personalizado' or field.name == 'estado_peca' or field.name == 'condicao_caixa' or field.name == 'nota' or field.name == 'preco_pago' or field.name == 'local_armazenamento' %}
+            <div class="cadastro-campo{% if field.name == 'nota' %} campo-largo{% endif %}">{{ field.label_tag }}{{ field }}{{ field.errors }}{% if field.field.required %}<small>Obrigatório</small>{% endif %}</div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+    <section class="cadastro-card">
+      <h2>Privacidade e negociação</h2>
+      <p>Escolha quem pode ver a peça e se ela está disponível.</p>
+      <div class="cadastro-grid">
+        {% for field in form %}
+          {% if field.name == 'status_privacidade' or field.name == 'status_negociacao' or field.name == 'preco_anunciado' or field.name == 'interesses_troca' %}
+            <div class="cadastro-campo{% if field.name == 'interesses_troca' %} campo-largo{% endif %}">{{ field.label_tag }}{{ field }}{{ field.errors }}{% if field.field.required %}<small>Obrigatório</small>{% endif %}</div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+    <datalist id="estados-peca"><option value="Novo"><option value="Excelente"><option value="Bom"><option value="Regular"><option value="Danificado"><option value="Não informado"></datalist>
+    <datalist id="condicoes-caixa"><option value="MISB lacrado"><option value="Aberto para exibição"><option value="Loose"><option value="Caixa avariada"><option value="Sem caixa"><option value="Não informado"></datalist>
+    <div class="cadastro-rodape"><p>As alterações serão refletidas na coleção, na prateleira e na página do produto.</p><div><a href="{% url 'core:meus_colecionaveis' %}">Cancelar</a><button type="submit">Salvar alterações</button></div></div>
+  </form>
+</div>
+{% endblock %}

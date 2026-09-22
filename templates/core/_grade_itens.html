@@ -1,0 +1,35 @@
+<div class="product-grid">
+  {% for item in itens %}
+  <article class="product-card">
+  <a class="product-card-link" href="{% url 'core:produto' item_id=item.id %}" aria-label="Ver {{ item.modelo.nome_personagem }}">
+    <div class="card-image">
+      {% with imagem=item.imagens.first %}
+      {% if imagem.arquivo %}<img src="{{ imagem.arquivo.url }}" alt="{{ item.modelo.nome_personagem }}">
+      {% elif imagem.url_imagem %}<img src="{{ imagem.url_imagem }}" alt="{{ item.modelo.nome_personagem }}">
+      {% else %}<div class="art" aria-label="Sem foto">📦</div>{% endif %}
+      {% endwith %}
+    </div>
+    <div class="info">
+      <h3>{{ item.nome_personalizado|default:item.modelo.nome_modelo|default:item.modelo.nome_personagem }}</h3>
+      <p>{{ item.modelo.franquia }}</p>
+      <small>{{ item.condicao_caixa }}</small>
+      {% if mostrar_preco_pago %}<p class="price">R$ {{ item.preco_pago|floatformat:2 }}</p>
+      {% elif item.status_negociacao == 'venda' or item.status_negociacao == 'venda_ou_troca' %}
+        {% if item.preco_anunciado != None %}<p class="price">R$ {{ item.preco_anunciado|floatformat:2 }}</p>{% endif %}
+      {% endif %}
+      {% if mostrar_negociacao %}<small>{{ item.get_status_negociacao_display }}</small>{% endif %}
+    </div>
+  </a>
+  {% if user.is_authenticated and item.usuario_id != user.id %}
+    <button type="button" class="card-wishlist{% if item.id in wishlist_ids %} adicionado{% endif %}" data-wishlist-item="{{ item.id }}" data-url="{% url 'core:alternar_wishlist' %}" aria-pressed="{% if item.id in wishlist_ids %}true{% else %}false{% endif %}" aria-label="{% if item.id in wishlist_ids %}Remover {{ item.modelo.nome_personagem }} da Wishlist{% else %}Adicionar {{ item.modelo.nome_personagem }} à Wishlist{% endif %}" title="{% if item.id in wishlist_ids %}Remover da Wishlist{% else %}Adicionar à Wishlist{% endif %}"><span aria-hidden="true">{% if item.id in wishlist_ids %}♥{% else %}♡{% endif %}</span></button>
+  {% endif %}
+  {% if mostrar_negociacao %}
+    {% if item.usuario_id != user.id and item.preco_anunciado != None %}
+      {% if item.status_negociacao == 'venda' or item.status_negociacao == 'venda_ou_troca' %}
+      <button type="button" class="card-carrinho{% if item.id in carrinho_ids %} adicionado{% endif %}" data-carrinho-adicionar="{{ item.id }}" data-carrinho-formato="icone" data-carrinho-no-carrinho="{% if item.id in carrinho_ids %}true{% else %}false{% endif %}" data-url="{% url 'core:adicionar_ao_carrinho' %}" aria-label="{% if item.id in carrinho_ids %}Ver {{ item.modelo.nome_personagem }} no carrinho{% else %}Adicionar {{ item.modelo.nome_personagem }} ao carrinho{% endif %}" title="{% if item.id in carrinho_ids %}Ver no carrinho{% else %}Adicionar ao carrinho{% endif %}"><span aria-hidden="true">{% if item.id in carrinho_ids %}✓{% else %}🛒{% endif %}</span></button>
+      {% else %}<button type="button" class="card-carrinho indisponivel" disabled aria-label="{{ item.modelo.nome_personagem }} não está disponível para compra" title="Item não disponível para compra"><span aria-hidden="true">🛒</span></button>{% endif %}
+    {% else %}<button type="button" class="card-carrinho indisponivel" disabled aria-label="{% if item.usuario_id == user.id %}Este item pertence a você{% else %}Item não disponível para compra{% endif %}" title="{% if item.usuario_id == user.id %}Este item pertence a você{% else %}Item não disponível para compra{% endif %}"><span aria-hidden="true">🛒</span></button>{% endif %}
+  {% endif %}
+  </article>
+  {% empty %}<p>{{ mensagem_vazio|default:'Nenhum colecionável encontrado.' }}</p>{% endfor %}
+</div>

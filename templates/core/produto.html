@@ -1,0 +1,81 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titulo %}{{ produto.modelo.nome_modelo|default:produto.modelo.nome_personagem }} — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/produto.css' %}?v=3"><link rel="stylesheet" href="{% static 'css/chat.css' %}?v=1">{% endblock %}
+{% block conteudo %}
+<main class="container produto-pagina">
+  <nav class="produto-breadcrumb" aria-label="Navegação"><a href="{% url 'core:index' %}">Home</a><span>›</span><span>{{ produto.modelo.tipo.nome_tipo }}</span></nav>
+
+  <section class="produto-principal">
+    <div class="produto-galeria">
+      <div class="produto-publicado"><small>Publicado por</small><a href="{% url 'core:perfil_colecionador' produto.usuario.username %}" class="produto-vendedor-link">@{{ produto.usuario.username }}</a>{% if reputacao_vendedor_total %}<span>★ {{ reputacao_vendedor_media|floatformat:1 }} · {{ reputacao_vendedor_total }} avaliação{{ reputacao_vendedor_total|pluralize:"ões" }}</span>{% else %}<span>Novo vendedor</span>{% endif %}</div>
+      {% with imagem=produto.imagens.first modelo_imagem=produto.modelo.imagens.first %}
+        {% if imagem.arquivo %}<img id="produto-imagem-principal" src="{{ imagem.arquivo.url }}" alt="{{ produto.modelo.nome_personagem }}">
+        {% elif imagem.url_imagem %}<img id="produto-imagem-principal" src="{{ imagem.url_imagem }}" alt="{{ produto.modelo.nome_personagem }}">
+        {% elif modelo_imagem.url_imagem %}<img id="produto-imagem-principal" src="{{ modelo_imagem.url_imagem }}" alt="{{ produto.modelo.nome_personagem }}">
+        {% else %}<div class="produto-sem-foto"><span>📦</span><p>Foto ainda não cadastrada</p></div>{% endif %}
+      {% endwith %}
+      {% if produto.imagens.count > 1 %}<div class="produto-miniaturas" aria-label="Outras fotos do colecionável">
+        {% for imagem in produto.imagens.all %}{% if imagem.arquivo or imagem.url_imagem %}<button type="button" class="produto-miniatura{% if forloop.first %} ativa{% endif %}" data-src="{% if imagem.arquivo %}{{ imagem.arquivo.url }}{% else %}{{ imagem.url_imagem }}{% endif %}" aria-label="Mostrar foto {{ forloop.counter }}"><img src="{% if imagem.arquivo %}{{ imagem.arquivo.url }}{% else %}{{ imagem.url_imagem }}{% endif %}" alt=""></button>{% endif %}{% endfor %}
+      </div>{% endif %}
+    </div>
+    <div class="produto-resumo">
+      <span class="produto-categoria">{{ produto.modelo.tipo.nome_tipo }}</span>
+      <h1>{{ produto.modelo.nome_modelo|default:produto.modelo.nome_personagem }}</h1>
+      <p class="produto-franquia">{{ produto.modelo.franquia }} · {{ produto.modelo.fabricante }}</p>
+      {% if user.is_authenticated and not eh_dono %}<button type="button" class="produto-wishlist card-wishlist{% if na_wishlist %} adicionado{% endif %}" data-wishlist-item="{{ produto.id }}" data-url="{% url 'core:alternar_wishlist' %}" aria-pressed="{% if na_wishlist %}true{% else %}false{% endif %}"><span aria-hidden="true">{% if na_wishlist %}♥{% else %}♡{% endif %}</span> <span data-wishlist-texto>{% if na_wishlist %}Salvo na Wishlist{% else %}Adicionar à Wishlist{% endif %}</span></button>{% endif %}
+      <div class="produto-status"><span>{{ produto.get_status_negociacao_display }}</span><span>{{ produto.condicao_caixa }}</span>{% if produto.personalizado %}<span>Customizado</span>{% endif %}</div>
+      {% if produto.preco_anunciado != None %}{% if produto.status_negociacao == 'venda' or produto.status_negociacao == 'venda_ou_troca' %}<p class="produto-preco"><small>Preço anunciado</small>R$ {{ produto.preco_anunciado|floatformat:2 }}</p>{% endif %}{% endif %}
+      {% if not eh_dono and produto.status_privacidade == 'publico' %}{% if produto.status_negociacao == 'venda' or produto.status_negociacao == 'venda_ou_troca' %}{% if produto.preco_anunciado != None %}<button type="button" class="produto-carrinho{% if produto.id in carrinho_ids %} adicionado{% endif %}" data-carrinho-adicionar="{{ produto.id }}" data-carrinho-no-carrinho="{% if produto.id in carrinho_ids %}true{% else %}false{% endif %}" data-url="{% url 'core:adicionar_ao_carrinho' %}">{% if produto.id in carrinho_ids %}✓ Ver no carrinho{% else %}Adicionar ao carrinho{% endif %}</button>{% endif %}{% endif %}{% endif %}
+      {% if user.is_authenticated and not eh_dono and produto.status_privacidade == 'publico' %}<form method="post" action="{% url 'core:iniciar_chat' produto.id %}" class="produto-chat-form">{% csrf_token %}<button type="submit" class="produto-chat">Conversar com @{{ produto.usuario.username }}</button></form>{% endif %}
+      <section class="produto-sobre-resumo">
+        <h2>Sobre esta peça</h2>
+        <dl>
+          <div><dt>Personagem</dt><dd>{{ produto.modelo.nome_personagem }}</dd></div>
+          <div><dt>Estado da peça</dt><dd>{{ produto.estado_peca }}</dd></div>
+          <div><dt>Condição da caixa</dt><dd>{{ produto.condicao_caixa }}</dd></div>
+          <div><dt>Adicionada em</dt><dd>{{ produto.data_inclusao|date:"d/m/Y" }}</dd></div>
+          {% if produto.nome_personalizado %}<div><dt>Nome personalizado</dt><dd>{{ produto.nome_personalizado }}</dd></div>{% endif %}
+          {% if eh_dono %}<div><dt>Valor pago</dt><dd>R$ {{ produto.preco_pago|floatformat:2 }}</dd></div><div><dt>Privacidade</dt><dd>{{ produto.get_status_privacidade_display }}</dd></div>{% endif %}
+          {% if eh_dono and produto.local_armazenamento %}<div><dt>Local de armazenamento</dt><dd>{{ produto.local_armazenamento }}</dd></div>{% endif %}
+        </dl>
+        {% if produto.nota %}<div class="produto-nota"><h3>Observações</h3><p>{{ produto.nota }}</p></div>{% endif %}
+      </section>
+      {% if eh_dono %}<a class="produto-editar" href="{% url 'core:editar_colecionavel' produto.id %}">Editar este colecionável</a>{% endif %}
+      {% if produto.interesses_troca %}<div class="produto-interesse"><small>Interesses de troca</small><p>{{ produto.interesses_troca }}</p></div>{% endif %}
+    </div>
+  </section>
+
+  <div class="produto-informacoes produto-informacoes-unica">
+    <section class="produto-bloco">
+      <h2>Ficha técnica</h2>
+      <dl>
+        <div><dt>Franquia</dt><dd>{{ produto.modelo.franquia }}</dd></div>
+        <div><dt>Fabricante</dt><dd>{{ produto.modelo.fabricante }}</dd></div>
+        {% if produto.modelo.codigo_fabricante_sku %}<div><dt>SKU</dt><dd>{{ produto.modelo.codigo_fabricante_sku }}</dd></div>{% endif %}
+        {% if produto.modelo.codigo_barras_ean_jan %}<div><dt>EAN / JAN / UPC</dt><dd>{{ produto.modelo.codigo_barras_ean_jan }}</dd></div>{% endif %}
+        {% for nome, valor in caracteristicas %}<div><dt>{{ nome }}</dt><dd>{{ valor }}</dd></div>{% empty %}<p class="produto-sem-dados">Nenhuma característica adicional cadastrada.</p>{% endfor %}
+      </dl>
+    </section>
+  </div>
+
+  <section class="ofertas-secao">
+    <div class="ofertas-cabecalho"><div><span>OUTRAS OPORTUNIDADES</span><h2>Peças iguais à venda ou para troca</h2></div><strong>{{ ofertas_iguais|length }}</strong></div>
+    <div class="ofertas-grid">
+      {% for oferta in ofertas_iguais %}
+      <a class="oferta-card" href="{% url 'core:produto' item_id=oferta.id %}">
+        <div class="oferta-foto">{% with imagem=oferta.imagens.first %}{% if imagem.arquivo %}<img src="{{ imagem.arquivo.url }}" alt="{{ oferta.modelo.nome_personagem }}">{% elif imagem.url_imagem %}<img src="{{ imagem.url_imagem }}" alt="{{ oferta.modelo.nome_personagem }}">{% else %}<span>📦</span>{% endif %}{% endwith %}</div>
+        <div><span class="oferta-tipo">{{ oferta.get_status_negociacao_display }}</span><h3>{{ oferta.nome_personalizado|default:oferta.modelo.nome_modelo }}</h3><p>{{ oferta.condicao_caixa }} · {{ oferta.usuario.username }}</p>{% if oferta.preco_anunciado != None %}<strong>R$ {{ oferta.preco_anunciado|floatformat:2 }}</strong>{% endif %}</div>
+      </a>
+      {% empty %}<div class="ofertas-vazio"><span>◎</span><h3>Nenhuma outra oferta deste modelo</h3><p>Quando outro colecionador anunciar uma peça igual, ela aparecerá aqui.</p></div>{% endfor %}
+    </div>
+  </section>
+</main>
+<script>
+document.querySelectorAll('.produto-miniatura').forEach((botao) => botao.addEventListener('click', () => {
+  const principal = document.getElementById('produto-imagem-principal');
+  if (!principal) return;
+  principal.src = botao.dataset.src;
+  document.querySelectorAll('.produto-miniatura').forEach((item) => item.classList.toggle('ativa', item === botao));
+}));
+</script>
+{% endblock %}

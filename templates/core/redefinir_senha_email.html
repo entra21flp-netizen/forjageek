@@ -1,0 +1,6 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titulo %}Criar nova senha — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/conta.css' %}?v=1">{% endblock %}
+{% block conteudo %}
+<section class="container conta-recuperacao"><h1>Crie uma nova senha</h1><p class="page-note">Você está atualizando a senha da conta <strong>@{{ usuario.username }}</strong>.</p><form method="post" class="form-recuperacao">{% csrf_token %}<div class="field"><label for="password1">Nova senha</label><input id="password1" type="password" name="password1" autocomplete="new-password" required></div><div class="field"><label for="password2">Repita a nova senha</label><input id="password2" type="password" name="password2" autocomplete="new-password" required></div><button type="submit" class="btn btn-primary">Atualizar senha</button></form></section>
+{% endblock %}

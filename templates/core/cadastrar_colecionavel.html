@@ -1,0 +1,47 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titulo %}Cadastrar colecionável — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/cadastro.css' %}?v=2">{% endblock %}
+{% block conteudo %}
+<div class="container cadastro">
+<a class="voltar-colecao" href="{% url 'core:meus_colecionaveis' %}">← Meus colecionáveis</a>
+<h1>Cadastrar colecionável</h1><p class="cadastro-intro">Do modelo à sua peça: organize todos os detalhes da coleção.</p>
+<form method="post" enctype="multipart/form-data" data-analisar-url="{% url 'core:analisar_foto_cadastro' %}">{% csrf_token %}
+<section class="cadastro-card foto-topo">
+  <div class="foto-grade" id="foto-previews"><div class="foto-quadro foto-placeholder" id="foto-placeholder"><span aria-hidden="true">＋</span><small>Adicione fotos</small></div></div>
+  <div class="foto-controles"><h2>Fotos do colecionável</h2><p>Inclua diferentes ângulos, a embalagem e uma foto nítida do código de barras.</p>
+    {{ form.foto }}{{ form.foto.errors }}
+    <small>Até 6 fotos · JPG, PNG ou WebP · até 10 MB cada</small>
+    <p class="foto-referencia-aviso"><span aria-hidden="true">✦</span> A primeira foto será a referência usada pela IA para sugerir os dados.</p>
+    <p id="foto-status" role="status"></p>
+    <div class="foto-acoes">
+      <button type="button" id="analisar-foto" disabled><span aria-hidden="true">✦</span> Analisar e sugerir dados</button>
+      <button type="button" id="remover-foto" hidden>Remover foto</button>
+    </div>
+    <div id="analise-resultado" class="analise-resultado" role="status" hidden></div>
+  </div>
+</section>
+{% if form.errors %}<p role="alert" class="errorlist">Revise os campos destacados antes de salvar.</p>{% endif %}{{ form.non_field_errors }}
+<section class="cadastro-card"><h2>Comece pelo catálogo</h2><p>Escolha um modelo existente ou cadastre um novo.</p><div class="cadastro-campo">{{ form.modelo.label_tag }}{{ form.modelo }}{{ form.modelo.errors }}</div></section>
+{% for section in form.sections %}
+<section class="cadastro-card" {% if section.id %}id="{{ section.id }}"{% endif %}><h2>{{ section.title }}</h2><div class="cadastro-grid">
+{% for field in section.fields %}<div class="cadastro-campo">{{ field.label_tag }}{{ field }}{{ field.errors }}{% if field.field.required %}<small>Obrigatório</small>{% endif %}</div>{% endfor %}
+</div>
+{% if section.id %}<div id="caracteristicas-modelo"><h2 style="margin-top:28px">Características da categoria</h2><p id="dica-categoria">Selecione uma categoria para ver as características.</p><div class="cadastro-grid">
+{% for entry in form.characteristic_fields %}<div class="cadastro-campo" data-tipos="{{ entry.types }}">{{ entry.field.label_tag }}{{ entry.field }}{{ entry.field.errors }}</div>{% endfor %}
+</div></div>{% endif %}
+</section>{% endfor %}
+<div class="cadastro-rodape"><p>Após salvar, a peça fica disponível em Meus colecionáveis para adicionar à estante.</p><div><a href="{% url 'core:meus_colecionaveis' %}">Cancelar</a><button type="submit">Salvar colecionável</button></div></div>
+</form></div>
+<script>
+const modelo=document.getElementById('id_modelo'), tipo=document.getElementById('id_tipo');
+function atualizar(){
+ const novo=!modelo.value;
+ document.getElementById('modelo-novo').hidden=!novo;
+ document.querySelectorAll('#modelo-novo input,#modelo-novo select').forEach(el=>el.disabled=!novo);
+ document.querySelectorAll('[data-tipos]').forEach(el=>{const mostrar=novo&&el.dataset.tipos.split(' ').includes(tipo.value);el.hidden=!mostrar;el.querySelectorAll('input,select').forEach(f=>f.disabled=!mostrar);});
+ document.getElementById('dica-categoria').hidden=Boolean(tipo.value);
+}
+modelo.addEventListener('change',atualizar);tipo.addEventListener('change',atualizar);atualizar();
+</script>
+<script src="{% static 'js/cadastro-foto.js' %}?v=2" defer></script>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "core/base.html" %}
+{% load forjageek_extras %}
+{% load static %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/home.css' %}?v=20260917-1">{% endblock %}
+
+{% block titulo %}ForjaGeek — O mercado dos colecionadores{% endblock %}
+
+{% block conteudo %}
+  <div class="container home-catalogo">
+
+
+    <div class="catalogo-layout">
+
+      <aside class="filtros-sidebar">
+        <details class="filtros-painel" open>
+          <summary>
+            <span><strong>Pesquisa</strong><small>Refine os resultados</small></span>
+            <span class="filtros-seta" aria-hidden="true">⌄</span>
+          </summary>
+        <form method="get" class="filtros-form" data-filtros-automaticos>
+
+          <fieldset class="filter-group">
+            <legend>Categoria</legend>
+            <label class="filter-option">
+              <input type="radio" name="tipo" value="" {% if not filtros.tipo %}checked{% endif %}><span>Todos</span>
+            </label>
+            {% for tipo in tipos %}
+              <label class="filter-option">
+                <input type="radio" name="tipo" value="{{ tipo.nome_tipo }}" {% if filtros.tipo == tipo.nome_tipo %}checked{% endif %}>
+                <span>{{ tipo.nome_tipo }}</span>
+              </label>
+            {% endfor %}
+          </fieldset>
+
+          <div class="filtros-campos">
+          <div class="field filtro-campo">
+            <label for="id_franquia">Franquia</label>
+            <input type="text" name="franquia" id="id_franquia" value="{{ filtros.franquia }}" placeholder="Ex: Transformers">
+          </div>
+
+          <div class="field filtro-campo">
+            <label for="id_personagem">Personagem</label>
+            <input type="text" name="personagem" id="id_personagem" value="{{ filtros.personagem }}" placeholder="Ex: Optimus Prime">
+          </div>
+
+          <div class="field filtro-campo">
+            <label for="id_fabricante">Fabricante</label>
+            <input type="text" name="fabricante" id="id_fabricante" value="{{ filtros.fabricante }}" placeholder="Ex: Hasbro">
+          </div>
+
+          <div class="field filtro-campo">
+            <label for="id_escala">Escala</label>
+            <input type="text" name="escala" id="id_escala" value="{{ filtros.escala }}" placeholder="Ex: 1/144">
+          </div>
+          </div>
+
+          <fieldset class="filter-group">
+            <legend>Estado</legend>
+            <label class="filter-option"><input type="radio" name="estado" value="" {% if not filtros.estado %}checked{% endif %}><span>Todos</span></label>
+            <label class="filter-option"><input type="radio" name="estado" value="MISB" {% if filtros.estado == "MISB" %}checked{% endif %}><span>Lacrado (MISB)</span></label>
+            <label class="filter-option"><input type="radio" name="estado" value="Aberto" {% if filtros.estado == "Aberto" %}checked{% endif %}><span>Aberto para exibição</span></label>
+            <label class="filter-option"><input type="radio" name="estado" value="Loose" {% if filtros.estado == "Loose" %}checked{% endif %}><span>Loose</span></label>
+            <label class="filter-option"><input type="radio" name="estado" value="avariada" {% if filtros.estado == "avariada" %}checked{% endif %}><span>Caixa avariada</span></label>
+          </fieldset>
+
+          <div class="filtros-acoes">
+            <button type="submit" class="btn btn-primary">Aplicar filtros</button>
+            {% if filtros.tipo or filtros.franquia or filtros.personagem or filtros.fabricante or filtros.escala or filtros.estado %}<a href="{% url 'core:index' %}">Limpar filtros</a>{% endif %}
+          </div>
+        </form>
+        </details>
+      </aside>
+
+      <div>
+        <div class="section-head">
+          <div><h2>Resultados</h2><p class="resultados-contagem">{{ itens|length }} ite{{ itens|length|pluralize:"m,ns" }} encontrado{{ itens|length|pluralize:"s" }}</p></div>
+        </div>
+        {% include "core/_grade_itens.html" %}
+      </div>
+
+    </div>
+  </div>
+  <script>
+    (() => {
+      const form = document.querySelector('[data-filtros-automaticos]');
+      if (!form) return;
+
+      form.addEventListener('change', (event) => {
+        if (!event.target.matches('input[type="radio"]')) return;
+        form.classList.add('filtros-enviando');
+        form.setAttribute('aria-busy', 'true');
+        requestAnimationFrame(() => form.requestSubmit());
+      });
+    })();
+  </script>
+{% endblock %}

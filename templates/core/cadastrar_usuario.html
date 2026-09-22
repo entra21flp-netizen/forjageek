@@ -1,0 +1,49 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block titulo %}Criar conta — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/conta.css' %}?v=1">{% endblock %}
+
+{% block conteudo %}
+<div class="container conta-pagina">
+  <section class="conta-apresentacao">
+    <span class="conta-marca">SUA COLEÇÃO COMEÇA AQUI</span>
+    <h1>Crie sua conta na ForjaGeek</h1>
+    <p>Organize sua coleção, monte sua prateleira virtual e encontre outros colecionadores.</p>
+    <ul>
+      <li><span>01</span> Cadastre cada peça com seus detalhes e fotos</li>
+      <li><span>02</span> Escolha o que deseja guardar, vender ou trocar</li>
+      <li><span>03</span> Mostre sua coleção do seu jeito</li>
+    </ul>
+  </section>
+
+  <section class="conta-card">
+    <div class="conta-card-cabecalho">
+      <span>CADASTRO</span>
+      <h2>Seus dados</h2>
+      <p>Preencha as informações abaixo para criar seu perfil.</p>
+    </div>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="conta-erros" role="alert">{{ form.non_field_errors }}</div>
+      {% endif %}
+
+      <div class="conta-grid">
+        {% for field in form %}
+          <div class="conta-campo{% if field.name == 'username' or field.name == 'email' or field.name == 'password1' or field.name == 'password2' %} conta-campo-largo{% endif %}">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}<small>{{ field.help_text|safe }}</small>{% endif %}
+            {% if field.errors %}<div class="conta-campo-erros" role="alert">{{ field.errors }}</div>{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="conta-botao">Criar minha conta</button>
+      <p class="conta-alternativa">Já participa da comunidade? <a href="{% url 'core:login' %}">Entrar</a></p>
+    </form>
+  </section>
+</div>
+{% endblock %}

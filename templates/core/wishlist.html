@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block titulo %}Minha Wishlist — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/home.css' %}?v=20260921-1"><link rel="stylesheet" href="{% static 'css/wishlist.css' %}?v=2">{% endblock %}
+{% block conteudo %}
+<div class="container wishlist-pagina home-catalogo">
+  <header class="wishlist-cabecalho">
+    <div><span>SEUS FAVORITOS</span><h1>Minha Wishlist</h1><p>Guarde os colecionáveis que você quer acompanhar ou comprar depois.</p></div>
+    <strong>{{ itens|length }} ite{{ itens|length|pluralize:"m,ns" }}</strong>
+  </header>
+  {% if itens %}
+    {% include "core/_grade_itens.html" %}
+  {% else %}
+    <section class="wishlist-vazia"><span aria-hidden="true">♡</span><h2>Sua Wishlist está vazia</h2><p>Use o coração nos colecionáveis para guardar seus favoritos aqui.</p><a href="{% url 'core:index' %}">Explorar colecionáveis</a></section>
+  {% endif %}
+</div>
+{% endblock %}

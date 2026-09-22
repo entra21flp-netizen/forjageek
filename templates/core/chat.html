@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titulo %}Chat — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/chat.css' %}?v=1">{% endblock %}
+{% block conteudo %}
+<div class="container chat-pagina">
+  <header class="chat-titulo"><span>NEGOCIAÇÕES</span><h1>Conversas</h1><p>Converse com outros colecionadores sobre vendas e trocas.</p></header>
+  <div class="chat-layout{% if not conversa_ativa %} chat-sem-conversa{% endif %}">
+    <aside class="chat-lista" aria-label="Suas conversas">
+      {% for item in conversas %}<a href="{% url 'core:chat_conversa' item.conversa.id %}" class="chat-contato{% if conversa_ativa.id == item.conversa.id %} ativo{% endif %}"><span class="chat-avatar">{{ item.outro.username|first|upper }}</span><span><strong>@{{ item.outro.username }}</strong>{% if item.conversa.colecionavel %}<small>{{ item.conversa.colecionavel.nome_personalizado|default:item.conversa.colecionavel.modelo.nome_modelo }}</small>{% endif %}{% if item.ultima %}<em>{{ item.ultima.texto|truncatechars:42 }}</em>{% endif %}</span></a>{% empty %}<div class="chat-lista-vazia"><span>💬</span><p>Suas conversas aparecerão aqui.</p></div>{% endfor %}
+    </aside>
+    <section class="chat-conversa">
+      {% if conversa_ativa %}
+      <header class="chat-cabecalho"><div class="chat-avatar">{{ outro_ativo.username|first|upper }}</div><div><strong>@{{ outro_ativo.username }}</strong>{% if conversa_ativa.colecionavel %}<a href="{% url 'core:produto' conversa_ativa.colecionavel.id %}">Sobre: {{ conversa_ativa.colecionavel.nome_personalizado|default:conversa_ativa.colecionavel.modelo.nome_modelo }}</a>{% endif %}</div></header>
+      <div class="chat-mensagens" id="chat-mensagens">{% for mensagem in mensagens %}<article class="chat-balao{% if mensagem.autor_id == user.id %} minha{% endif %}"><p>{{ mensagem.texto|linebreaksbr }}</p><small>{{ mensagem.enviada_em|date:"H:i" }}</small></article>{% empty %}<div class="chat-inicio" id="chat-inicio"><span>👋</span><p>Inicie a conversa sobre este colecionável.</p></div>{% endfor %}</div>
+      <form class="chat-form" id="chat-form" data-url="{% url 'core:enviar_mensagem' conversa_ativa.id %}">{% csrf_token %}<label class="sr-only" for="chat-texto">Mensagem</label><textarea id="chat-texto" name="texto" maxlength="2000" rows="1" placeholder="Digite uma mensagem…" required></textarea><button type="submit">Enviar</button></form>
+      {% else %}<div class="chat-selecione"><span>💬</span><h2>Comece uma conversa</h2><p>Abra um colecionável e clique em “Conversar” para falar com o proprietário.</p><a href="{% url 'core:index' %}">Explorar colecionáveis</a></div>{% endif %}
+    </section>
+  </div>
+</div>
+<script src="{% static 'js/chat.js' %}?v=1" defer></script>
+{% endblock %}
