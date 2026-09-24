@@ -63,6 +63,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CSRF_TRUSTED_ORIGINS = [
+    "https://forjageek.space",
+    "https://www.forjageek.space",
+]
 
 ROOT_URLCONF = 'forjageek.urls'
 
