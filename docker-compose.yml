@@ -2,9 +2,9 @@ services:
   web:
     build: .
     container_name: forjageek_web
-
     ports:
       - "8000:8000"
+    restart: unless-stopped
 
     volumes:
       - ./media:/app/media
@@ -13,8 +13,7 @@ services:
     env_file:
       - .env
 
-    restart: unless-stopped
-
     command: >
-      sh -c "python manage.py collectstatic --noinput &&
-             gunicorn forjageek.wsgi:application --bind 0.0.0.0:8000"
+      sh -c "python manage.py migrate && python manage.py collectstatic --noinput &&
+             gunicorn ForjaGeek.wsgi:application --bind 0.0.0.0:8000"
+

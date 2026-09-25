@@ -68,7 +68,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://www.forjageek.space",
 ]
 
-ROOT_URLCONF = 'forjageek.urls'
+ROOT_URLCONF = 'ForjaGeek.urls'
 
 TEMPLATES = [
     {
@@ -86,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'forjageek.wsgi.application'
+WSGI_APPLICATION = 'ForjaGeek.wsgi.application'
 
 
 # Database

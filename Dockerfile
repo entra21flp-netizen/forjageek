@@ -13,4 +13,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["gunicorn", "forjageek.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "ForjaGeek.wsgi:application", "--bind", "0.0.0.0:8000"]
