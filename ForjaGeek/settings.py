@@ -156,9 +156,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = "/var/www/forjageek/static"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "/var/www/forjageek/media"
 
 LOGIN_URL = 'core:login'
 LOGIN_REDIRECT_URL = 'core:index'
@@ -175,9 +178,6 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "true").lower() in {"1", "true", "yes
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER or "nao-responda@forjageek.local")
 EMAIL_CONFIGURADO = bool(EMAIL_HOST and EMAIL_HOST_USER and EMAIL_HOST_PASSWORD)
 PASSWORD_RESET_TIMEOUT = 60 * 60 * 24
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 # Twilio Verify — confirmação do número pelo WhatsApp.
 TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID', '').strip()

@@ -7,13 +7,14 @@ services:
     restart: unless-stopped
 
     volumes:
-      - ./media:/app/media
-      - ./staticfiles:/app/staticfiles
+      - /var/www/forjageek/static:/var/www/forjageek/static
+      - /var/www/forjageek/media:/var/www/forjageek/media
 
     env_file:
       - .env
 
     command: >
-      sh -c "python manage.py migrate && python manage.py collectstatic --noinput &&
-             gunicorn ForjaGeek.wsgi:application --bind 0.0.0.0:8000"
+      sh -c "python manage.py migrate &&
+            python manage.py collectstatic --noinput &&
+            gunicorn ForjaGeek.wsgi:application --bind 0.0.0.0:8000"
 
