@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError, transaction
+from django.db.models.deletion import ProtectedError
 from django.db.models import Avg, Count, Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -14,6 +15,7 @@ from django.utils import timezone
 
 from catalogo.models import TipoColecionavel
 from inventario.models import AvaliacaoEstante, ColecionavelUsuario, EstanteVirtual, ItemEstante, Diorama, ItemWishlist
+from dioramas_novo.models import DioramaGeradoNovo
 from transacoes.models import AvaliacaoVenda
 from .carrinho import CHAVE_SESSAO_CARRINHO, contexto_carrinho, ids_do_carrinho
 from .models import Conversa, Mensagem
@@ -115,6 +117,64 @@ def index(request):
         "mensagem_vazio": "Nenhum item encontrado com esses filtros.",
     }
     return render(request, "core/index.html", contexto)
+
+
+def mercado(request):
+    """Colecionáveis públicos anunciados para venda, troca ou ambas."""
+    busca = request.GET.get("q", "").strip()
+    modalidade = request.GET.get("modalidade", "todos")
+    modalidades = {
+        "venda": [
+            ColecionavelUsuario.NEGOCIACAO_VENDA,
+            ColecionavelUsuario.NEGOCIACAO_VENDA_OU_TROCA,
+        ],
+        "troca": [
+            ColecionavelUsuario.NEGOCIACAO_TROCA,
+            ColecionavelUsuario.NEGOCIACAO_VENDA_OU_TROCA,
+        ],
+        "todos": [
+            ColecionavelUsuario.NEGOCIACAO_VENDA,
+            ColecionavelUsuario.NEGOCIACAO_TROCA,
+            ColecionavelUsuario.NEGOCIACAO_VENDA_OU_TROCA,
+        ],
+    }
+    if modalidade not in modalidades:
+        modalidade = "todos"
+
+    itens = (
+        ColecionavelUsuario.objects
+        .filter(
+            status_privacidade=ColecionavelUsuario.PRIVACIDADE_PUBLICO,
+            status_negociacao__in=modalidades[modalidade],
+        )
+        .select_related("modelo", "modelo__tipo", "usuario")
+        .prefetch_related("imagens")
+        .order_by("-data_inclusao")
+    )
+    if busca:
+        itens = itens.filter(
+            Q(nome_personalizado__icontains=busca)
+            | Q(modelo__nome_modelo__icontains=busca)
+            | Q(modelo__nome_personagem__icontains=busca)
+            | Q(modelo__franquia__icontains=busca)
+            | Q(modelo__fabricante__icontains=busca)
+        )
+
+    wishlist_ids = set()
+    if request.user.is_authenticated:
+        wishlist_ids = set(
+            ItemWishlist.objects.filter(usuario=request.user)
+            .values_list("colecionavel_usuario_id", flat=True)
+        )
+
+    return render(request, "core/mercado.html", {
+        "itens": itens,
+        "busca": busca,
+        "modalidade": modalidade,
+        "wishlist_ids": wishlist_ids,
+        "mostrar_negociacao": True,
+        "mensagem_vazio": "Nenhum colecionável disponível com esses filtros.",
+    })
 
 
 def produto(request, item_id):
@@ -266,14 +326,19 @@ def prateleira(request):
     dioramas_por_ordem = {diorama.ordem: diorama for diorama in dioramas}
     posicionamentos = list(
         ItemEstante.objects.filter(estante=estante)
-        .select_related("colecionavel_usuario", "colecionavel_usuario__modelo")
+        .select_related("colecionavel_usuario", "colecionavel_usuario__modelo", "diorama_novo")
         .prefetch_related("colecionavel_usuario__imagens", "colecionavel_usuario__modelo__imagens")
         .order_by("posicao_slot")
     )
     itens_por_posicao = {
         posicao.posicao_slot: posicao.colecionavel_usuario
         for posicao in posicionamentos
-        if posicao.posicao_slot in range(1, 13)
+        if posicao.posicao_slot in range(1, 13) and posicao.colecionavel_usuario_id
+    }
+    dioramas_gerados_por_inicio = {
+        posicao.posicao_slot: posicao.diorama_novo
+        for posicao in posicionamentos
+        if posicao.diorama_novo_id and posicao.posicao_slot in (1, 5, 9)
     }
     slots = [{"numero": numero, "item": itens_por_posicao.get(numero)} for numero in range(1, 13)]
     prateleiras = []
@@ -285,18 +350,18 @@ def prateleira(request):
             "numero": numero,
             "slots": slots_da_prateleira,
             "diorama": dioramas_por_ordem[numero],
+            "diorama_gerado": dioramas_gerados_por_inicio.get(inicio + 1),
             "pecas": pecas,
             "nomes_pecas": [peca.modelo.nome_personagem for peca in pecas],
         })
     ids_posicionados = {item.id for item in itens_por_posicao.values()}
-    ids_na_estante = {posicao.colecionavel_usuario_id for posicao in posicionamentos}
+    ids_na_estante = {posicao.colecionavel_usuario_id for posicao in posicionamentos if posicao.colecionavel_usuario_id}
     itens_sem_posicao = [item for item in itens if item.id in ids_na_estante and item.id not in ids_posicionados]
     colecionaveis_disponiveis = [item for item in itens if item.id not in ids_na_estante]
 
     # "valor estimado" = soma do que o usuário pagou em cada item.
-    # Poderia usar preco_anunciado quando existir, mas nem todo item está
-    # anunciado — preco_pago é o único valor que TODO item sempre tem.
-    valor_total = sum((item.preco_pago for item in itens), Decimal("0"))
+    # O valor pago é opcional; itens sem essa informação não entram no total.
+    valor_total = sum((item.preco_pago or Decimal("0") for item in itens), Decimal("0"))
 
     contexto = {
         "itens": itens,
@@ -327,7 +392,7 @@ def meus_colecionaveis(request):
     posicionamentos = ItemEstante.objects.filter(estante=estante).only(
         "colecionavel_usuario_id", "posicao_slot"
     )
-    posicoes = {posicao.colecionavel_usuario_id: posicao.posicao_slot for posicao in posicionamentos}
+    posicoes = {posicao.colecionavel_usuario_id: posicao.posicao_slot for posicao in posicionamentos if posicao.colecionavel_usuario_id}
     colecionaveis = [
         {"item": item, "posicao": posicoes.get(item.id), "na_estante": item.id in posicoes}
         for item in itens
@@ -339,6 +404,9 @@ def meus_colecionaveis(request):
 @require_POST
 def mover_item_estante(request):
     """Move um colecionável para um dos doze espaços da estante principal."""
+    item_type = request.POST.get("item_type", "colecionavel")
+    if item_type not in {"colecionavel", "diorama"}:
+        return JsonResponse({"erro": "Tipo de item inválido."}, status=400)
     try:
         item_id = int(request.POST.get("item_id", ""))
         destino = int(request.POST.get("destino", ""))
@@ -349,6 +417,24 @@ def mover_item_estante(request):
 
     with transaction.atomic():
         estante = _estante_selecionada(request.user, request.POST.get("estante_id"))
+        inicio_linha = ((destino - 1) // 4) * 4 + 1
+        if item_type == "diorama":
+            diorama = get_object_or_404(DioramaGeradoNovo, pk=item_id, usuario=request.user)
+            item_estante, _ = ItemEstante.objects.select_for_update().get_or_create(
+                diorama_novo=diorama, defaults={"estante": estante},
+            )
+            if ItemEstante.objects.select_for_update().filter(
+                estante=estante, posicao_slot__range=(inicio_linha, inicio_linha + 3),
+            ).exclude(pk=item_estante.pk).exists():
+                return JsonResponse({"erro": "Libere toda a linha antes de mover o diorama."}, status=409)
+            item_estante.estante = estante
+            item_estante.posicao_slot = inicio_linha
+            item_estante.save(update_fields=["estante", "posicao_slot"])
+            return JsonResponse({"ok": True})
+        if ItemEstante.objects.select_for_update().filter(
+            estante=estante, posicao_slot=inicio_linha, diorama_novo__isnull=False,
+        ).exists():
+            return JsonResponse({"erro": "Esta linha está ocupada por um diorama."}, status=409)
         colecionavel = get_object_or_404(ColecionavelUsuario, id=item_id, usuario=request.user)
         item_estante, _ = ItemEstante.objects.select_for_update().get_or_create(
             colecionavel_usuario=colecionavel, defaults={"estante": estante}
@@ -477,6 +563,14 @@ def prateleira_publica(request, username):
         "colecionavel_usuario__imagens", "colecionavel_usuario__modelo__imagens"
     ).order_by("posicao_slot", "id"))
     dioramas_por_ordem = {diorama.ordem: diorama for diorama in estante.dioramas.all()}
+    dioramas_gerados_publicos = {
+        posicao.posicao_slot: posicao.diorama_novo
+        for posicao in ItemEstante.objects.filter(
+            estante=estante,
+            diorama_novo__colecionavel__status_privacidade=ColecionavelUsuario.PRIVACIDADE_PUBLICO,
+            posicao_slot__in=(1, 5, 9),
+        ).select_related("diorama_novo")
+    }
     itens_por_posicao = {
         posicao.posicao_slot: posicao.colecionavel_usuario
         for posicao in posicionamentos if posicao.posicao_slot in range(1, 13)
@@ -490,6 +584,7 @@ def prateleira_publica(request, username):
             "numero": numero,
             "slots": slots_da_prateleira,
             "diorama": dioramas_por_ordem.get(numero),
+            "diorama_gerado": dioramas_gerados_publicos.get((numero - 1) * 4 + 1),
             "pecas": pecas,
         })
     indice_destaque = min(max(estante.diorama_destaque, 1), 3) - 1
@@ -701,6 +796,29 @@ def editar_colecionavel(request, item_id):
         form.save()
         return redirect('core:meus_colecionaveis')
     return render(request, 'core/editar_colecionavel.html', {'form': form, 'item': item})
+
+
+@login_required
+def excluir_colecionavel(request, item_id):
+    item = get_object_or_404(
+        ColecionavelUsuario.objects.select_related('modelo', 'modelo__tipo'),
+        id=item_id,
+        usuario=request.user,
+    )
+    bloqueado = item.transacoes.exists()
+    if request.method == 'POST':
+        if bloqueado:
+            messages.error(request, 'Este colecionável possui uma transação e não pode ser excluído.')
+            return redirect('core:meus_colecionaveis')
+        nome = item.nome_personalizado or item.modelo.nome_modelo or item.modelo.nome_personagem
+        try:
+            item.delete()
+        except ProtectedError:
+            messages.error(request, 'Este colecionável possui registros protegidos e não pode ser excluído.')
+        else:
+            messages.success(request, f'O colecionável “{nome}” foi excluído.')
+        return redirect('core:meus_colecionaveis')
+    return render(request, 'core/confirmar_exclusao_colecionavel.html', {'item': item, 'bloqueado': bloqueado})
 
 
 def catalogo_figuras(request):

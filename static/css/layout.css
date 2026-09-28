@@ -43,20 +43,17 @@
   letter-spacing: 0.2px;
 }
 
-.site-header .logo img {
+.site-header .logo .logo-simbolo {
   width: 46px;
   height: 44px;
   object-fit: contain;
   filter: drop-shadow(0 3px 7px rgba(232, 98, 31, 0.2));
 }
 
-.site-header .logo .logo-nome {
-  color: var(--text);
-}
-
-.site-header .logo .logo-nome strong {
-  color: var(--accent);
-  font-weight: 700;
+.site-header .logo .logo-wordmark {
+  width: 112px;
+  height: 37px;
+  object-fit: contain;
 }
 
 .header-icons {
@@ -134,8 +131,8 @@
 .menu-conta-itens .header-logout { display: block; margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--border); }
 
 @media (max-width: 620px) {
-  .site-header .logo img { width: 38px; height: 36px; }
-  .site-header .logo .logo-nome { display: none; }
+  .site-header .logo .logo-simbolo { width: 38px; height: 36px; }
+  .site-header .logo .logo-wordmark { display: none; }
 }
 
 /* conteúdo principal */

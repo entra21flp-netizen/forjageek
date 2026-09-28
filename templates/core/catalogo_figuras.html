@@ -4,9 +4,9 @@
 {% block css_extra %}<link rel="stylesheet" href="{% static 'css/catalogo.css' %}?v=2">{% endblock %}
 {% block conteudo %}
 <div class="container catalogo-figuras">
-  <header class="catalogo-abertura"><div><span class="catalogo-eyebrow">CATÁLOGO DE MODELOS</span><h1>Action figures</h1><p>Modelos cadastrados no banco de dados da comunidade.</p></div><span class="catalogo-total">{{ total }} modelo{{ total|pluralize }}</span></header>
+  <header class="catalogo-abertura"><div><span class="catalogo-eyebrow">CATÁLOGO DE MODELOS</span><h1>Action figures</h1><p>Modelos cadastrados no banco de dados da comunidade.</p></div></header>
   <form method="get" class="catalogo-filtros">
-    <div><label for="busca-figuras">Buscar personagem ou modelo</label><input id="busca-figuras" name="q" value="{{ busca }}" placeholder="Goku, Vegeta, Kakashi…" type="search"></div>
+    <div><label for="busca-figuras">Buscar personagem ou modelo</label><input id="busca-figuras" name="q" value="{{ busca }}" placeholder="Goku, Homem-Aranha, Kratos…" type="search"></div>
     <div><label for="franquia-figuras">Franquia</label><select name="franquia" id="franquia-figuras"><option value="">Todas as franquias</option>{% for nome in franquias %}<option {% if franquia == nome %}selected{% endif %}>{{ nome }}</option>{% endfor %}</select></div>
     <button type="submit">Filtrar</button>{% if busca or franquia %}<a href="{% url 'core:catalogo_figuras' %}">Limpar</a>{% endif %}
   </form>

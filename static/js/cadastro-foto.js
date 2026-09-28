@@ -7,6 +7,7 @@
   const analyze = document.getElementById('analisar-foto');
   const status = document.getElementById('foto-status');
   const result = document.getElementById('analise-resultado');
+  const fileName = document.getElementById('nome-arquivo');
   if (!form || !input) return;
 
   const acceptedTypes = ['image/jpeg', 'image/png', 'image/webp'];
@@ -26,12 +27,16 @@
     remove.hidden = true;
     analyze.disabled = true;
     input.value = '';
+    if (fileName) fileName.textContent = 'Nenhum arquivo escolhido';
     status.textContent = '';
     result.hidden = true;
   }
 
   input.addEventListener('change', () => {
     const files = [...input.files];
+    if (fileName && files.length) {
+      fileName.textContent = files.length === 1 ? files[0].name : `${files.length} arquivos escolhidos`;
+    }
     result.hidden = true;
     if (!files.length) { clearPhoto(); return; }
     if (files.length > 6) {

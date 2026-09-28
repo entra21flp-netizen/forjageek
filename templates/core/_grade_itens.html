@@ -13,7 +13,7 @@
       <h3>{{ item.nome_personalizado|default:item.modelo.nome_modelo|default:item.modelo.nome_personagem }}</h3>
       <p>{{ item.modelo.franquia }}</p>
       <small>{{ item.condicao_caixa }}</small>
-      {% if mostrar_preco_pago %}<p class="price">R$ {{ item.preco_pago|floatformat:2 }}</p>
+      {% if mostrar_preco_pago and item.preco_pago != None %}<p class="price">R$ {{ item.preco_pago|floatformat:2 }}</p>
       {% elif item.status_negociacao == 'venda' or item.status_negociacao == 'venda_ou_troca' %}
         {% if item.preco_anunciado != None %}<p class="price">R$ {{ item.preco_anunciado|floatformat:2 }}</p>{% endif %}
       {% endif %}

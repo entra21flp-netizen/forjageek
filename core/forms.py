@@ -39,7 +39,7 @@ class CadastroColecionavelForm(forms.ModelForm):
     codigo_fabricante_sku = forms.CharField(max_length=100, required=False, label='Código do fabricante (SKU)')
     imagem_modelo = forms.URLField(max_length=500, required=False, label='URL da imagem do modelo')
     imagem_peca = forms.URLField(max_length=500, required=False, label='URL da imagem da sua peça')
-    preco_pago = forms.DecimalField(max_digits=20, decimal_places=2, min_value=0, localize=True, label='Valor pago (R$)')
+    preco_pago = forms.DecimalField(max_digits=20, decimal_places=2, min_value=0, localize=True, required=False, label='Valor pago (R$)')
     preco_anunciado = forms.DecimalField(max_digits=20, decimal_places=2, min_value=0.01, localize=True, required=False, label='Preço anunciado (R$)')
     class Meta:
         model = ColecionavelUsuario

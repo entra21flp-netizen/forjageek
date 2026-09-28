@@ -1,34 +1,29 @@
 {% extends "core/base.html" %}
 {% load static %}
-
 {% block titulo %}Entrar — ForjaGeek{% endblock %}
-{% block css_extra %}<link rel="stylesheet" href="{% static 'css/conta.css' %}?v=1">{% endblock %}
-
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/login.css' %}?v=2">{% endblock %}
 {% block conteudo %}
-<div class="container">
-  <h1>Entrar</h1>
-
-  {% if form.errors %}
-    <p class="page-note" style="border-color: var(--danger-text); color: var(--danger-text);">
-      Usuário ou senha incorretos.
-    </p>
-  {% endif %}
-
-  <form method="post" style="margin-top: 16px;">
-    {% csrf_token %}
-    <div class="field">
-      <label for="id_username">Usuário</label>
-      <input type="text" name="username" id="id_username" autofocus>
-    </div>
-    <div class="field">
-      <label for="id_password">Senha</label>
-      <input type="password" name="password" id="id_password">
-    </div>
-    <input type="hidden" name="next" value="{{ next }}">
-    <button type="submit" class="btn btn-primary">Entrar</button>
-  </form>
-
-  <p class="conta-alternativa"><a href="{% url 'core:recuperar_conta' %}">Esqueci minha senha</a></p>
-  <p class="conta-alternativa">Ainda não tem uma conta? <a href="{% url 'core:cadastro_usuario' %}">Criar conta</a></p>
-</div>
+<section class="login-page" aria-labelledby="login-title">
+  <div class="login-card">
+    <img class="login-logo" src="{% static 'images/logo-forjageek.png' %}" alt="" width="80" height="80">
+    <p class="login-eyebrow">O MERCADO DOS COLECIONADORES</p>
+    <h1 id="login-title">Sua coleção começa aqui.</h1>
+    <p class="login-intro">Entre na sua conta ForjaGeek.</p>
+    {% if form.errors %}<p class="login-error" id="login-error" role="alert">Usuário ou senha incorretos. Confira os dados e tente novamente.</p>{% endif %}
+    <form method="post" class="login-form">
+      {% csrf_token %}
+      <div class="login-field">
+        <label for="id_username">Usuário</label>
+        <input type="text" name="username" id="id_username" value="{{ form.username.value|default_if_none:'' }}" autocomplete="username" placeholder="Seu nome de usuário" required autofocus {% if form.errors %}aria-describedby="login-error" aria-invalid="true"{% endif %}>
+      </div>
+      <div class="login-field">
+        <div class="login-label-row"><label for="id_password">Senha</label><a href="{% url 'core:recuperar_conta' %}">Esqueci minha senha</a></div>
+        <input type="password" name="password" id="id_password" autocomplete="current-password" placeholder="Digite sua senha" required {% if form.errors %}aria-describedby="login-error" aria-invalid="true"{% endif %}>
+      </div>
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="login-submit">Entrar <span aria-hidden="true">→</span></button>
+    </form>
+    <p class="login-register">Ainda não tem uma conta? <a href="{% url 'core:cadastro_usuario' %}">Criar conta</a></p>
+  </div>
+</section>
 {% endblock %}

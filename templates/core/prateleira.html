@@ -1,19 +1,22 @@
 {% extends "core/base.html" %}
+{% load static dioramas_novo_tags %}
 
 {% block titulo %}Minha prateleira — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/dioramas_novo.css' %}?v=20260928-5">{% endblock %}
 
 {% block conteudo %}
 <div class="container">
   <div class="titulo-estante">
     <div><h1>{{ estante.nome_estante }}</h1><span class="text-muted">Sua estante virtual</span></div>
     <div class="seletor-estantes">
-      <label for="selecionar-estante">Estante</label>
-      <select id="selecionar-estante" onchange="window.location.href='?estante=' + this.value">
-        {% for opcao in estantes %}<option value="{{ opcao.id }}" {% if opcao.id == estante.id %}selected{% endif %}>{{ opcao.nome_estante }}</option>{% endfor %}
-      </select>
       <button type="button" class="botao-adicionar" id="abrir-nova-estante">+ Nova estante</button>
     </div>
   </div>
+  {% secao_dioramas_novos request.user estante %}
+  <dialog class="dn-create-dialog" id="dn-create-dialog" aria-label="Dioramas">
+    <div class="dn-dialog-top"><span>Criar Diorama</span><button type="button" class="dn-dialog-close" aria-label="Fechar janela">×</button></div>
+    <iframe class="dn-dialog-frame" title="Etapas e detalhes do diorama" loading="lazy"></iframe>
+  </dialog>
 
   <section class="privacidade-estante" data-url="{% url 'core:alterar_privacidade_estante' %}" data-public-path="{% url 'core:prateleira_publica' username=user.username %}?estante={{ estante.id }}">
     <div class="privacidade-identidade"><span aria-hidden="true">{% if estante.status_privacidade == 'publico' %}🌐{% else %}🔒{% endif %}</span><div><strong>{% if estante.status_privacidade == 'publico' %}Prateleira pública{% else %}Prateleira privada{% endif %}</strong><small>{% if estante.status_privacidade == 'publico' %}Outros usuários podem acessar pelo link.{% else %}Somente você pode visualizar esta prateleira.{% endif %}</small></div></div>
@@ -36,18 +39,6 @@
     </form>
   </div>
 
-  <section class="diorama-destaque" aria-labelledby="diorama-destaque-titulo">
-    <div class="diorama-destaque-visual" aria-hidden="true">🏞️</div>
-    <div class="diorama-destaque-conteudo">
-      <span>DIORAMA VISÍVEL · PRATELEIRA {{ diorama_destaque.numero }}</span>
-      <h2 id="diorama-destaque-titulo">{% if diorama_destaque.diorama.configurado %}{{ diorama_destaque.diorama.titulo }}{% else %}Diorama ainda não configurado{% endif %}</h2>
-      <p>{% if diorama_destaque.diorama.descricao %}{{ diorama_destaque.diorama.descricao }}{% else %}Use o botão Criar diorama na prateleira {{ diorama_destaque.numero }} para montar este cenário.{% endif %}</p>
-      <div class="diorama-destaque-pecas">
-        {% for peca in diorama_destaque.pecas %}<span>{{ peca.modelo.nome_personagem }}</span>{% empty %}<span>Nenhuma peça posicionada</span>{% endfor %}
-      </div>
-    </div>
-  </section>
-
   <!-- CABEÇALHO DA SEÇÃO DE ITENS E SELETOR DE TEMA -->
   <div class="section-head" style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: flex-end;">
     <div>
@@ -59,17 +50,17 @@
       <button type="button" class="botao-adicionar" id="abrir-adicionar">+ Adicionar</button>
       <!-- Seletor interativo de tema da prateleira -->
       <div class="field" style="margin-bottom: 0; width: 200px;">
-        <label for="select-tema" style="font-size: 11px;">Estilo da Prateleira</label>
+        <label for="select-tema" style="font-size: 11px;">Estilo da Estante</label>
         <select id="select-tema" onchange="mudarTemaPrateleira(this.value)">
+          <option value="forjageek">(ForjaGeek)</option>
           <option value="futurista">(Cyber)</option>
           <option value="vulcanico">(Lava)</option>
-          <option value="madeira">(Clássico)</option>
         </select>
       </div>
     </div>
   </div>
 
-  <div id="prateleira-container" class="estante" data-theme="futurista" data-estante-id="{{ estante.id }}" data-move-url="{% url 'core:mover_item_estante' %}">
+  <div id="prateleira-container" class="estante" data-theme="forjageek" data-estante-id="{{ estante.id }}" data-move-url="{% url 'core:mover_item_estante' %}">
     <div class="estante-instrucoes">
       <span>Arraste os colecionáveis para organizar sua estante.</span>
       <strong>12 espaços · 4 por prateleira</strong>
@@ -88,9 +79,16 @@
                 <strong id="titulo-prateleira-{{ prateleira.numero }}">{% if prateleira.diorama.configurado %}{{ prateleira.diorama.titulo }}{% else %}Sem diorama{% endif %}</strong>
                 <small>{{ prateleira.pecas|length }} peça{{ prateleira.pecas|length|pluralize }} neste cenário</small>
               </div>
-              <button type="button" class="botao-diorama-fileira" data-ordem="{{ prateleira.numero }}" data-configurado="{{ prateleira.diorama.configurado|yesno:'true,false' }}" data-titulo="{{ prateleira.diorama.titulo }}" data-descricao="{{ prateleira.diorama.descricao }}" data-pecas="{{ prateleira.nomes_pecas|join:', ' }}">{% if prateleira.diorama.configurado %}Editar diorama{% else %}+ Criar diorama{% endif %}</button>
             </div>
             <div class="prateleira-slots">
+              {% if prateleira.diorama_gerado %}
+                <div class="dn-shelf-row" aria-label="Diorama na prateleira {{ prateleira.numero }}" draggable="true" data-item-id="{{ prateleira.diorama_gerado.id }}" data-item-type="diorama" title="Arraste para outra linha">
+                  <div class="dn-shelf-row-visual" style="--dn-row-image:url('{{ prateleira.diorama_gerado.imagem.url }}')">
+                    <img src="{{ prateleira.diorama_gerado.imagem.url }}" alt="{{ prateleira.diorama_gerado.titulo }}" loading="lazy">
+                  </div>
+                  <div class="dn-shelf-row-info"><strong>{{ prateleira.diorama_gerado.titulo }}</strong><form method="post" action="{% url 'dioramas_novo:remover_prateleira' prateleira.diorama_gerado.id %}">{% csrf_token %}<button type="submit">Remover da estante</button></form></div>
+                </div>
+              {% else %}
               {% for slot in prateleira.slots %}
                 <div class="estante-slot {% if slot.item %}ocupado{% else %}vazio{% endif %}" data-slot="{{ slot.numero }}">
                   <span class="numero-slot">{{ slot.numero }}</span>
@@ -106,6 +104,7 @@
                   {% endif %}
                 </div>
               {% endfor %}
+              {% endif %}
             </div>
           </section>
         {% endfor %}
@@ -139,7 +138,7 @@
           <h2 id="titulo-adicionar">Adicionar à estante</h2>
           <p>Escolha um colecionável já cadastrado na sua coleção.</p>
         </div>
-        <button type="button" class="fechar-modal" aria-label="Fechar">×</button>
+        <button type="button" class="fechar-modal" data-fecha-adicionar aria-label="Fechar">×</button>
       </div>
       <div class="lista-colecionaveis">
         {% for item in colecionaveis_disponiveis %}
@@ -174,7 +173,11 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    const temaSalvo = localStorage.getItem('tema_prateleira_forjageek') || 'futurista';
+    let temaSalvo = localStorage.getItem('tema_prateleira_forjageek') || 'forjageek';
+    if (temaSalvo === 'madeira') {
+      temaSalvo = 'forjageek';
+      localStorage.setItem('tema_prateleira_forjageek', temaSalvo);
+    }
     const selectTema = document.getElementById('select-tema');
     const container = document.getElementById('prateleira-container');
 
@@ -190,7 +193,6 @@
     const modalDioramas = document.getElementById('modal-dioramas');
     const modalNovaEstante = document.getElementById('modal-nova-estante');
     const abrirAdicionar = document.getElementById('abrir-adicionar');
-    const fecharModal = document.querySelector('.fechar-modal');
     const csrfToken = document.cookie.match(/csrftoken=([^;]+)/)?.[1] || '';
     const privacidade = document.querySelector('.privacidade-estante');
 
@@ -242,9 +244,15 @@
         if (resposta.ok) window.location.reload();
       });
     });
-    fecharModal?.addEventListener('click', () => { modalAdicionar.hidden = true; });
+    document.querySelector('[data-fecha-adicionar]')?.addEventListener('click', () => { modalAdicionar.hidden = true; });
     modalAdicionar?.addEventListener('click', (evento) => {
       if (evento.target === modalAdicionar) modalAdicionar.hidden = true;
+    });
+    document.addEventListener('keydown', (evento) => {
+      if (evento.key === 'Escape' && modalAdicionar && !modalAdicionar.hidden) {
+        modalAdicionar.hidden = true;
+        abrirAdicionar?.focus();
+      }
     });
     document.querySelectorAll('.adicionar-da-lista').forEach((botao) => {
       botao.addEventListener('click', () => enviarAcao('{% url "core:adicionar_item_estante" %}', botao.dataset.itemId));
@@ -271,8 +279,9 @@
       if (resposta.ok) window.location.reload();
     });
     let itemArrastado = null;
-    document.querySelectorAll('.colecionavel-estante').forEach((item) => {
-      item.addEventListener('dragstart', () => { itemArrastado = item.dataset.itemId; item.classList.add('arrastando'); });
+    let tipoItemArrastado = 'colecionavel';
+    document.querySelectorAll('.colecionavel-estante, .dn-shelf-row').forEach((item) => {
+      item.addEventListener('dragstart', () => { itemArrastado = item.dataset.itemId; tipoItemArrastado = item.dataset.itemType || 'colecionavel'; item.classList.add('arrastando'); });
       item.addEventListener('dragend', () => item.classList.remove('arrastando'));
     });
     document.querySelectorAll('.estante-slot').forEach((slot) => {
@@ -285,10 +294,48 @@
         const resposta = await fetch(estante.dataset.moveUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': csrfToken },
-          body: new URLSearchParams({ item_id: itemArrastado, destino: slot.dataset.slot, estante_id: estante.dataset.estanteId }),
+          body: new URLSearchParams({ item_id: itemArrastado, item_type: tipoItemArrastado, destino: slot.dataset.slot, estante_id: estante.dataset.estanteId }),
         });
         if (resposta.ok) window.location.reload();
       });
+    });
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const dialog = document.querySelector('#dn-create-dialog');
+    if (!dialog || !dialog.showModal) return;
+    const frame = dialog.querySelector('iframe');
+    let activeTrigger = null;
+    let refreshShelf = false;
+    document.addEventListener('click', (event) => {
+      const trigger = event.target.closest('[data-dn-open-modal], [data-dn-detail-modal]');
+      if (!trigger) return;
+      event.preventDefault();
+      activeTrigger = trigger;
+      refreshShelf = false;
+      dialog.querySelector('.dn-dialog-top span').textContent = trigger.hasAttribute('data-dn-detail-modal') ? 'Detalhes do Diorama' : 'Criar Diorama';
+      frame.src = trigger.href;
+      dialog.showModal();
+    });
+    dialog.querySelector('.dn-dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    frame.addEventListener('load', () => {
+      try {
+        const path = frame.contentWindow.location.pathname;
+        if (path.includes('/dioramas/') && path.includes('/posicionar/')) refreshShelf = true;
+        if (path === window.location.pathname) {
+          refreshShelf = true;
+          dialog.close();
+        }
+      } catch (error) { /* O frame permanece visível se o navegador impedir a leitura. */ }
+    });
+    dialog.addEventListener('close', () => {
+      frame.src = 'about:blank';
+      if (activeTrigger) activeTrigger.focus();
+      if (refreshShelf) window.location.reload();
     });
   });
 </script>

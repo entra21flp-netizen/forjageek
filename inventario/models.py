@@ -48,7 +48,7 @@ class ColecionavelUsuario(models.Model):
         help_text="Ex: MISB lacrado, Aberto p/ exibição, Loose, Caixa avariada",
     )
     data_inclusao = models.DateTimeField(auto_now_add=True)
-    preco_pago = models.DecimalField(max_digits=20, decimal_places=2)
+    preco_pago = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
     local_armazenamento = models.CharField(max_length=255, blank=True, null=True)
 
     status_privacidade = models.CharField(
@@ -182,7 +182,17 @@ class ItemEstante(models.Model):
         ColecionavelUsuario,
         on_delete=models.CASCADE,
         related_name="posicionamento",
+        null=True,
+        blank=True,
         help_text="OneToOne: garante que o item fique em apenas 1 slot, como no diagrama original",
+    )
+    diorama_novo = models.OneToOneField(
+        "dioramas_novo.DioramaGeradoNovo",
+        on_delete=models.CASCADE,
+        related_name="posicionamento_prateleira",
+        null=True,
+        blank=True,
+        help_text="Diorama que ocupa uma linha inteira da estante.",
     )
     posicao_slot = models.IntegerField(null=True, blank=True)
     data_posicionamento = models.DateTimeField(auto_now_add=True)
@@ -192,9 +202,31 @@ class ItemEstante(models.Model):
         verbose_name = "Item da estante"
         verbose_name_plural = "Itens das estantes"
         ordering = ["estante", "posicao_slot"]
+        constraints = [
+            models.CheckConstraint(
+                condition=(
+                    models.Q(colecionavel_usuario__isnull=False, diorama_novo__isnull=True)
+                    | models.Q(colecionavel_usuario__isnull=True, diorama_novo__isnull=False)
+                ),
+                name="item_estante_exatamente_um_tipo",
+            ),
+            models.UniqueConstraint(
+                fields=["estante", "posicao_slot"],
+                condition=models.Q(posicao_slot__isnull=False),
+                name="item_estante_slot_unico",
+            ),
+            models.CheckConstraint(
+                condition=(
+                    models.Q(diorama_novo__isnull=True)
+                    | models.Q(posicao_slot__isnull=True)
+                    | models.Q(posicao_slot__in=[1, 5, 9])
+                ),
+                name="diorama_apenas_inicio_linha",
+            ),
+        ]
 
     def __str__(self):
-        return f"{self.colecionavel_usuario} em {self.estante}"
+        return f"{self.colecionavel_usuario or self.diorama_novo} em {self.estante}"
 
 
 class ImagemColecionavel(models.Model):

@@ -1,0 +1,16 @@
+{% extends "dioramas_novo/base.html" %}
+{% block diorama_conteudo %}
+<header class="dn-hero"><span class="dn-kicker">Etapa 1 de 3</span><h1>Escolha seu colecionável</h1><p>Selecione uma peça da sua coleção para transformá-la em um diorama.</p></header>
+<div class="dn-grid">
+  {% for item in colecionaveis %}
+    <article class="dn-card">
+      {% with foto=item.imagens.first %}
+        <div class="dn-card-media">{% if foto.arquivo %}<img src="{{ foto.arquivo.url }}" alt="{{ item.modelo }}">{% elif foto.url_imagem %}<img src="{{ foto.url_imagem }}" alt="{{ item.modelo }}">{% else %}<span>Sem imagem</span>{% endif %}</div>
+      {% endwith %}
+      <div class="dn-card-body"><span class="dn-tag">{{ item.modelo.tipo.nome_tipo }}</span><h2>{{ item.nome_personalizado|default:item.modelo.nome_modelo|default:item.modelo.nome_personagem }}</h2><p>{{ item.modelo.nome_personagem }} · {{ item.modelo.franquia }}</p><a class="dn-button" href="{% url 'dioramas_novo:configurar' item.id %}">Selecionar</a></div>
+    </article>
+  {% empty %}
+    <div class="dn-empty"><h2>Nenhum colecionável encontrado</h2><p>Cadastre uma peça antes de criar seu primeiro diorama.</p><a class="dn-button" href="{% url 'core:cadastrar_colecionavel' %}">Cadastrar colecionável</a></div>
+  {% endfor %}
+</div>
+{% endblock %}

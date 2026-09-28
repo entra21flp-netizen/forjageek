@@ -1,0 +1,43 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block titulo %}Mercado — ForjaGeek{% endblock %}
+
+{% block css_extra %}
+  <link rel="stylesheet" href="{% static 'css/home.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/mercado.css' %}?v=1">
+{% endblock %}
+
+{% block conteudo %}
+<main class="container mercado-pagina home-catalogo">
+  <header class="mercado-cabecalho">
+    <div>
+      <span class="mercado-etiqueta">MERCADO FORJAGEEK</span>
+      <h1>Colecionáveis disponíveis</h1>
+      <p>Encontre peças anunciadas para venda ou troca pela comunidade.</p>
+    </div>
+    <strong>{{ itens|length }} anúncio{{ itens|length|pluralize }}</strong>
+  </header>
+
+  <form method="get" class="mercado-filtros">
+    <label>
+      <span>Buscar colecionável</span>
+      <input type="search" name="q" value="{{ busca }}" placeholder="Goku, Homem-Aranha, Kratos…">
+    </label>
+    <label>
+      <span>Disponibilidade</span>
+      <select name="modalidade">
+        <option value="todos"{% if modalidade == 'todos' %} selected{% endif %}>Venda e troca</option>
+        <option value="venda"{% if modalidade == 'venda' %} selected{% endif %}>À venda</option>
+        <option value="troca"{% if modalidade == 'troca' %} selected{% endif %}>Para troca</option>
+      </select>
+    </label>
+    <button type="submit">Buscar</button>
+    {% if busca or modalidade != 'todos' %}<a href="{% url 'core:mercado' %}">Limpar filtros</a>{% endif %}
+  </form>
+
+  <section class="mercado-resultados" aria-label="Anúncios do mercado">
+    {% include "core/_grade_itens.html" %}
+  </section>
+</main>
+{% endblock %}

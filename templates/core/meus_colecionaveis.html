@@ -23,6 +23,7 @@
         </div>
         <div class="status-estante">
           <a class="botao-editar" href="{% url 'core:editar_colecionavel' colecionavel.item.id %}">Editar</a>
+          <a class="botao-excluir-colecionavel" href="{% url 'core:excluir_colecionavel' colecionavel.item.id %}">Excluir</a>
           {% if colecionavel.na_estante %}
             <span class="badge-na-estante">{% if colecionavel.posicao %}Na estante · posição {{ colecionavel.posicao }}{% else %}Na estante · aguardando posição{% endif %}</span>
           {% else %}

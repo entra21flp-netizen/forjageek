@@ -1,0 +1,11 @@
+{% extends "dioramas_novo/base.html" %}
+{% block diorama_conteudo %}
+<header class="dn-hero"><span class="dn-kicker">Etapa 3 de 3</span><h1>Seu diorama está pronto</h1><p>Confira o resultado antes de salvar definitivamente.</p></header>
+<article class="dn-preview"><img src="{{ preview_url }}" alt="Preview do diorama de {{ colecionavel.modelo.nome_personagem }}"><div class="dn-preview-info"><dl><dt>Colecionável</dt><dd>{{ colecionavel.modelo }}</dd><dt>Tipo</dt><dd>{{ preview.tipo|capfirst }}</dd>{% if preset %}<dt>Preset</dt><dd>{{ preset.nome }}</dd>{% endif %}<dt>Descrição</dt><dd>{{ preview.descricao }}</dd></dl></div></article>
+<section class="dn-slot-preview-section"><h2>Prévia na prateleira</h2><p>Esta é a proporção aproximada do slot real.</p><article class="dn-slot-preview"><img src="{{ preview_url }}" alt="Prévia compacta"><div><strong>Diorama de {{ colecionavel.modelo.nome_personagem }}</strong><small>Diorama {{ preview.tipo }}</small></div></article></section>
+<div class="dn-actions">
+  <form method="post" action="{% url 'dioramas_novo:gerar' colecionavel.id %}">{% csrf_token %}<input type="hidden" name="tipo" value="{{ preview.tipo }}"><input type="hidden" name="preset" value="{{ preview.preset_id|default:'' }}"><input type="hidden" name="descricao" value="{{ preview.descricao }}"><button class="dn-button secondary" type="submit">Gerar novamente</button></form>
+  <form method="post" action="{% url 'dioramas_novo:cancelar' %}">{% csrf_token %}<button class="dn-button danger-outline" type="submit">Cancelar</button></form>
+  <form method="post" action="{% url 'dioramas_novo:confirmar' %}">{% csrf_token %}<button class="dn-button" type="submit">Confirmar Diorama</button></form>
+</div>
+{% endblock %}

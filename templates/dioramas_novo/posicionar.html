@@ -1,0 +1,10 @@
+{% extends "dioramas_novo/base.html" %}
+{% block diorama_conteudo %}
+<header class="dn-hero"><span class="dn-kicker">Organizar prateleira</span><h1>Em qual prateleira você deseja colocar este diorama?</h1><p>{{ diorama.titulo }} ocupará uma linha inteira e continuará salvo mesmo se você não escolher agora.</p></header>
+<div class="dn-placement-layout">
+  <img class="dn-placement-image" src="{{ diorama.imagem.url }}" alt="{{ diorama.titulo }}">
+  <section class="dn-form">
+    <form method="post">{% csrf_token %}<div class="dn-row-picker">{% for linha in linhas %}<label class="{% if not linha.disponivel %}disabled{% endif %}"><input type="radio" name="linha" value="{{ linha.numero }}" {% if not linha.disponivel %}disabled{% endif %} required><span><strong>Linha {{ linha.numero }}</strong><small>Slots {{ linha.inicio }}–{{ linha.inicio|add:3 }} · {% if linha.disponivel %}Disponível{% else %}Ocupada{% endif %}</small></span></label>{% endfor %}</div><div class="dn-actions"><button class="dn-button" type="submit" {% if not linhas.0.disponivel and not linhas.1.disponivel and not linhas.2.disponivel %}disabled{% endif %}>Adicionar à Prateleira</button><a class="dn-button secondary" href="{% url 'core:prateleira' %}">Deixar fora por enquanto</a></div></form>
+  </section>
+</div>
+{% endblock %}

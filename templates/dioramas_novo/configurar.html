@@ -1,0 +1,50 @@
+{% extends "dioramas_novo/base.html" %}
+{% load static %}
+{% block diorama_conteudo %}
+<header class="dn-hero"><span class="dn-kicker">Etapa 2 de 3</span><h1>Construa a cena</h1><p>{{ colecionavel.modelo.nome_personagem }} será o elemento principal.</p></header>
+<form method="post" action="{% url 'dioramas_novo:gerar' colecionavel.id %}" class="dn-form" id="dn-generation-form">{% csrf_token %}
+  {% if form.non_field_errors %}<div class="dn-errors">{{ form.non_field_errors }}</div>{% endif %}
+  <div class="dn-mode-tabs" role="group" aria-label="Tipo de criação">
+    <button type="button" class="dn-mode active" data-mode="predefinido">Cenários predefinidos</button>
+    <button type="button" class="dn-mode dn-mode-ai" data-mode="personalizado">✨ Criar Diorama Personalizado</button>
+  </div>
+  <input type="hidden" name="tipo" id="id_tipo" value="{{ form.tipo.value|default:'predefinido' }}">
+  <section data-panel="predefinido" class="dn-panel active"><h2>Escolha um cenário</h2><div class="dn-preset-grid">
+    {% for preset in form.fields.preset.queryset %}
+      <label class="dn-preset {% if form.preset.value|stringformat:'s' == preset.pk|stringformat:'s' %}selected{% endif %}">
+        <input type="radio" name="preset" value="{{ preset.pk }}" {% if form.preset.value|stringformat:'s' == preset.pk|stringformat:'s' %}checked{% endif %}>
+        <span class="dn-preset-visual"><img src="{% get_static_prefix %}image/dioramas_novo/{{ preset.slug }}.png" alt="Cenário {{ preset.nome }}" loading="lazy"></span>
+        <strong>{{ preset.nome }}</strong><small>{{ preset.descricao }}</small>
+      </label>
+    {% endfor %}
+  </div>{{ form.preset.errors }}<div class="dn-panel-actions"><button class="dn-button" id="dn-save-preset" type="submit"><span class="dn-label">Salvar Diorama Escolhido</span><span class="dn-loading">Salvando diorama...</span></button></div></section>
+  <section data-panel="personalizado" class="dn-panel">
+    <h2>Descreva como você imagina o seu diorama</h2>
+    <p>Dica: descreva o cenário, a luz e o clima de forma simples. Evite violência explícita. Ex.: "Cidade futurista ao entardecer, com luz suave e base de exposição."</p>
+    <aside class="dn-photo-tip" aria-label="Dicas para a foto do colecionável">
+      <strong>📸 Qual foto funciona melhor?</strong>
+      <p>Use uma foto nítida e bem iluminada, com o colecionável inteiro, sem cortes, de preferência sozinho e com fundo simples. A IA usa a foto já cadastrada para criar a cena.</p>
+      <p><strong>Evite:</strong> fotos borradas, muito escuras, com a peça cortada, várias peças juntas ou embalagem cobrindo o colecionável. Imagens ou descrições com conteúdo sexual, violência gráfica ou exploração de menores podem ser recusadas pela moderação da OpenAI. Mesmo uma foto adequada pode ser recusada; a aprovação não é garantida.</p>
+    </aside>
+    <div class="dn-ideas" role="group" aria-label="Ideias para o diorama">
+      <span class="dn-ideas-title">Galeria de ideias rápidas <span>— clique para adicionar:</span></span>
+      <div class="dn-ideas-list">
+        <button type="button" class="dn-idea" data-idea="montanhas ao fundo"><span class="dn-idea-icon" aria-hidden="true">🏔️</span><span>Montanhas</span></button>
+        <button type="button" class="dn-idea" data-idea="iluminação em tons roxos"><span class="dn-idea-icon" aria-hidden="true">🟪</span><span>Tons roxos</span></button>
+        <button type="button" class="dn-idea" data-idea="chamas ao fundo"><span class="dn-idea-icon" aria-hidden="true">🔥</span><span>Chamas</span></button>
+        <button type="button" class="dn-idea" data-idea="cidade futurista"><span class="dn-idea-icon" aria-hidden="true">🌆</span><span>Cidade futurista</span></button>
+        <button type="button" class="dn-idea" data-idea="floresta com névoa"><span class="dn-idea-icon" aria-hidden="true">🌲</span><span>Floresta</span></button>
+        <button type="button" class="dn-idea" data-idea="céu estrelado"><span class="dn-idea-icon" aria-hidden="true">🌌</span><span>Céu estrelado</span></button>
+        <button type="button" class="dn-idea" data-idea="luz de pôr do sol"><span class="dn-idea-icon" aria-hidden="true">🌅</span><span>Pôr do sol</span></button>
+        <button type="button" class="dn-idea" data-idea="chuva suave"><span class="dn-idea-icon" aria-hidden="true">🌧️</span><span>Chuva</span></button>
+        <button type="button" class="dn-idea" data-idea="ruínas antigas"><span class="dn-idea-icon" aria-hidden="true">🏛️</span><span>Ruínas</span></button>
+        <button type="button" class="dn-idea" data-idea="neve sobre o cenário"><span class="dn-idea-icon" aria-hidden="true">❄️</span><span>Neve</span></button>
+      </div>
+    </div>
+    {{ form.descricao }}{{ form.descricao.errors }}
+    <div class="dn-panel-actions"><button class="dn-button" id="dn-generate" type="submit"><span class="dn-label">Gerar Diorama com IA</span><span class="dn-loading">Gerando seu diorama...</span></button></div>
+  </section>
+  <div class="dn-actions"><a class="dn-button secondary" href="{% url 'dioramas_novo:selecionar' %}">Voltar</a></div>
+</form>
+<script src="{% static 'js/dioramas_novo.js' %}?v=20260922-2" defer></script>
+{% endblock %}

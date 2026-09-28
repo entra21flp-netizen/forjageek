@@ -1,0 +1,140 @@
+.confirmacao-pagina {
+  display: grid;
+  min-height: calc(100vh - 86px);
+  padding: 48px 20px;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 107, 35, 0.08), transparent 38%),
+    var(--background, #151619);
+}
+
+.confirmacao-exclusao {
+  position: relative;
+  width: min(100%, 680px);
+  padding: 42px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 107, 35, 0.32);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(31, 32, 36, 0.98), rgba(20, 21, 24, 0.98));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4), inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.confirmacao-exclusao::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ff6b23, #ff9d00, transparent);
+  content: "";
+}
+
+.confirmacao-icone {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 22px;
+  border: 1px solid rgba(255, 107, 35, 0.55);
+  border-radius: 14px;
+  background: rgba(255, 107, 35, 0.12);
+  color: #ff8a3d;
+  font: 800 28px/1 "Russo One", sans-serif;
+  place-items: center;
+  box-shadow: 0 0 25px rgba(255, 107, 35, 0.1);
+}
+
+.confirmacao-etiqueta {
+  display: block;
+  margin-bottom: 9px;
+  color: #ff9d00;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.confirmacao-exclusao h1 {
+  margin: 0;
+  color: #f7f7f4;
+  font-size: clamp(26px, 4vw, 36px);
+  line-height: 1.15;
+}
+
+.confirmacao-texto {
+  max-width: 590px;
+  margin: 18px 0 0;
+  color: #b8b8b4;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.confirmacao-aviso {
+  margin-top: 24px;
+  padding: 14px 16px;
+  border: 1px solid rgba(239, 68, 68, 0.24);
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.07);
+  color: #e8b4b4;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.confirmacao-aviso strong { color: #ff8f8f; }
+
+.confirmacao-acoes {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.confirmacao-acoes form { margin: 0; }
+
+.botao-cancelar-exclusao,
+.botao-confirmar-exclusao {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.botao-cancelar-exclusao {
+  border: 1px solid #3c3d42;
+  background: #242529;
+  color: #e5e5e2;
+}
+
+.botao-cancelar-exclusao:hover {
+  border-color: #ff6b23;
+  background: rgba(255, 107, 35, 0.09);
+  color: #fff;
+}
+
+.botao-confirmar-exclusao {
+  border: 1px solid #e94b4b;
+  background: linear-gradient(135deg, #b91c1c, #dc2626);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(185, 28, 28, 0.22);
+}
+
+.botao-confirmar-exclusao:hover {
+  background: linear-gradient(135deg, #cf2323, #ef4444);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 560px) {
+  .confirmacao-pagina { padding: 24px 14px; }
+  .confirmacao-exclusao { padding: 30px 22px; }
+  .confirmacao-acoes { align-items: stretch; flex-direction: column-reverse; }
+  .confirmacao-acoes form,
+  .botao-cancelar-exclusao,
+  .botao-confirmar-exclusao { width: 100%; }
+}

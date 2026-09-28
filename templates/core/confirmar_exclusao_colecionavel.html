@@ -1,0 +1,33 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block titulo %}Excluir colecionável — ForjaGeek{% endblock %}
+
+{% block css_extra %}
+  <link rel="stylesheet" href="{% static 'css/confirmar_exclusao.css' %}?v=1">
+{% endblock %}
+
+{% block conteudo %}
+<div class="confirmacao-pagina">
+  <section class="confirmacao-exclusao" aria-labelledby="titulo-exclusao">
+    <div class="confirmacao-icone" aria-hidden="true">!</div>
+    <span class="confirmacao-etiqueta">ÁREA DE EXCLUSÃO</span>
+    <h1 id="titulo-exclusao">Excluir {{ item.nome_personalizado|default:item.modelo.nome_modelo|default:item.modelo.nome_personagem }}?</h1>
+    {% if bloqueado %}
+      <p class="confirmacao-texto">Este colecionável possui uma transação vinculada e não pode ser excluído, pois o histórico da negociação precisa ser preservado.</p>
+      <div class="confirmacao-aviso">A exclusão está indisponível para preservar os dados da negociação.</div>
+      <div class="confirmacao-acoes"><a class="botao-cancelar-exclusao" href="{% url 'core:meus_colecionaveis' %}">Voltar aos colecionáveis</a></div>
+    {% else %}
+      <p class="confirmacao-texto">Esta ação é permanente. A posição na estante, as imagens, os favoritos e os dioramas vinculados a este colecionável também serão removidos.</p>
+      <div class="confirmacao-aviso"><strong>Atenção:</strong> não será possível recuperar este colecionável depois da exclusão.</div>
+      <div class="confirmacao-acoes">
+        <a class="botao-cancelar-exclusao" href="{% url 'core:meus_colecionaveis' %}">Cancelar</a>
+        <form method="post">
+          {% csrf_token %}
+          <button class="botao-confirmar-exclusao" type="submit">Excluir permanentemente</button>
+        </form>
+      </div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

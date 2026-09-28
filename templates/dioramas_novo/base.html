@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block titulo %}Dioramas — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/dioramas_novo.css' %}?v=20260928-5">{% endblock %}
+{% block conteudo %}
+<main class="dn-shell">
+  {% if messages %}<div class="dn-messages">{% for message in messages %}<p class="dn-message {{ message.tags }}">{{ message }}</p>{% endfor %}</div>{% endif %}
+  {% block diorama_conteudo %}{% endblock %}
+</main>
+{% endblock %}

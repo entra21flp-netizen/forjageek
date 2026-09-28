@@ -1,6 +1,23 @@
-{% extends "core/base.html" %}{% load static %}
+{% extends "core/base.html" %}
+{% load static %}
 {% block titulo %}Recuperar conta — ForjaGeek{% endblock %}
-{% block css_extra %}<link rel="stylesheet" href="{% static 'css/conta.css' %}?v=1">{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/login.css' %}?v=2">{% endblock %}
 {% block conteudo %}
-<section class="container conta-recuperacao"><h1>Recuperar conta</h1><p class="page-note">Informe o e-mail cadastrado. Se existir uma conta associada, enviaremos um link seguro para criar uma nova senha.</p><form method="post" class="form-recuperacao">{% csrf_token %}<div class="field"><label for="email">E-mail</label><input id="email" type="email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required></div><button type="submit" class="btn btn-primary">Enviar link de recuperação</button></form><p class="conta-alternativa"><a href="{% url 'core:login' %}">Voltar para entrar</a></p></section>
+<section class="login-page" aria-labelledby="recuperacao-title">
+  <div class="login-card">
+    <img class="login-logo" src="{% static 'images/logo-forjageek.png' %}" alt="" width="80" height="80">
+    <p class="login-eyebrow">RECUPERE SEU ACESSO</p>
+    <h1 id="recuperacao-title">Esqueceu sua senha?</h1>
+    <p class="login-intro" id="recuperacao-ajuda">Informe seu e-mail cadastrado. Se houver uma conta associada, enviaremos um link para criar uma nova senha.</p>
+    <form method="post" class="login-form">
+      {% csrf_token %}
+      <div class="login-field">
+        <label for="email">E-mail da sua conta</label>
+        <input id="email" type="email" name="email" autocomplete="email" inputmode="email" placeholder="voce@exemplo.com" value="{{ request.POST.email|default:'' }}" aria-describedby="recuperacao-ajuda" required>
+      </div>
+      <button type="submit" class="login-submit">Enviar link de recuperação <span aria-hidden="true">→</span></button>
+    </form>
+    <p class="login-register"><a href="{% url 'core:login' %}"><span aria-hidden="true">←</span> Voltar para entrar</a></p>
+  </div>
+</section>
 {% endblock %}

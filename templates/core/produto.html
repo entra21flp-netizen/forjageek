@@ -35,7 +35,7 @@
           <div><dt>Condição da caixa</dt><dd>{{ produto.condicao_caixa }}</dd></div>
           <div><dt>Adicionada em</dt><dd>{{ produto.data_inclusao|date:"d/m/Y" }}</dd></div>
           {% if produto.nome_personalizado %}<div><dt>Nome personalizado</dt><dd>{{ produto.nome_personalizado }}</dd></div>{% endif %}
-          {% if eh_dono %}<div><dt>Valor pago</dt><dd>R$ {{ produto.preco_pago|floatformat:2 }}</dd></div><div><dt>Privacidade</dt><dd>{{ produto.get_status_privacidade_display }}</dd></div>{% endif %}
+          {% if eh_dono %}{% if produto.preco_pago != None %}<div><dt>Valor pago</dt><dd>R$ {{ produto.preco_pago|floatformat:2 }}</dd></div>{% endif %}<div><dt>Privacidade</dt><dd>{{ produto.get_status_privacidade_display }}</dd></div>{% endif %}
           {% if eh_dono and produto.local_armazenamento %}<div><dt>Local de armazenamento</dt><dd>{{ produto.local_armazenamento }}</dd></div>{% endif %}
         </dl>
         {% if produto.nota %}<div class="produto-nota"><h3>Observações</h3><p>{{ produto.nota }}</p></div>{% endif %}

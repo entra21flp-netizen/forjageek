@@ -1,6 +1,6 @@
 {% extends "core/base.html" %}{% load static %}
 {% block titulo %}Cadastrar colecionável — ForjaGeek{% endblock %}
-{% block css_extra %}<link rel="stylesheet" href="{% static 'css/cadastro.css' %}?v=2">{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/cadastro.css' %}?v=3">{% endblock %}
 {% block conteudo %}
 <div class="container cadastro">
 <a class="voltar-colecao" href="{% url 'core:meus_colecionaveis' %}">← Meus colecionáveis</a>
@@ -9,13 +9,18 @@
 <section class="cadastro-card foto-topo">
   <div class="foto-grade" id="foto-previews"><div class="foto-quadro foto-placeholder" id="foto-placeholder"><span aria-hidden="true">＋</span><small>Adicione fotos</small></div></div>
   <div class="foto-controles"><h2>Fotos do colecionável</h2><p>Inclua diferentes ângulos, a embalagem e uma foto nítida do código de barras.</p>
-    {{ form.foto }}{{ form.foto.errors }}
+    <div class="seletor-arquivo">
+      {{ form.foto }}
+      <label for="id_foto">Escolher imagens</label>
+      <span id="nome-arquivo">Nenhum arquivo escolhido</span>
+    </div>
+    {{ form.foto.errors }}
     <small>Até 6 fotos · JPG, PNG ou WebP · até 10 MB cada</small>
     <p class="foto-referencia-aviso"><span aria-hidden="true">✦</span> A primeira foto será a referência usada pela IA para sugerir os dados.</p>
     <p id="foto-status" role="status"></p>
     <div class="foto-acoes">
       <button type="button" id="analisar-foto" disabled><span aria-hidden="true">✦</span> Analisar e sugerir dados</button>
-      <button type="button" id="remover-foto" hidden>Remover foto</button>
+      <button type="button" id="remover-foto" hidden>Remover Imagem</button>
     </div>
     <div id="analise-resultado" class="analise-resultado" role="status" hidden></div>
   </div>
@@ -43,5 +48,5 @@ function atualizar(){
 }
 modelo.addEventListener('change',atualizar);tipo.addEventListener('change',atualizar);atualizar();
 </script>
-<script src="{% static 'js/cadastro-foto.js' %}?v=2" defer></script>
+<script src="{% static 'js/cadastro-foto.js' %}?v=3" defer></script>
 {% endblock %}

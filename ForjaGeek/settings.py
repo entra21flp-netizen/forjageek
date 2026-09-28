@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'inventario',
     'transacoes',
     'core',
+    'dioramas_novo',
 ]
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
@@ -163,8 +164,12 @@ STATIC_ROOT = "/var/www/forjageek/static"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = "/var/www/forjageek/media"
 
+# Geração de dioramas personalizados; a chave permanece somente no servidor.
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '').strip()
+OPENAI_IMAGE_MODEL = os.getenv('OPENAI_IMAGE_MODEL', 'gpt-image-2.5-flare').strip()
+
 LOGIN_URL = 'core:login'
-LOGIN_REDIRECT_URL = 'core:index'
+LOGIN_REDIRECT_URL = 'core:prateleira'
 LOGOUT_REDIRECT_URL = 'core:index'
 
 
