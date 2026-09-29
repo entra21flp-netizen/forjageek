@@ -1,0 +1,54 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block titulo %}{% if termo %}Resultados para “{{ termo }}”{% else %}Pesquisar{% endif %} — ForjaGeek{% endblock %}
+
+{% block css_extra %}
+  <link rel="stylesheet" href="{% static 'css/home.css' %}?v=3">
+  <link rel="stylesheet" href="{% static 'css/busca_global.css' %}?v=1">
+{% endblock %}
+
+{% block conteudo %}
+<main class="container busca-pagina home-catalogo">
+  <header class="busca-abertura">
+    <span>PESQUISA GLOBAL</span>
+    {% if termo %}
+      <h1>Resultados para “{{ termo }}”</h1>
+      <p>Resultados encontrados em colecionáveis, catálogo e comunidade.</p>
+    {% else %}
+      <h1>O que você procura?</h1>
+      <p>Pesquise personagens, modelos, franquias, fabricantes ou colecionadores.</p>
+    {% endif %}
+  </header>
+
+  {% if termo %}
+    <section class="busca-secao">
+      <div class="busca-secao-titulo"><div><span>PEÇAS CADASTRADAS</span><h2>Colecionáveis</h2></div><strong>{{ itens|length }}</strong></div>
+      {% include "core/_grade_itens.html" %}
+    </section>
+
+    <section class="busca-secao">
+      <div class="busca-secao-titulo"><div><span>BASE DA COMUNIDADE</span><h2>Modelos do catálogo</h2></div><strong>{{ modelos|length }}</strong></div>
+      <div class="busca-modelos">
+        {% for modelo in modelos %}
+          <a class="busca-modelo" href="{% url 'core:catalogo_figuras' %}?q={{ modelo.nome_personagem|urlencode }}">
+            <div>{% with imagem=modelo.imagens.first %}{% if imagem %}<img src="{{ imagem.url_imagem }}" alt="">{% else %}<span aria-hidden="true">◈</span>{% endif %}{% endwith %}</div>
+            <small>{{ modelo.tipo.nome_tipo }}</small>
+            <h3>{{ modelo.nome_modelo|default:modelo.nome_personagem }}</h3>
+            <p>{{ modelo.franquia }} · {{ modelo.fabricante }}</p>
+          </a>
+        {% empty %}<p class="busca-vazio">Nenhum modelo encontrado.</p>{% endfor %}
+      </div>
+    </section>
+
+    <section class="busca-secao">
+      <div class="busca-secao-titulo"><div><span>COMUNIDADE</span><h2>Colecionadores</h2></div><strong>{{ colecionadores|length }}</strong></div>
+      <div class="busca-usuarios">
+        {% for colecionador in colecionadores %}
+          <a class="busca-usuario" href="{% url 'core:perfil_colecionador' colecionador.username %}"><span>{{ colecionador.username|first|upper }}</span><div><h3>{{ colecionador.get_full_name|default:colecionador.username }}</h3><p>@{{ colecionador.username }}</p></div><b>Ver perfil →</b></a>
+        {% empty %}<p class="busca-vazio">Nenhum colecionador encontrado.</p>{% endfor %}
+      </div>
+    </section>
+  {% endif %}
+</main>
+{% endblock %}

@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/layout.css' %}?v=4" />
-  <link rel="stylesheet" href="{% static 'css/componentes.css' %}?v=7" />
+  <link rel="stylesheet" href="{% static 'css/layout.css' %}?v=5" />
+  <link rel="stylesheet" href="{% static 'css/componentes.css' %}?v=13" />
   <link rel="stylesheet" href="{% static 'css/carrinho.css' %}?v=2" />
   {% block css_extra %}{% endblock %}
 </head>
@@ -24,6 +24,11 @@
           <img class="logo-wordmark" src="{% static 'images/forjageek-wordmark.png' %}" alt="" width="112" height="37">
         </a>
       {% endblock %}
+      <form class="busca-global-cabecalho" action="{% url 'core:busca_global' %}" method="get" role="search">
+        <label class="sr-only" for="busca-global">Pesquisar no ForjaGeek</label>
+        <input id="busca-global" type="search" name="q" value="{{ request.GET.q|default:'' }}" placeholder="Pesquisar colecionáveis, personagens..." maxlength="120" autocomplete="off">
+        <button type="submit" aria-label="Pesquisar" title="Pesquisar"><span aria-hidden="true">⌕</span></button>
+      </form>
       <div class="header-icons">
         <a href="{% url 'core:catalogo_figuras' %}">Catálogo</a>
         <a href="{% url 'core:mercado' %}">Mercado</a>

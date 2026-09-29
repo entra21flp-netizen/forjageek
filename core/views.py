@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 
-from catalogo.models import TipoColecionavel
+from catalogo.models import ModeloColecionavel, TipoColecionavel
 from inventario.models import AvaliacaoEstante, ColecionavelUsuario, EstanteVirtual, ItemEstante, Diorama, ItemWishlist
 from dioramas_novo.models import DioramaGeradoNovo
 from transacoes.models import AvaliacaoVenda
@@ -174,6 +174,77 @@ def mercado(request):
         "wishlist_ids": wishlist_ids,
         "mostrar_negociacao": True,
         "mensagem_vazio": "Nenhum colecionável disponível com esses filtros.",
+    })
+
+
+def busca_global(request):
+    """Pesquisa integrada em peças visíveis, catálogo e colecionadores."""
+    termo = request.GET.get("q", "").strip()[:120]
+    colecionaveis = ColecionavelUsuario.objects.none()
+    modelos = ModeloColecionavel.objects.none()
+    colecionadores = Usuario.objects.none()
+    wishlist_ids = set()
+
+    if termo:
+        visibilidade = Q(status_privacidade=ColecionavelUsuario.PRIVACIDADE_PUBLICO)
+        if request.user.is_authenticated:
+            visibilidade |= Q(usuario=request.user)
+        colecionaveis = (
+            ColecionavelUsuario.objects
+            .filter(visibilidade)
+            .filter(
+                Q(nome_personalizado__icontains=termo)
+                | Q(modelo__nome_modelo__icontains=termo)
+                | Q(modelo__nome_personagem__icontains=termo)
+                | Q(modelo__franquia__icontains=termo)
+                | Q(modelo__fabricante__icontains=termo)
+                | Q(modelo__codigo_barras_ean_jan__icontains=termo)
+                | Q(modelo__codigo_fabricante_sku__icontains=termo)
+            )
+            .select_related("modelo", "modelo__tipo", "usuario")
+            .prefetch_related("imagens")
+            .distinct()
+            .order_by("-data_inclusao")[:24]
+        )
+        modelos = (
+            ModeloColecionavel.objects
+            .filter(
+                Q(nome_modelo__icontains=termo)
+                | Q(nome_personagem__icontains=termo)
+                | Q(franquia__icontains=termo)
+                | Q(fabricante__icontains=termo)
+                | Q(codigo_barras_ean_jan__icontains=termo)
+                | Q(codigo_fabricante_sku__icontains=termo)
+            )
+            .select_related("tipo")
+            .prefetch_related("imagens")
+            .order_by("franquia", "nome_personagem")[:12]
+        )
+        colecionadores = (
+            Usuario.objects
+            .filter(is_active=True, estantes__status_privacidade="publico")
+            .filter(
+                Q(username__icontains=termo)
+                | Q(first_name__icontains=termo)
+                | Q(last_name__icontains=termo)
+            )
+            .distinct()
+            .order_by("username")[:12]
+        )
+        if request.user.is_authenticated:
+            wishlist_ids = set(
+                ItemWishlist.objects.filter(usuario=request.user)
+                .values_list("colecionavel_usuario_id", flat=True)
+            )
+
+    return render(request, "core/busca_global.html", {
+        "termo": termo,
+        "itens": colecionaveis,
+        "modelos": modelos,
+        "colecionadores": colecionadores,
+        "wishlist_ids": wishlist_ids,
+        "mostrar_negociacao": True,
+        "mensagem_vazio": "Nenhum colecionável encontrado.",
     })
 
 
@@ -555,7 +626,9 @@ def prateleira_publica(request, username):
     dono = get_object_or_404(Usuario, username=username)
     estantes_publicas = EstanteVirtual.objects.filter(usuario=dono, status_privacidade="publico")
     estante_id = request.GET.get("estante")
-    estante = get_object_or_404(estantes_publicas, id=estante_id) if estante_id else get_object_or_404(estantes_publicas.order_by("ordem_exibicao", "id"))
+    estante = estantes_publicas.filter(id=estante_id).first() if estante_id else estantes_publicas.order_by("ordem_exibicao", "id").first()
+    if estante is None:
+        return render(request, "core/prateleira_sem_publica.html", {"dono": dono})
     posicionamentos = list(ItemEstante.objects.filter(
         estante=estante,
         colecionavel_usuario__status_privacidade=ColecionavelUsuario.PRIVACIDADE_PUBLICO,
@@ -791,9 +864,13 @@ def editar_colecionavel(request, item_id):
         id=item_id,
         usuario=request.user,
     )
-    form = EditarColecionavelForm(request.POST if request.method == 'POST' else None, instance=item)
+    form = EditarColecionavelForm(
+        request.POST if request.method == 'POST' else None,
+        request.FILES if request.method == 'POST' else None,
+        instance=item,
+    )
     if request.method == 'POST' and form.is_valid():
-        form.save()
+        form.save_with_related()
         return redirect('core:meus_colecionaveis')
     return render(request, 'core/editar_colecionavel.html', {'form': form, 'item': item})
 
@@ -823,21 +900,44 @@ def excluir_colecionavel(request, item_id):
 
 def catalogo_figuras(request):
     from catalogo.models import ModeloColecionavel
-    modelos = ModeloColecionavel.objects.filter(tipo__nome_tipo='Action Figure').select_related('tipo').prefetch_related('imagens', 'unidades__imagens', 'valores_caracteristicas__caracteristica').order_by('franquia', 'pk')
-    franquias = list(modelos.order_by('franquia').values_list('franquia', flat=True).distinct())
+    modelos = ModeloColecionavel.objects.select_related('tipo').prefetch_related('imagens', 'unidades__imagens', 'valores_caracteristicas__caracteristica').order_by('franquia', 'pk')
     busca = request.GET.get('q', '').strip()
     franquia = request.GET.get('franquia', '')
     figuras = []
+    sugestoes = set()
     for modelo in modelos:
         dados = {x.caracteristica.nome_caracteristica: x.valor for x in modelo.valores_caracteristicas.all()}
         imagem = modelo.imagens.first()
+        nomes_unidades = [
+            unidade.nome_personalizado.strip()
+            for unidade in modelo.unidades.all()
+            if unidade.nome_personalizado and unidade.nome_personalizado.strip()
+        ]
         if not imagem:
             for unidade in modelo.unidades.all():
                 imagem = unidade.imagens.first()
                 if imagem:
                     break
-        figuras.append({'modelo': modelo, 'imagem': imagem, 'nome': dados.get('Nome', modelo.nome_modelo or modelo.nome_personagem), 'serie': dados.get('Série', ''), 'ano': dados.get('Ano de lançamento', ''), 'altura': dados.get('Altura (cm)', '').replace('.', ','), 'material': dados.get('Material', ''), 'ficha': [(k, 'Sim' if val == 'true' else 'Não' if val == 'false' else val.replace('.', ',') if k == 'Altura (cm)' else val) for k, val in dados.items() if k != 'Origem dos dados']})
+        nome = dados.get('Nome', modelo.nome_modelo or modelo.nome_personagem)
+        termos_busca = [
+            nome,
+            modelo.nome_modelo,
+            modelo.nome_personagem,
+            modelo.franquia,
+            modelo.fabricante,
+            modelo.codigo_barras_ean_jan,
+            modelo.codigo_fabricante_sku,
+            modelo.tipo.nome_tipo,
+            *nomes_unidades,
+            *dados.values(),
+        ]
+        texto_busca = ' '.join(str(termo) for termo in termos_busca if termo)
+        sugestoes.update(
+            termo for termo in [nome, modelo.nome_modelo, modelo.nome_personagem, modelo.franquia, modelo.fabricante, *nomes_unidades]
+            if termo
+        )
+        figuras.append({'modelo': modelo, 'imagem': imagem, 'nome': nome, 'texto_busca': texto_busca, 'serie': dados.get('Série', ''), 'ano': dados.get('Ano de lançamento', ''), 'altura': dados.get('Altura (cm)', '').replace('.', ','), 'material': dados.get('Material', ''), 'ficha': [(k, 'Sim' if val == 'true' else 'Não' if val == 'false' else val.replace('.', ',') if k == 'Altura (cm)' else val) for k, val in dados.items() if k != 'Origem dos dados']})
     franquias = sorted({f['modelo'].franquia for f in figuras})
     total = len(figuras)
-    figuras = [f for f in figuras if (not franquia or f['modelo'].franquia == franquia) and (not busca or busca.casefold() in (f['nome'] + ' ' + f['modelo'].nome_personagem).casefold())]
-    return render(request, 'core/catalogo_figuras.html', {'figuras': figuras, 'total': total, 'busca': busca, 'franquia': franquia, 'franquias': franquias})
+    figuras = [f for f in figuras if (not franquia or f['modelo'].franquia == franquia) and (not busca or busca.casefold() in f['texto_busca'].casefold())]
+    return render(request, 'core/catalogo_figuras.html', {'figuras': figuras, 'total': total, 'busca': busca, 'franquia': franquia, 'franquias': franquias, 'sugestoes': sorted(sugestoes, key=str.casefold)})

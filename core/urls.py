@@ -9,6 +9,7 @@ app_name = "core"
 urlpatterns = [
     path("catalogo/action-figures/", views.catalogo_figuras, name="catalogo_figuras"),
     path("mercado/", views.mercado, name="mercado"),
+    path("buscar/", views.busca_global, name="busca_global"),
     path("colecionaveis/cadastrar/", views.cadastrar_colecionavel, name="cadastrar_colecionavel"),
     path("colecionaveis/<int:item_id>/editar/", views.editar_colecionavel, name="editar_colecionavel"),
     path("colecionaveis/<int:item_id>/excluir/", views.excluir_colecionavel, name="excluir_colecionavel"),

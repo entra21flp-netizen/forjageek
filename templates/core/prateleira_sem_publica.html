@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titulo %}Nenhum colecionável público — ForjaGeek{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/estantes.css' %}?v=3">{% endblock %}
+{% block conteudo %}
+<main class="container publico-vazio-pagina">
+  <section class="publico-vazio-card" aria-labelledby="titulo-publico-vazio">
+    <div class="publico-vazio-icone" aria-hidden="true">◇</div>
+    <span>ESTANTE PRIVADA</span>
+    <h1 id="titulo-publico-vazio">Nenhum Colecionável Público</h1>
+    <p>@{{ dono.username }} ainda não disponibilizou uma estante pública.</p>
+    {% if user.is_authenticated and user.id == dono.id %}
+      <a class="publico-vazio-acao" href="{% url 'core:prateleira' %}">Voltar para Minha Estante</a>
+    {% else %}
+      <a class="publico-vazio-acao" href="{% url 'core:buscar_colecionadores' %}">Explorar colecionadores</a>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}

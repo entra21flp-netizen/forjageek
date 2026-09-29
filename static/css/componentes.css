@@ -276,6 +276,16 @@
   .colecionavel-estante:active { cursor: grabbing; }
   .colecionavel-arte { display: grid; width: 100%; height: 86px; margin-bottom: 8px; place-items: center; overflow: hidden; border-radius: 6px; font-size: 38px; }
   .colecionavel-arte img { width: 100%; height: 100%; object-fit: contain; }
+  .colecionavel-arte:has(img) { position: relative; cursor: zoom-in; }
+  .colecionavel-arte:has(img)::after { position: absolute; right: 6px; bottom: 6px; display: grid; width: 24px; height: 24px; border: 1px solid rgba(255,255,255,.18); border-radius: 7px; background: rgba(10,10,12,.72); color: #fff; content: '+'; font-size: 17px; line-height: 1; opacity: 0; place-items: center; transition: opacity .15s; pointer-events: none; }
+  .colecionavel-arte:has(img):hover::after { opacity: 1; }
+  .visualizador-colecionavel { width: min(900px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); padding: 0; overflow: visible; border: 1px solid rgba(255,107,35,.55); border-radius: 16px; background: #111216; color: var(--text); box-shadow: 0 30px 90px rgba(0,0,0,.72); }
+  .visualizador-colecionavel::backdrop { background: rgba(0,0,0,.82); backdrop-filter: blur(5px); }
+  .visualizador-conteudo { position: relative; display: grid; max-height: calc(100dvh - 34px); padding: 18px; gap: 12px; place-items: center; }
+  .visualizador-conteudo img { display: block; width: 100%; max-height: calc(100dvh - 115px); border-radius: 10px; object-fit: contain; background: radial-gradient(circle,rgba(255,107,35,.07),#090a0c 72%); }
+  .visualizador-conteudo strong { color: var(--text-secondary); font-size: 14px; }
+  .visualizador-fechar { position: absolute; z-index: 2; top: 28px; right: 28px; display: grid; width: 40px; height: 40px; padding: 0; border: 1px solid rgba(255,255,255,.16); border-radius: 50%; background: rgba(15,16,18,.88); color: #fff; font-size: 27px; line-height: 1; cursor: pointer; place-items: center; backdrop-filter: blur(7px); }
+  .visualizador-fechar:hover { border-color: var(--accent); background: var(--accent); }
   .colecionavel-estante h3, .colecionavel-estante p { overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap; }
   .colecionavel-estante p { color: var(--text-muted); font-size: 11px; }
   .remover-da-estante { margin-top: 10px; border: 0; background: transparent; color: var(--text-muted); font-size: 11px; text-decoration: underline; }
@@ -362,5 +372,24 @@
   [data-theme="forjageek"] .prateleira-fileira { border-color: rgba(255, 138, 61, 0.28); border-bottom-color: rgba(255, 107, 35, 0.72); background: linear-gradient(180deg, rgba(31, 32, 36, 0.94), rgba(16, 17, 20, 0.96)); }
   [data-theme="forjageek"] .estante-slot { border-color: rgba(255, 107, 35, 0.32); background: radial-gradient(circle at 50% 70%, rgba(255, 107, 35, 0.07), rgba(8, 9, 11, 0.76) 70%); }
   [data-theme="forjageek"] .colecionavel-estante { border-color: rgba(255, 107, 35, 0.72); background: radial-gradient(circle at center, rgba(255, 107, 35, 0.17), rgba(17, 18, 21, 0.97) 68%); box-shadow: inset 0 0 18px rgba(255, 107, 35, 0.08), 0 0 14px rgba(255, 107, 35, 0.12); }
+  #pagina-estante[data-theme="forjageek"] { --estante-acento: #9aa0aa; --estante-acento-rgb: 154, 160, 170; --estante-acento-texto: #eef0f3; }
+  #pagina-estante[data-theme="futurista"] { --estante-acento: #00f0ff; --estante-acento-rgb: 0, 240, 255; --estante-acento-texto: #c8fbff; }
+  #pagina-estante[data-theme="vulcanico"] { --estante-acento: #ff641e; --estante-acento-rgb: 255, 100, 30; --estante-acento-texto: #ffd0b8; }
+  #pagina-estante .botao-adicionar,
+  #pagina-estante .adicionar-da-lista { border-color: var(--estante-acento); background: rgba(var(--estante-acento-rgb), 0.14); color: var(--estante-acento-texto); }
+  #pagina-estante .botao-adicionar:hover,
+  #pagina-estante .adicionar-da-lista:hover { background: rgba(var(--estante-acento-rgb), 0.28); }
+  #pagina-estante .estante-instrucoes strong,
+  #pagina-estante .prateleira-fileira-cabecalho > div > span,
+  #pagina-estante .numero-slot { color: var(--estante-acento); }
+  #pagina-estante .mini-action { display: inline-flex; align-items: center; gap: 7px; margin-top: 10px; padding: 8px 12px; border: 1px solid rgba(255, 107, 35, 0.7); border-radius: 9px; background: linear-gradient(135deg, rgba(255, 107, 35, 0.18), rgba(255, 138, 61, 0.08)); color: #ffd0b8; font-size: 11px; font-weight: 800; letter-spacing: .2px; box-shadow: inset 0 1px 0 rgba(255,255,255,.05); transition: transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease; }
+  #pagina-estante .mini-action > span:first-child { color: #ff8a3d; font-size: 14px; line-height: 1; }
+  #pagina-estante .mini-action:hover { transform: translateY(-1px); border-color: #ff8a3d; background: linear-gradient(135deg, rgba(255, 107, 35, 0.3), rgba(255, 138, 61, 0.13)); color: #fff; box-shadow: 0 7px 18px rgba(255, 107, 35, .16); }
+  #pagina-estante .seletor-diorama-visivel { border-color: rgba(var(--estante-acento-rgb), 0.38); background: rgba(var(--estante-acento-rgb), 0.09); color: var(--estante-acento-texto); }
+  #pagina-estante .seletor-diorama-visivel span { color: var(--estante-acento-texto); }
+  #pagina-estante .seletor-diorama-visivel input { accent-color: var(--estante-acento); }
+  #pagina-estante .seletor-diorama-visivel:has(input:checked) { border-color: rgba(var(--estante-acento-rgb), 0.72); background: rgba(var(--estante-acento-rgb), 0.18); color: var(--estante-acento-texto); }
+  #pagina-estante .seletor-diorama-visivel:has(input:checked) span { color: var(--estante-acento-texto); }
+  #pagina-estante .prateleira-slots > .dn-shelf-row { border-color: var(--estante-acento); box-shadow: 0 0 0 1px rgba(var(--estante-acento-rgb), 0.12); }
   @media (max-width: 900px) { .estante-area.com-bandeja { grid-template-columns: minmax(0, 1fr) 180px; gap: 12px; } .estante-slot { min-height: 174px; } }
   @media (max-width: 700px) { .estante-area.com-bandeja { grid-template-columns: 1fr; } .prateleira-slots { grid-template-columns: repeat(2, minmax(0, 1fr)); } .itens-sem-posicao { position: static; max-height: none; } .bandeja-itens { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 430px; } .diorama-destaque { grid-template-columns: 1fr; } .diorama-destaque-visual { height: 90px; } .estante-instrucoes, .controles-estante, .diorama-cabecalho, .cabecalho-colecao, .linha-colecao, .status-estante, .titulo-estante, .seletor-estantes { flex-direction: column !important; align-items: stretch; } .status-estante { margin-left: 0; } }

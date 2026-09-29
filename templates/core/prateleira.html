@@ -5,7 +5,7 @@
 {% block css_extra %}<link rel="stylesheet" href="{% static 'css/dioramas_novo.css' %}?v=20260928-5">{% endblock %}
 
 {% block conteudo %}
-<div class="container">
+<div class="container" id="pagina-estante" data-theme="forjageek">
   <div class="titulo-estante">
     <div><h1>{{ estante.nome_estante }}</h1><span class="text-muted">Sua estante virtual</span></div>
     <div class="seletor-estantes">
@@ -43,7 +43,7 @@
   <div class="section-head" style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: flex-end;">
     <div>
       <h2>Meus itens</h2>
-      <a href="{% url 'core:prateleira_publica' username=user.username %}" class="mini-action">ver versão pública</a>
+      <a href="{% url 'core:prateleira_publica' username=user.username %}" class="mini-action"><span aria-hidden="true">↗</span><span>Ver versão pública</span></a>
     </div>
 
     <div class="controles-estante">
@@ -68,7 +68,7 @@
     <div class="estante-area{% if itens_sem_posicao %} com-bandeja{% endif %}">
       <div class="estante-grade" aria-label="Estante com três prateleiras e doze posições">
         {% for prateleira in prateleiras %}
-          <section class="prateleira-fileira" aria-labelledby="titulo-prateleira-{{ prateleira.numero }}">
+          <section class="prateleira-fileira" aria-label="Prateleira {{ prateleira.numero }}">
             <div class="prateleira-fileira-cabecalho">
               <label class="seletor-diorama-visivel" title="Mostrar este diorama no topo">
                 <input type="radio" name="diorama-destaque" value="{{ prateleira.numero }}" {% if estante.diorama_destaque == prateleira.numero %}checked{% endif %}>
@@ -76,7 +76,6 @@
               </label>
               <div>
                 <span>PRATELEIRA {{ prateleira.numero }}</span>
-                <strong id="titulo-prateleira-{{ prateleira.numero }}">{% if prateleira.diorama.configurado %}{{ prateleira.diorama.titulo }}{% else %}Sem diorama{% endif %}</strong>
                 <small>{{ prateleira.pecas|length }} peça{{ prateleira.pecas|length|pluralize }} neste cenário</small>
               </div>
             </div>
@@ -160,14 +159,24 @@
       <div class="lista-colecionaveis"><label class="campo-diorama">Nome da estante<input name="nome" maxlength="255" required placeholder="Ex.: Estante Marvel"></label><button type="submit" class="botao-adicionar salvar-dioramas">Criar estante</button></div>
     </form>
   </div>
+
+  <dialog class="visualizador-colecionavel" id="visualizador-colecionavel" aria-labelledby="visualizador-titulo">
+    <div class="visualizador-conteudo">
+      <button type="button" class="visualizador-fechar" aria-label="Fechar imagem ampliada">×</button>
+      <img src="" alt="">
+      <strong id="visualizador-titulo"></strong>
+    </div>
+  </dialog>
 </div>
 
 <!-- JAVASCRIPT DA TROCA DE TEMA E PERSISTÊNCIA NO LOCALSTORAGE -->
 <script>
   function mudarTemaPrateleira(tema) {
     const container = document.getElementById('prateleira-container');
+    const pagina = document.getElementById('pagina-estante');
     if (container) {
       container.setAttribute('data-theme', tema);
+      pagina?.setAttribute('data-theme', tema);
       localStorage.setItem('tema_prateleira_forjageek', tema);
     }
   }
@@ -183,6 +192,7 @@
 
     if (container) {
       container.setAttribute('data-theme', temaSalvo);
+      document.getElementById('pagina-estante')?.setAttribute('data-theme', temaSalvo);
     }
     if (selectTema) {
       selectTema.value = temaSalvo;
@@ -299,6 +309,31 @@
         if (resposta.ok) window.location.reload();
       });
     });
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const visualizador = document.getElementById('visualizador-colecionavel');
+    if (!visualizador || !visualizador.showModal) return;
+    const imagemAmpliada = visualizador.querySelector('img');
+    const titulo = visualizador.querySelector('strong');
+
+    document.addEventListener('click', (evento) => {
+      const imagem = evento.target.closest('.colecionavel-arte img');
+      if (!imagem) return;
+      evento.preventDefault();
+      evento.stopPropagation();
+      imagemAmpliada.src = imagem.currentSrc || imagem.src;
+      imagemAmpliada.alt = imagem.alt;
+      titulo.textContent = imagem.alt || 'Colecionável';
+      visualizador.showModal();
+    });
+
+    visualizador.querySelector('.visualizador-fechar').addEventListener('click', () => visualizador.close());
+    visualizador.addEventListener('click', (evento) => {
+      if (evento.target === visualizador) visualizador.close();
+    });
+    visualizador.addEventListener('close', () => imagemAmpliada.removeAttribute('src'));
   });
 </script>
 <script>

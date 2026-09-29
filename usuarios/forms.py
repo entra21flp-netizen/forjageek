@@ -47,8 +47,8 @@ class CadastroUsuarioForm(UserCreationForm):
             "last_name": {"autocomplete": "family-name", "placeholder": "Seu sobrenome"},
             "username": {"autocomplete": "username", "placeholder": "Como aparecerá na ForjaGeek"},
             "email": {"autocomplete": "email", "placeholder": "voce@exemplo.com"},
-            "cpf": {"inputmode": "numeric", "autocomplete": "off", "placeholder": "000.000.000-00"},
-            "telefone_whatsapp": {"inputmode": "tel", "autocomplete": "tel", "placeholder": "(11) 99999-9999"},
+            "cpf": {"inputmode": "numeric", "autocomplete": "off", "placeholder": "000.000.000-00", "data-mascara": "cpf"},
+            "telefone_whatsapp": {"inputmode": "tel", "autocomplete": "tel", "placeholder": "(11) 99999-9999", "data-mascara": "telefone"},
             "password1": {"autocomplete": "new-password", "placeholder": "Crie uma senha segura"},
             "password2": {"autocomplete": "new-password", "placeholder": "Repita a senha"},
         }

@@ -1,6 +1,6 @@
 {% extends "core/base.html" %}{% load static %}
 {% block titulo %}Editar {{ item.modelo.nome_personagem }} — ForjaGeek{% endblock %}
-{% block css_extra %}<link rel="stylesheet" href="{% static 'css/cadastro.css' %}?v=2">{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/cadastro.css' %}?v=4">{% endblock %}
 {% block conteudo %}
 <div class="container cadastro editar-colecionavel">
   <a class="voltar-colecao" href="{% url 'core:meus_colecionaveis' %}">← Meus colecionáveis</a>
@@ -14,8 +14,33 @@
     <div><small>{{ item.modelo.tipo.nome_tipo }}</small><h2>{{ item.modelo.nome_modelo|default:item.modelo.nome_personagem }}</h2><p>{{ item.modelo.franquia }} · {{ item.modelo.fabricante }}</p></div>
   </section>
 
-  <form method="post">{% csrf_token %}
+  <form method="post" enctype="multipart/form-data" data-confirmar-campo-com-enter>{% csrf_token %}
     {% if form.errors %}<p role="alert" class="errorlist">Revise os campos destacados antes de salvar.</p>{% endif %}{{ form.non_field_errors }}
+    <section class="cadastro-card">
+      <h2>Identificação e fotos</h2>
+      <p>Altere a apresentação e os dados principais deste colecionável.</p>
+      <div class="edicao-foto-layout">
+        <div class="resumo-edicao-imagem" id="foto-edicao-preview">
+          {% with imagem=item.imagens.first %}{% if imagem and imagem.arquivo %}<img src="{{ imagem.arquivo.url }}" alt="{{ item.modelo.nome_personagem }}">{% elif imagem and imagem.url_imagem %}<img src="{{ imagem.url_imagem }}" alt="{{ item.modelo.nome_personagem }}">{% else %}<span aria-hidden="true">📦</span>{% endif %}{% endwith %}
+        </div>
+        <div>
+          <div class="seletor-arquivo">
+            {{ form.foto }}
+            <label for="id_foto">Escolher novas imagens</label>
+            <span id="nome-arquivo-edicao">Nenhuma nova imagem escolhida</span>
+          </div>
+          {{ form.foto.errors }}
+          <small class="edicao-foto-dica">Ao escolher novas imagens, as fotos atuais serão substituídas. Até 6 arquivos JPG, PNG ou WebP.</small>
+        </div>
+      </div>
+      <div class="cadastro-grid">
+        <div class="cadastro-campo">{{ form.tipo.label_tag }}{{ form.tipo }}{{ form.tipo.errors }}</div>
+        <div class="cadastro-campo">{{ form.nome_modelo.label_tag }}{{ form.nome_modelo }}{{ form.nome_modelo.errors }}</div>
+        <div class="cadastro-campo">{{ form.nome_personagem.label_tag }}{{ form.nome_personagem }}{{ form.nome_personagem.errors }}</div>
+        <div class="cadastro-campo">{{ form.franquia.label_tag }}{{ form.franquia }}{{ form.franquia.errors }}</div>
+        <div class="cadastro-campo">{{ form.fabricante.label_tag }}{{ form.fabricante }}{{ form.fabricante.errors }}</div>
+      </div>
+    </section>
     <section class="cadastro-card">
       <h2>Estado da sua peça</h2>
       <p>Registre a conservação atual e onde ela está guardada.</p>
@@ -38,9 +63,10 @@
         {% endfor %}
       </div>
     </section>
-    <datalist id="estados-peca"><option value="Novo"><option value="Excelente"><option value="Bom"><option value="Regular"><option value="Danificado"><option value="Não informado"></datalist>
-    <datalist id="condicoes-caixa"><option value="MISB lacrado"><option value="Aberto para exibição"><option value="Loose"><option value="Caixa avariada"><option value="Sem caixa"><option value="Não informado"></datalist>
     <div class="cadastro-rodape"><p>As alterações serão refletidas na coleção, na prateleira e na página do produto.</p><div><a href="{% url 'core:meus_colecionaveis' %}">Cancelar</a><button type="submit">Salvar alterações</button></div></div>
   </form>
 </div>
+<script src="{% static 'js/formatar-campos.js' %}?v=2" defer></script>
+<script src="{% static 'js/editar-foto.js' %}?v=1" defer></script>
+<script src="{% static 'js/formulario-enter.js' %}?v=1" defer></script>
 {% endblock %}

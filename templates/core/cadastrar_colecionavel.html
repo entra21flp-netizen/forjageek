@@ -5,7 +5,7 @@
 <div class="container cadastro">
 <a class="voltar-colecao" href="{% url 'core:meus_colecionaveis' %}">← Meus colecionáveis</a>
 <h1>Cadastrar colecionável</h1><p class="cadastro-intro">Do modelo à sua peça: organize todos os detalhes da coleção.</p>
-<form method="post" enctype="multipart/form-data" data-analisar-url="{% url 'core:analisar_foto_cadastro' %}">{% csrf_token %}
+<form method="post" enctype="multipart/form-data" data-analisar-url="{% url 'core:analisar_foto_cadastro' %}" data-confirmar-campo-com-enter>{% csrf_token %}
 <section class="cadastro-card foto-topo">
   <div class="foto-grade" id="foto-previews"><div class="foto-quadro foto-placeholder" id="foto-placeholder"><span aria-hidden="true">＋</span><small>Adicione fotos</small></div></div>
   <div class="foto-controles"><h2>Fotos do colecionável</h2><p>Inclua diferentes ângulos, a embalagem e uma foto nítida do código de barras.</p>
@@ -49,4 +49,6 @@ function atualizar(){
 modelo.addEventListener('change',atualizar);tipo.addEventListener('change',atualizar);atualizar();
 </script>
 <script src="{% static 'js/cadastro-foto.js' %}?v=3" defer></script>
+<script src="{% static 'js/formatar-campos.js' %}?v=2" defer></script>
+<script src="{% static 'js/formulario-enter.js' %}?v=1" defer></script>
 {% endblock %}
