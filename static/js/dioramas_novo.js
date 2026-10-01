@@ -12,9 +12,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.querySelectorAll('.dn-panel').forEach(el=>el.classList.toggle('active',el.dataset.panel===mode));
   };
   document.querySelectorAll('.dn-mode').forEach(el=>el.addEventListener('click',()=>activate(el.dataset.mode)));
-  document.querySelectorAll('.dn-preset').forEach(card=>card.addEventListener('click',()=>{
-    document.querySelectorAll('.dn-preset').forEach(el=>el.classList.remove('selected'));
-    card.classList.add('selected');
+  form.querySelectorAll('input[name="preset"]').forEach(input=>input.addEventListener('change',()=>{
+    document.querySelectorAll('.dn-preset').forEach(el=>{
+      el.classList.toggle('selected',el.contains(input));
+    });
     updatePresetButton();
   }));
   const ideas=form.querySelector('.dn-ideas');
