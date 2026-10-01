@@ -26,21 +26,8 @@
     </div>
   </section>
 
-  <div class="modal-adicionar" id="modal-dioramas" hidden>
-    <form class="modal-conteudo" id="form-dioramas">
-      <div class="modal-cabecalho"><div><span class="modal-etiqueta">DIORAMA DA PRATELEIRA</span><h2 id="titulo-modal-diorama">Criar diorama</h2><p>O cenário utilizará automaticamente as peças desta prateleira.</p></div><button type="button" class="fechar-modal" data-fecha-dioramas aria-label="Fechar">×</button></div>
-      <div class="lista-colecionaveis">
-        <input type="hidden" name="ordem" id="diorama-ordem">
-        <div class="pecas-do-diorama"><span>Peças usadas</span><p id="diorama-pecas"></p></div>
-        <label class="campo-diorama">Nome do cenário<input name="titulo" id="diorama-titulo" maxlength="100" required placeholder="Ex.: Batalha em Namekusei"></label>
-        <label class="campo-diorama">Descrição<input name="descricao" id="diorama-descricao" maxlength="180" placeholder="Conte uma pequena história para este cenário"></label>
-        <button type="submit" class="botao-adicionar salvar-dioramas">Salvar diorama</button>
-      </div>
-    </form>
-  </div>
-
   <!-- CABEÇALHO DA SEÇÃO DE ITENS E SELETOR DE TEMA -->
-  <div class="section-head" style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: flex-end;">
+  <div class="section-head cabecalho-itens">
     <div>
       <h2>Meus itens</h2>
       <a href="{% url 'core:prateleira_publica' username=user.username %}" class="mini-action"><span aria-hidden="true">↗</span><span>Ver versão pública</span></a>
@@ -49,12 +36,12 @@
     <div class="controles-estante">
       <button type="button" class="botao-adicionar" id="abrir-adicionar">+ Adicionar</button>
       <!-- Seletor interativo de tema da prateleira -->
-      <div class="field" style="margin-bottom: 0; width: 200px;">
-        <label for="select-tema" style="font-size: 11px;">Estilo da Estante</label>
+      <div class="seletor-estilo">
+        <label for="select-tema">Estilo</label>
         <select id="select-tema" onchange="mudarTemaPrateleira(this.value)">
-          <option value="forjageek">(ForjaGeek)</option>
-          <option value="futurista">(Cyber)</option>
-          <option value="vulcanico">(Lava)</option>
+          <option value="forjageek">ForjaGeek</option>
+          <option value="futurista">Cyber</option>
+          <option value="vulcanico">Lava</option>
         </select>
       </div>
     </div>
@@ -70,10 +57,6 @@
         {% for prateleira in prateleiras %}
           <section class="prateleira-fileira" aria-label="Prateleira {{ prateleira.numero }}">
             <div class="prateleira-fileira-cabecalho">
-              <label class="seletor-diorama-visivel" title="Mostrar este diorama no topo">
-                <input type="radio" name="diorama-destaque" value="{{ prateleira.numero }}" {% if estante.diorama_destaque == prateleira.numero %}checked{% endif %}>
-                <span>Exibir</span>
-              </label>
               <div>
                 <span>PRATELEIRA {{ prateleira.numero }}</span>
                 <small>{{ prateleira.pecas|length }} peça{{ prateleira.pecas|length|pluralize }} neste cenário</small>
@@ -177,15 +160,15 @@
     if (container) {
       container.setAttribute('data-theme', tema);
       pagina?.setAttribute('data-theme', tema);
-      localStorage.setItem('tema_prateleira_forjageek', tema);
+      try { localStorage.setItem('tema_prateleira_forjageek', tema); } catch (_) {}
     }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    let temaSalvo = localStorage.getItem('tema_prateleira_forjageek') || 'forjageek';
-    if (temaSalvo === 'madeira') {
+    let temaSalvo = 'forjageek';
+    try { temaSalvo = localStorage.getItem('tema_prateleira_forjageek') || temaSalvo; } catch (_) {}
+    if (!['forjageek', 'futurista', 'vulcanico'].includes(temaSalvo)) {
       temaSalvo = 'forjageek';
-      localStorage.setItem('tema_prateleira_forjageek', temaSalvo);
     }
     const selectTema = document.getElementById('select-tema');
     const container = document.getElementById('prateleira-container');
@@ -200,7 +183,6 @@
 
     const estante = document.getElementById('prateleira-container');
     const modalAdicionar = document.getElementById('modal-adicionar');
-    const modalDioramas = document.getElementById('modal-dioramas');
     const modalNovaEstante = document.getElementById('modal-nova-estante');
     const abrirAdicionar = document.getElementById('abrir-adicionar');
     const csrfToken = document.cookie.match(/csrftoken=([^;]+)/)?.[1] || '';
@@ -232,28 +214,6 @@
     };
 
     abrirAdicionar?.addEventListener('click', () => { modalAdicionar.hidden = false; });
-    document.querySelector('[data-fecha-dioramas]')?.addEventListener('click', () => { modalDioramas.hidden = true; });
-    document.querySelectorAll('.botao-diorama-fileira').forEach((botao) => {
-      botao.addEventListener('click', () => {
-        document.getElementById('diorama-ordem').value = botao.dataset.ordem;
-        document.getElementById('diorama-titulo').value = botao.dataset.titulo || '';
-        document.getElementById('diorama-descricao').value = botao.dataset.descricao || '';
-        document.getElementById('diorama-pecas').textContent = botao.dataset.pecas || 'Nenhuma peça posicionada nesta prateleira.';
-        document.getElementById('titulo-modal-diorama').textContent = `${botao.dataset.configurado === 'true' ? 'Editar' : 'Criar'} diorama · Prateleira ${botao.dataset.ordem}`;
-        modalDioramas.hidden = false;
-      });
-    });
-    document.querySelectorAll('input[name="diorama-destaque"]').forEach((opcao) => {
-      opcao.addEventListener('change', async () => {
-        if (!opcao.checked) return;
-        const resposta = await fetch('{% url "core:selecionar_diorama_destaque" %}', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': csrfToken },
-          body: new URLSearchParams({ ordem: opcao.value, estante_id: estante.dataset.estanteId }),
-        });
-        if (resposta.ok) window.location.reload();
-      });
-    });
     document.querySelector('[data-fecha-adicionar]')?.addEventListener('click', () => { modalAdicionar.hidden = true; });
     modalAdicionar?.addEventListener('click', (evento) => {
       if (evento.target === modalAdicionar) modalAdicionar.hidden = true;
@@ -281,12 +241,6 @@
       const resposta = await fetch('{% url "core:criar_estante" %}', { method: 'POST', headers: { 'X-CSRFToken': csrfToken }, body: new FormData(evento.target) });
       const dados = await resposta.json();
       if (resposta.ok) window.location.href = dados.url;
-    });
-    document.getElementById('form-dioramas')?.addEventListener('submit', async (evento) => {
-      evento.preventDefault();
-      const dados = new FormData(evento.target); dados.append('estante_id', estante.dataset.estanteId);
-      const resposta = await fetch('{% url "core:salvar_dioramas" %}', { method: 'POST', headers: { 'X-CSRFToken': csrfToken }, body: dados });
-      if (resposta.ok) window.location.reload();
     });
     let itemArrastado = null;
     let tipoItemArrastado = 'colecionavel';

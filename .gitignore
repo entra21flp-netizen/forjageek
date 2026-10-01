@@ -9,9 +9,11 @@ __pycache__/
 
 # Banco local
 db.sqlite3
+backups/
 
 # Arquivos de mídia
 media/
+.rembg/
 
 # Estáticos gerados
 staticfiles/

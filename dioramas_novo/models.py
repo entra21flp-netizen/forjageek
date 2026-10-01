@@ -21,9 +21,10 @@ class DioramaPresetNovo(models.Model):
     data_criacao = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        db_table = "dioramas_padrao"
         ordering = ["nome"]
-        verbose_name = "Preset de diorama (novo)"
-        verbose_name_plural = "Presets de diorama (novo)"
+        verbose_name = "Diorama padrão"
+        verbose_name_plural = "Dioramas padrão"
 
     def __str__(self):
         return self.nome
@@ -45,9 +46,10 @@ class DioramaGeradoNovo(models.Model):
     atualizado_em = models.DateTimeField(auto_now=True)
 
     class Meta:
+        db_table = "dioramas_ia"
         ordering = ["-data_criacao"]
-        verbose_name = "Diorama gerado (novo)"
-        verbose_name_plural = "Dioramas gerados (novo)"
+        verbose_name = "Diorama criado pelo usuário"
+        verbose_name_plural = "Dioramas criados pelos usuários"
         indexes = [models.Index(fields=["usuario", "-data_criacao"], name="diorama_novo_usuario_idx")]
 
     def __str__(self):

@@ -9,7 +9,7 @@ class TipoColecionavel(models.Model):
     )
 
     class Meta:
-        db_table = "catalogo_tipocolecionavel"
+        db_table = "tipos_colecionaveis"
         verbose_name = "Tipo de colecionável"
         verbose_name_plural = "Tipos de colecionáveis"
         ordering = ["nome_tipo"]
@@ -45,7 +45,7 @@ class ModeloColecionavel(models.Model):
     )
 
     class Meta:
-        db_table = "catalogo_modelocolecionavel"
+        db_table = "modelos_colecionaveis"
         verbose_name = "Modelo de colecionável"
         verbose_name_plural = "Catálogo de modelos"
         ordering = ["franquia", "nome_personagem"]
@@ -66,7 +66,7 @@ class Caracteristica(models.Model):
         (TIPO_DADO_BOOLEAN, "Sim/Não"),
     ]
 
-    tipos = models.ManyToManyField(TipoColecionavel, related_name='caracteristicas', blank=True, db_table='catalogo_caracteristica_tipos')
+    tipos = models.ManyToManyField(TipoColecionavel, related_name='caracteristicas', blank=True, db_table='tipos_caracteristicas')
     nome_caracteristica = models.CharField(
         max_length=100,
         unique=True,
@@ -79,7 +79,7 @@ class Caracteristica(models.Model):
     )
 
     class Meta:
-        db_table = "catalogo_caracteristica"
+        db_table = "caracteristicas"
         verbose_name = "Característica"
         verbose_name_plural = "Características"
         ordering = ["nome_caracteristica"]
@@ -107,7 +107,7 @@ class ModeloCaracteristica(models.Model):
     )
 
     class Meta:
-        db_table = "catalogo_modelocaracteristica"
+        db_table = "modelos_caracteristicas"
         verbose_name = "Característica do modelo"
         verbose_name_plural = "Características dos modelos"
         constraints = [
@@ -129,6 +129,6 @@ class ImagemModelo(models.Model):
     criado_em = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "catalogo_imagemmodelo"
+        db_table = "imagens_modelos"
         ordering = ['ordem_exibicao', 'pk']
         constraints = [models.UniqueConstraint(fields=['modelo'], condition=models.Q(imagem_principal=True), name='unica_principal_catalogo')]

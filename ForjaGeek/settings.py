@@ -69,6 +69,16 @@ CSRF_TRUSTED_ORIGINS = [
     "https://www.forjageek.space",
 ]
 
+# Proteções HTTPS habilitadas automaticamente fora do ambiente local.
+# O proxy reverso da hospedagem informa o protocolo original neste cabeçalho.
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SECURE_HSTS_SECONDS = int(os.getenv("SECURE_HSTS_SECONDS", "0" if DEBUG else "31536000"))
+SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
+SECURE_HSTS_PRELOAD = not DEBUG
+
 ROOT_URLCONF = 'ForjaGeek.urls'
 
 TEMPLATES = [
@@ -159,10 +169,16 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = "/var/www/forjageek/static"
+STATIC_ROOT = Path(os.getenv(
+    "STATIC_ROOT",
+    BASE_DIR / "staticfiles" if DEBUG else "/var/www/forjageek/static",
+))
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = "/var/www/forjageek/media"
+MEDIA_ROOT = Path(os.getenv(
+    "MEDIA_ROOT",
+    BASE_DIR / "media" if DEBUG else "/var/www/forjageek/media",
+))
 
 # Geração de dioramas personalizados; a chave permanece somente no servidor.
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '').strip()

@@ -1,7 +1,8 @@
 Django==6.1
 Pillow==12.3.0
 openai>=2.0.0,<3.0.0
-rembg[cpu]>=2.0.60,<3.0.0
+numpy>=1.26,<3.0
+onnxruntime>=1.17,<2.0
 google-genai>=1.0.0,<3.0.0
 python-dotenv>=1.0.0
 psycopg2-binary>=2.9.0,<3.0.0

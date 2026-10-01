@@ -2,6 +2,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   const form=document.querySelector('#dn-generation-form');
   if(!form)return;
   const type=document.querySelector('#id_tipo');
+  const savePreset=document.querySelector('#dn-save-preset');
+  const updatePresetButton=()=>{
+    if(savePreset)savePreset.disabled=!form.querySelector('input[name="preset"]:checked');
+  };
   const activate=(mode)=>{
     type.value=mode;
     document.querySelectorAll('.dn-mode').forEach(el=>el.classList.toggle('active',el.dataset.mode===mode));
@@ -11,6 +15,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('.dn-preset').forEach(card=>card.addEventListener('click',()=>{
     document.querySelectorAll('.dn-preset').forEach(el=>el.classList.remove('selected'));
     card.classList.add('selected');
+    updatePresetButton();
   }));
   const ideas=form.querySelector('.dn-ideas');
   if(ideas)ideas.addEventListener('click',event=>{
@@ -32,6 +37,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     description.setSelectionRange(updated.length,updated.length);
   });
   activate(type.value||'predefinido');
+  updatePresetButton();
   form.addEventListener('submit',()=>{
     const mode=type.value;
     const button=document.querySelector(mode==='predefinido'?'#dn-save-preset':'#dn-generate');

@@ -393,3 +393,11 @@
   #pagina-estante .prateleira-slots > .dn-shelf-row { border-color: var(--estante-acento); box-shadow: 0 0 0 1px rgba(var(--estante-acento-rgb), 0.12); }
   @media (max-width: 900px) { .estante-area.com-bandeja { grid-template-columns: minmax(0, 1fr) 180px; gap: 12px; } .estante-slot { min-height: 174px; } }
   @media (max-width: 700px) { .estante-area.com-bandeja { grid-template-columns: 1fr; } .prateleira-slots { grid-template-columns: repeat(2, minmax(0, 1fr)); } .itens-sem-posicao { position: static; max-height: none; } .bandeja-itens { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 430px; } .diorama-destaque { grid-template-columns: 1fr; } .diorama-destaque-visual { height: 90px; } .estante-instrucoes, .controles-estante, .diorama-cabecalho, .cabecalho-colecao, .linha-colecao, .status-estante, .titulo-estante, .seletor-estantes { flex-direction: column !important; align-items: stretch; } .status-estante { margin-left: 0; } }
+
+/* Controles compactos da prateleira, alinhados à direita também no celular. */
+#pagina-estante .cabecalho-itens { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 16px; }
+#pagina-estante .cabecalho-itens .controles-estante { flex-direction: row !important; flex-wrap: wrap; align-items: center; justify-content: flex-end; margin-left: auto; gap: 10px; }
+#pagina-estante .seletor-estilo { display: flex; align-items: center; gap: 6px; }
+#pagina-estante .seletor-estilo label { margin: 0; color: var(--text-muted); font-size: 11px; }
+#pagina-estante .seletor-estilo select { width: auto; max-width: 132px; min-height: 36px; padding: 6px 8px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); color: var(--text-secondary); font: inherit; font-size: 12px; cursor: pointer; }
+#pagina-estante .seletor-estilo select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

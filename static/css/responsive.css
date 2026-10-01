@@ -1,0 +1,50 @@
+/* Ajustes compartilhados entre páginas para telas de celular. */
+@media (max-width: 720px) {
+  .site-header {
+    align-items: center;
+  }
+
+  .header-icons {
+    flex: 0 1 auto;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 560px) {
+  .mercado-pagina {
+    padding-top: 28px;
+  }
+
+  .mercado-filtros {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+
+  .mercado-resultados .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mercado-resultados .product-card {
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-catalogo .product-grid,
+  .busca-modelos {
+    grid-template-columns: 1fr;
+  }
+
+  .home-catalogo .product-card {
+    max-width: none;
+  }
+
+  .home-catalogo .product-card .card-image {
+    height: 190px;
+  }
+
+  .home-catalogo .product-card .info {
+    padding: 14px;
+  }
+}

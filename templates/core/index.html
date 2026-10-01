@@ -1,6 +1,6 @@
 {% extends "core/base.html" %}
 {% load static %}
-{% block css_extra %}<link rel="stylesheet" href="{% static 'css/homepage.css' %}?v=4"><script src="{% static 'js/homepage.js' %}" defer></script>{% endblock %}
+{% block css_extra %}<link rel="stylesheet" href="{% static 'css/homepage.css' %}?v=6"><script src="{% static 'js/homepage.js' %}" defer></script>{% endblock %}
 
 {% block titulo %}ForjaGeek — O mercado dos colecionadores{% endblock %}
 
@@ -12,6 +12,7 @@
            alt="ForjaGeek — O mercado dos colecionadores. Diorama com cinco personagens originais."
            width="1672" height="941" fetchpriority="high">
     </div>
+    <img class="homepage-marca-mobile" src="{% static 'images/forjageek-wordmark.png' %}" alt="ForjaGeek">
     <div class="homepage-acoes">
       {% if request.user.is_authenticated %}
         <a class="homepage-botao" href="{% url 'core:prateleira' %}">Minha Estante Virtual</a>

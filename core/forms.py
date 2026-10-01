@@ -59,7 +59,7 @@ class CadastroColecionavelForm(forms.ModelForm):
                 raise forms.ValidationError('Use apenas imagens JPG, PNG ou WebP.')
         return fotos
     modelo = forms.ModelChoiceField(queryset=ModeloColecionavel.objects.all(), required=False, empty_label='Cadastrar um novo modelo', label='Modelo do catálogo')
-    tipo = forms.ModelChoiceField(queryset=TipoColecionavel.objects.all(), required=False, label='Categoria')
+    tipo = forms.ModelChoiceField(queryset=TipoColecionavel.objects.all(), required=False, empty_label='Selecione uma opção', label='Categoria')
     nome_modelo = forms.CharField(max_length=255, required=False, label='Nome completo do modelo')
     nome_personagem = forms.CharField(max_length=255, required=False, label='Personagem')
     franquia = forms.CharField(max_length=255, required=False, label='Franquia')

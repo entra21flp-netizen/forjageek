@@ -6,13 +6,13 @@ from unittest.mock import patch
 
 from catalogo.models import ModeloColecionavel, TipoColecionavel
 from inventario.models import ColecionavelUsuario
-from inventario.models import Diorama, EstanteVirtual
+from inventario.models import EstanteVirtual
 
 
 Usuario = get_user_model()
 
 
-class DioramaPorPrateleiraTests(TestCase):
+class PrateleiraSemDioramaLegadoTests(TestCase):
     def setUp(self):
         self.usuario = Usuario.objects.create_user(
             username="colecionador",
@@ -28,40 +28,13 @@ class DioramaPorPrateleiraTests(TestCase):
         )
         self.client.force_login(self.usuario)
 
-    def test_pagina_organiza_tres_dioramas_por_fileira(self):
+    def test_pagina_nao_cria_placeholders_de_diorama(self):
         resposta = self.client.get(reverse("core:prateleira"))
 
         self.assertEqual(resposta.status_code, 200)
         self.assertEqual(len(resposta.context["prateleiras"]), 3)
-        self.assertEqual(Diorama.objects.filter(estante=self.estante).count(), 3)
-        self.assertContains(resposta, "+ Criar diorama", count=3)
-
-    def test_salva_apenas_o_diorama_da_prateleira_escolhida(self):
-        resposta = self.client.post(
-            reverse("core:salvar_dioramas"),
-            {
-                "estante_id": self.estante.id,
-                "ordem": 2,
-                "titulo": "Batalha em Namekusei",
-                "descricao": "Guerreiros reunidos na segunda prateleira.",
-            },
-        )
-
-        self.assertEqual(resposta.status_code, 200)
-        diorama = Diorama.objects.get(estante=self.estante, ordem=2)
-        self.assertTrue(diorama.configurado)
-        self.assertEqual(diorama.titulo, "Batalha em Namekusei")
-        self.assertFalse(Diorama.objects.filter(estante=self.estante).exclude(ordem=2).exists())
-
-    def test_seleciona_diorama_visivel_no_topo(self):
-        resposta = self.client.post(
-            reverse("core:selecionar_diorama_destaque"),
-            {"estante_id": self.estante.id, "ordem": 3},
-        )
-
-        self.assertEqual(resposta.status_code, 200)
-        self.estante.refresh_from_db()
-        self.assertEqual(self.estante.diorama_destaque, 3)
+        self.assertContains(resposta, "+ Criar Diorama", count=1)
+        self.assertNotContains(resposta, 'id="modal-dioramas"')
 
 
 class AnalisadorFotoCadastroTests(TestCase):
@@ -91,6 +64,75 @@ class AnalisadorFotoCadastroTests(TestCase):
         self.assertEqual(len(fotos_enviadas), 1)
         self.assertEqual(fotos_enviadas[0].name, "frente.jpg")
         self.assertEqual(resposta.json()["referencia"], "primeira_foto")
+
+
+class ConsultaCodigoBarrasTests(TestCase):
+    def setUp(self):
+        self.usuario = Usuario.objects.create_user(
+            username="consulta-codigo",
+            email="codigo@example.com",
+            cpf="16899535009",
+            telefone_whatsapp="+5511955555555",
+            password="ForjaGeek!2026",
+        )
+        self.client.force_login(self.usuario)
+        self.tipo = TipoColecionavel.objects.create(nome_tipo="Action Figure")
+
+    def test_encontra_primeiro_no_catalogo_forjageek(self):
+        modelo = ModeloColecionavel.objects.create(
+            nome_modelo="Herói edição especial",
+            tipo=self.tipo,
+            nome_personagem="Herói",
+            franquia="Saga",
+            fabricante="Fabricante",
+            codigo_barras_ean_jan="7891234560017",
+        )
+
+        with patch("core.consulta_codigo_barras.consultar_upcitemdb") as consulta_externa:
+            resposta = self.client.post(
+                reverse("core:consultar_codigo_barras"),
+                {"codigo": "7891234560017"},
+            )
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta.json()["origem"], "catalogo_forjageek")
+        self.assertEqual(resposta.json()["modelo_id"], modelo.id)
+        consulta_externa.assert_not_called()
+
+    @patch("core.consulta_codigo_barras.consultar_upcitemdb")
+    def test_retorna_referencia_externa_sem_gravar_modelo(self, consultar):
+        consultar.return_value = {
+            "nome_modelo": "Figura encontrada",
+            "fabricante": "Marca",
+            "categoria_origem": "Toys",
+            "imagem_modelo": "https://example.com/figura.jpg",
+            "codigo_barras_ean_jan": "012345678905",
+        }
+
+        resposta = self.client.post(
+            reverse("core:consultar_codigo_barras"),
+            {"codigo": "012345678905"},
+        )
+
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta.json()["origem"], "upcitemdb")
+        self.assertEqual(resposta.json()["produto"]["fabricante"], "Marca")
+        self.assertEqual(ModeloColecionavel.objects.count(), 0)
+
+    def test_rejeita_codigo_invalido(self):
+        resposta = self.client.post(
+            reverse("core:consultar_codigo_barras"),
+            {"codigo": "ABC123"},
+        )
+
+        self.assertEqual(resposta.status_code, 400)
+        self.assertIn("8 a 13", resposta.json()["erro"])
+
+    def test_formulario_exibe_busca_por_codigo(self):
+        resposta = self.client.get(reverse("core:cadastrar_colecionavel"))
+
+        self.assertContains(resposta, "Buscar produto")
+        self.assertContains(resposta, reverse("core:consultar_codigo_barras"))
 
 
 class CarrinhoTests(TestCase):
@@ -135,7 +177,7 @@ class CarrinhoTests(TestCase):
         self.assertEqual(resposta.status_code, 200)
         self.assertEqual(resposta.json()["ids"], [self.item.id])
         self.assertEqual(resposta.json()["quantidade"], 1)
-        pagina = self.client.get(reverse("core:index"))
+        pagina = self.client.get(reverse("core:catalogo_figuras"))
         self.assertContains(pagina, "Figura de teste")
         self.assertContains(pagina, 'id="carrinho-contagem"')
         self.assertContains(pagina, f'data-carrinho-adicionar="{self.item.id}"')
@@ -150,3 +192,22 @@ class CarrinhoTests(TestCase):
         self.assertEqual(resposta.status_code, 200)
         self.assertEqual(resposta.json()["quantidade"], 0)
         self.assertEqual(resposta.json()["ids"], [])
+
+    def test_exibicao_lista_apenas_colecionaveis_publicos(self):
+        ColecionavelUsuario.objects.create(
+            usuario=self.vendedor,
+            modelo=self.item.modelo,
+            nome_personalizado="Item privado",
+            estado_peca="Excelente",
+            condicao_caixa="Com caixa",
+            preco_pago="80.00",
+            status_privacidade=ColecionavelUsuario.PRIVACIDADE_PRIVADO,
+        )
+
+        resposta = self.client.get(
+            reverse("core:catalogo_figuras"),
+            {"tipo": "Action Figure"},
+        )
+
+        self.assertContains(resposta, "Figura de teste")
+        self.assertNotContains(resposta, "Item privado")

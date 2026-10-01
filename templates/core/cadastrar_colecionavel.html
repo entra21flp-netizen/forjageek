@@ -5,7 +5,7 @@
 <div class="container cadastro">
 <a class="voltar-colecao" href="{% url 'core:meus_colecionaveis' %}">← Meus colecionáveis</a>
 <h1>Cadastrar colecionável</h1><p class="cadastro-intro">Do modelo à sua peça: organize todos os detalhes da coleção.</p>
-<form method="post" enctype="multipart/form-data" data-analisar-url="{% url 'core:analisar_foto_cadastro' %}" data-confirmar-campo-com-enter>{% csrf_token %}
+<form method="post" enctype="multipart/form-data" data-analisar-url="{% url 'core:analisar_foto_cadastro' %}" data-consultar-codigo-url="{% url 'core:consultar_codigo_barras' %}" data-confirmar-campo-com-enter>{% csrf_token %}
 <section class="cadastro-card foto-topo">
   <div class="foto-grade" id="foto-previews"><div class="foto-quadro foto-placeholder" id="foto-placeholder"><span aria-hidden="true">＋</span><small>Adicione fotos</small></div></div>
   <div class="foto-controles"><h2>Fotos do colecionável</h2><p>Inclua diferentes ângulos, a embalagem e uma foto nítida do código de barras.</p>
@@ -29,7 +29,7 @@
 <section class="cadastro-card"><h2>Comece pelo catálogo</h2><p>Escolha um modelo existente ou cadastre um novo.</p><div class="cadastro-campo">{{ form.modelo.label_tag }}{{ form.modelo }}{{ form.modelo.errors }}</div></section>
 {% for section in form.sections %}
 <section class="cadastro-card" {% if section.id %}id="{{ section.id }}"{% endif %}><h2>{{ section.title }}</h2><div class="cadastro-grid">
-{% for field in section.fields %}<div class="cadastro-campo">{{ field.label_tag }}{{ field }}{{ field.errors }}{% if field.field.required %}<small>Obrigatório</small>{% endif %}</div>{% endfor %}
+{% for field in section.fields %}<div class="cadastro-campo">{{ field.label_tag }}{% if field.name == 'codigo_barras_ean_jan' %}<div class="codigo-barras-linha">{{ field }}<button type="button" id="buscar-codigo-barras">Buscar produto</button></div><small>Digite somente os números impressos abaixo das barras.</small><div id="codigo-barras-resultado" class="codigo-barras-resultado" role="status" hidden></div>{% else %}{{ field }}{% endif %}{{ field.errors }}{% if field.field.required %}<small>Obrigatório</small>{% endif %}</div>{% endfor %}
 </div>
 {% if section.id %}<div id="caracteristicas-modelo"><h2 style="margin-top:28px">Características da categoria</h2><p id="dica-categoria">Selecione uma categoria para ver as características.</p><div class="cadastro-grid">
 {% for entry in form.characteristic_fields %}<div class="cadastro-campo" data-tipos="{{ entry.types }}">{{ entry.field.label_tag }}{{ entry.field }}{{ entry.field.errors }}</div>{% endfor %}
@@ -49,6 +49,7 @@ function atualizar(){
 modelo.addEventListener('change',atualizar);tipo.addEventListener('change',atualizar);atualizar();
 </script>
 <script src="{% static 'js/cadastro-foto.js' %}?v=3" defer></script>
-<script src="{% static 'js/formatar-campos.js' %}?v=2" defer></script>
+<script src="{% static 'js/codigo-barras.js' %}?v=1" defer></script>
+<script src="{% static 'js/formatar-campos.js' %}?v=3" defer></script>
 <script src="{% static 'js/formulario-enter.js' %}?v=1" defer></script>
 {% endblock %}

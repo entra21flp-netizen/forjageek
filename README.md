@@ -1,128 +1,130 @@
-# ForjaGeek — projeto Django
+# ForjaGeek
 
-Recriação do banco de dados que você desenhou, agora como um projeto Django
-de verdade (models + admin), testado ponta a ponta neste ambiente antes de
-te entregar.
+Plataforma Django para colecionadores cadastrarem peças, organizarem estantes virtuais, criarem dioramas e negociarem itens com a comunidade.
 
-## Estrutura
+## Funcionalidades
 
-```
-forjageek_django/
-├── manage.py
-├── requirements.txt
-├── forjageek/          # configuração do projeto (settings, urls raiz)
-├── usuarios/           # Usuario (autenticação)
-├── catalogo/           # TipoColecionavel, ModeloColecionavel, Caracteristica, ModeloCaracteristica
-├── inventario/         # ColecionavelUsuario, EstanteVirtual, ItemEstante
-├── transacoes/         # TransacaoVenda
-├── core/               # app de "cola" — vai receber as views/templates das páginas do site
-├── static/             # css/ e js/ do projeto (ainda vazios — próximo passo)
-└── templates/          # templates Django (ainda vazio — próximo passo)
-```
+- Cadastro de modelos e unidades de colecionáveis;
+- Busca de produto por código de barras EAN, JAN ou UPC;
+- Página de Exibição com pesquisa e filtros;
+- Estantes públicas ou privadas, com organização por arrastar e soltar;
+- Dioramas predefinidos e personalizados;
+- Mercado, carrinho, Wishlist e conversas;
+- Histórico de vendas e avaliações;
+- Autenticação, recuperação de conta e verificação de WhatsApp.
 
-Cada app corresponde a uma seção do seu diagrama DBML, pra ficar fácil de
-navegar o código do mesmo jeito que você navega o diagrama.
+## Estrutura de dados
 
-## Como cada tabela do seu diagrama virou um app
+O projeto mantém os nomes organizados das tabelas de catálogo:
 
-| Tabela no DBML | App Django | Model |
-|---|---|---|
-| `usuarios` | `usuarios` | `Usuario` |
-| `transacoes_venda` | `transacoes` | `TransacaoVenda` |
-| `tipos_colecionaveis` | `catalogo` | `TipoColecionavel` |
-| `modelos_colecionaveis` | `catalogo` | `ModeloColecionavel` |
-| `caracteristicas` | `catalogo` | `Caracteristica` |
-| `modelos_caracteristicas` | `catalogo` | `ModeloCaracteristica` |
-| `colecionaveis_usuario` | `inventario` | `ColecionavelUsuario` |
-| `estantes_virtuais` | `inventario` | `EstanteVirtual` |
-| `itens_estante` | `inventario` | `ItemEstante` |
+- `tipos_colecionaveis`
+- `modelos_colecionaveis`
+- `imagens_modelos`
+- `caracteristicas`
+- `tipos_caracteristicas`
+- `modelos_caracteristicas`
+- `dioramas_padrao` — cenários oferecidos pelo site
+- `dioramas_ia` — dioramas confirmados pelos usuários
 
-## 3 decisões que mudam levemente o diagrama original (e por quê)
-
-**1. Campo `senha` → sistema de autenticação do Django**
-Como combinamos: em vez do campo `senha varchar(255)` guardando texto puro,
-`Usuario` estende o `AbstractUser` do Django. A senha é automaticamente
-guardada com hash seguro (nunca em texto legível), e você ganha de graça
-login, logout, recuperação de senha e permissões. Os campos extras do seu
-diagrama (`cpf`, `telefone_whatsapp`, `whatsapp_validado`) continuam lá.
-
-**2. `modelos_caracteristicas`: chave composta → `UniqueConstraint`**
-O diagrama definia `(modelo_id, caracteristica_id)` como chave primária
-composta. O Django trabalha melhor com um `id` numérico normal — troquei a
-chave composta por uma restrição de unicidade (`UniqueConstraint`), que
-garante exatamente a mesma regra (não duplicar característica no mesmo
-modelo), só que de um jeito mais fácil de usar no ORM e no admin.
-
-**3. `transacoes_venda.colecionavel_usuario_id`: agora é uma referência de verdade**
-No DBML original, essa coluna existia mas não tinha uma linha `Ref:`
-ligando ela à tabela de colecionáveis. Criei essa ligação de verdade (com
-`on_delete=PROTECT`), porque sem ela o Django não sabe navegar de uma
-transação até o item vendido — e o `PROTECT` garante que ninguém consiga
-apagar um item que já tem histórico de venda.
-
-Se alguma dessas 3 decisões não for o que você imaginou, me fala que eu
-ajusto.
-
-## Como rodar
+As migrações são a fonte oficial da estrutura. Para criar um banco vazio com o esquema atual, execute:
 
 ```bash
-# 1. Crie um ambiente virtual (recomendado)
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-
-# 2. Instale as dependências
-pip install -r requirements.txt
-
-# 3. Crie o banco (SQLite, não precisa instalar nada a mais)
 python manage.py migrate
+```
 
-# 4. Popule com os 3 usuários de demonstração + catálogo de exemplo
-python manage.py seed_demo
+Esse comando cria somente as tabelas definidas pelos aplicativos e pelas dependências do Django. Não use comandos SQL manuais para criar tabelas paralelas.
 
-# 5. Crie um usuário admin pra você mesmo acessar o painel
-python manage.py createsuperuser
+## Configuração local
 
-# 6. Rode o servidor
+Requer Python 3.12.
+
+```bash
+python -m venv .venv
+```
+
+No Windows:
+
+```powershell
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+Copy-Item .env.example .env
+```
+
+Para usar SQLite localmente, configure no `.env`:
+
+```env
+SECRET_KEY=uma-chave-local
+DEBUG=True
+FORJAGEEK_USE_SQLITE=true
+ALLOWED_HOSTS=localhost,127.0.0.1
+```
+
+Depois execute:
+
+```bash
+python manage.py migrate
 python manage.py runserver
 ```
 
-Depois disso:
-- Site: http://127.0.0.1:8000/ (ainda sem páginas — ver "Próximos passos")
-- Painel admin: http://127.0.0.1:8000/admin/
+O site estará disponível em `http://127.0.0.1:8000/`.
 
-## Os 3 usuários de demonstração
+## Neon/PostgreSQL
 
-O comando `seed_demo` cria exatamente o que planejamos lá no início do
-projeto — 3 usuários prontos, sem precisar de tela de cadastro pra
-demonstração:
+Para usar o banco do Neon, mantenha `FORJAGEEK_USE_SQLITE=false` e informe a conexão apenas no `.env` do servidor:
 
-| Login | Senha | Perfil |
-|---|---|---|
-| `rafageek` | `demo12345` | Tem item à venda (Optimus Prime) + item só de exibição |
-| `colecionasp` | `demo12345` | Tem item pra venda/troca + item à venda |
-| `mesageek` | `demo12345` | Tem item só de exibição + item pra troca |
+```env
+NEON_DATABASE_URL=postgresql://usuario:senha@servidor/banco?sslmode=require
+FORJAGEEK_USE_SQLITE=false
+```
 
-Cada um já vem com uma estante virtual e itens no catálogo (Transformers,
-Batman, Pokémon, Gundam, Senhor dos Anéis, Jurassic Park), prontos pra
-mostrar nas telas de prateleira, busca e produto.
+Nunca envie o `.env`, senhas ou URLs reais de conexão para o GitHub.
 
-Quer recriar do zero? `python manage.py seed_demo --limpar`
+## Consulta por código de barras
 
-## O que já está pronto
+No cadastro de colecionável, a busca consulta primeiro os modelos já existentes no ForjaGeek. Se o código ainda não estiver no catálogo, o servidor consulta a UPCitemdb e sugere os dados encontrados para revisão do usuário. A consulta não grava um novo modelo automaticamente.
 
-- Todos os models do diagrama, migrados e testados
-- Painel admin completo (você já pode cadastrar/editar tudo por lá)
-- Comando de seed com os 3 usuários de demonstração
-- **Home (`/`)** — mesmo visual escuro/laranja do projeto original, com filtro
-  por categoria (chips) funcionando de verdade contra o banco de dados
-- **Login (`/entrar/`)** — autenticação real do Django, mesmo visual, com os
-  3 usuários de demonstração já prontos pra usar
-- CSS reaproveitado 100% do projeto estático (`static/css/base.css`,
-  `layout.css`, `componentes.css`) — nenhuma cor nova foi criada
+Sem configuração adicional, o projeto usa o acesso de teste da UPCitemdb, sujeito a um limite baixo de consultas. Para uso contínuo em produção, contrate uma chave no provedor e configure somente no `.env` do servidor:
 
-## Próximos passos (ainda não feitos)
+```env
+UPCITEMDB_USER_KEY=sua-chave
+```
 
-Faltam as demais páginas como views + templates: busca com filtros, produto,
-prateleira, wishlist, chat, checkout. Posso seguir com elas a partir daqui,
-uma de cada vez, do mesmo jeito que fizemos até agora — qual você quer que
-eu faça primeiro?
+## Imagens e arquivos de mídia
+
+Arquivos dentro de `static/` pertencem ao projeto e são enviados ao GitHub. Isso inclui logotipos, estilos, scripts e os cenários predefinidos dos dioramas.
+
+Fotos enviadas pelos usuários e dioramas gerados ficam em `media/`. Essa pasta não é versionada e deve permanecer em armazenamento persistente no servidor. No `docker-compose.yml`, ela está montada em `/var/www/forjageek/media`.
+
+As imagens cadastradas por URL ficam registradas no banco e são carregadas diretamente da origem externa.
+
+## Implantação com Docker
+
+O serviço executa automaticamente, nesta ordem:
+
+1. `python manage.py migrate`
+2. `python manage.py collectstatic --noinput`
+3. Gunicorn na porta 8000
+
+Antes de iniciar, configure no servidor:
+
+- `SECRET_KEY`
+- `DEBUG=False`
+- `ALLOWED_HOSTS`
+- `NEON_DATABASE_URL`
+- credenciais dos serviços opcionais usados pelo projeto
+
+As pastas persistentes configuradas são:
+
+- `/var/www/forjageek/static`
+- `/var/www/forjageek/media`
+
+## Verificações antes do envio
+
+```bash
+python manage.py makemigrations --check --dry-run
+python manage.py check
+python manage.py test
+git diff --check
+```
+
+O banco SQLite local, os backups, o `.env`, a mídia de usuários, os arquivos estáticos coletados e o modelo local de recorte de fundo estão ignorados pelo Git.

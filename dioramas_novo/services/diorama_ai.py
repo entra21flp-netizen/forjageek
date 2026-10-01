@@ -15,6 +15,8 @@ from PIL import Image, ImageFilter, ImageOps
 
 logger = logging.getLogger(__name__)
 
+U2NETP_URL = "https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2netp.onnx"
+
 
 class DioramaAIError(Exception):
     pass
@@ -51,101 +53,64 @@ def _imagem_colecionavel(colecionavel):
 
 @lru_cache(maxsize=1)
 def _sessao_recorte():
-    os.environ.setdefault("REMBG_HOME", str(Path(settings.BASE_DIR) / ".rembg"))
-    from rembg import new_session
-    return new_session("u2netp")
+    """Carrega somente o modelo necessário, sem inicializar todo o pacote rembg."""
+    import onnxruntime as ort
+
+    pasta_modelo = Path(settings.BASE_DIR) / ".rembg"
+    caminho_modelo = pasta_modelo / "u2netp.onnx"
+    if not caminho_modelo.exists():
+        pasta_modelo.mkdir(parents=True, exist_ok=True)
+        temporario = caminho_modelo.with_suffix(".onnx.download")
+        try:
+            with urlopen(U2NETP_URL, timeout=60) as resposta, temporario.open("wb") as destino:
+                while bloco := resposta.read(1024 * 1024):
+                    destino.write(bloco)
+            temporario.replace(caminho_modelo)
+        finally:
+            temporario.unlink(missing_ok=True)
+
+    opcoes = ort.SessionOptions()
+    opcoes.intra_op_num_threads = min(4, os.cpu_count() or 1)
+    return ort.InferenceSession(
+        str(caminho_modelo),
+        sess_options=opcoes,
+        providers=["CPUExecutionProvider"],
+    )
 
 
 def _recortar_fundo(item):
-    """Segmenta o objeto principal, inclusive em fotos com fundos complexos."""
+    """Segmenta a peça com o modelo leve U2NetP."""
     rgba = item.convert("RGBA")
     alpha_original = rgba.getchannel("A")
     if alpha_original.getextrema()[0] < 250:
         return rgba
+    # A composição final reduz a peça para no máximo 600 px. Trabalhar nessa
+    # resolução evita que fotos grandes bloqueiem o processo por vários minutos.
+    limite_recorte = 640
+    if max(rgba.size) > limite_recorte:
+        rgba.thumbnail((limite_recorte, limite_recorte), Image.Resampling.LANCZOS)
     try:
-        from rembg import remove
-
-        entrada = io.BytesIO()
-        rgba.save(entrada, format="PNG")
-        try:
-            resultado = remove(
-                entrada.getvalue(),
-                session=_sessao_recorte(),
-                alpha_matting=True,
-                alpha_matting_foreground_threshold=235,
-                alpha_matting_background_threshold=15,
-                alpha_matting_erode_size=8,
-            )
-        except Exception:
-            # O alpha matting pode falhar em imagens muito escuras ou com
-            # pouco contraste. A segmentação principal continua funcionando.
-            logger.warning("Alpha matting falhou; repetindo recorte sem matting", exc_info=True)
-            resultado = remove(
-                entrada.getvalue(),
-                session=_sessao_recorte(),
-                alpha_matting=False,
-                post_process_mask=True,
-            )
-        recorte = Image.open(io.BytesIO(resultado)).convert("RGBA")
-        # Logos, textos e faixas podem sobreviver à segmentação como ilhas
-        # separadas. Mantém somente o maior componente (a peça principal).
         import numpy as np
-        from scipy import ndimage
 
-        alpha_array = np.asarray(recorte.getchannel("A")).copy()
-
-        # Em fotos promocionais, uma faixa pode separar as botas do corpo. Uma
-        # segunda leitura da parte inferior recupera pés que o recorte global
-        # classificou como desconectados.
-        inicio_inferior = int(rgba.height * .76)
-        inferior = rgba.crop((0, inicio_inferior, rgba.width, rgba.height))
-        buffer_inferior = io.BytesIO()
-        inferior.save(buffer_inferior, format="PNG")
-        resultado_inferior = remove(
-            buffer_inferior.getvalue(),
-            session=_sessao_recorte(),
-            alpha_matting=False,
-            post_process_mask=True,
-        )
-        alpha_inferior = np.asarray(
-            Image.open(io.BytesIO(resultado_inferior)).convert("RGBA").getchannel("A")
-        )
-        corte_faixa = int(rgba.height * .80)
-        deslocamento = corte_faixa - inicio_inferior
-        alpha_array[corte_faixa:, :] = np.maximum(
-            alpha_array[corte_faixa:, :],
-            alpha_inferior[deslocamento:, :],
-        )
-        mascara_base = alpha_array > 24
-        mascara_aberta = ndimage.binary_opening(mascara_base, structure=np.ones((3, 3)), iterations=2)
-        rotulos, quantidade = ndimage.label(mascara_aberta)
-        if quantidade:
-            tamanhos = ndimage.sum(mascara_aberta, rotulos, range(1, quantidade + 1))
-            principal = int(np.argmax(tamanhos)) + 1
-            objetos = ndimage.find_objects(rotulos)
-            caixa_principal = objetos[principal - 1]
-            x_min = caixa_principal[1].start
-            x_max = caixa_principal[1].stop
-            manter = rotulos == principal
-            tamanho_principal = tamanhos[principal - 1]
-            for indice, caixa in enumerate(objetos, start=1):
-                if indice == principal or caixa is None:
-                    continue
-                largura = caixa[1].stop - caixa[1].start
-                altura = caixa[0].stop - caixa[0].start
-                centro_x = (caixa[1].start + caixa[1].stop) / 2
-                abaixo_do_corpo = caixa[0].start >= int(rgba.height * .77)
-                alinhado = x_min - largura * .25 <= centro_x <= x_max + largura * .25
-                tamanho_relevante = tamanhos[indice - 1] >= tamanho_principal * .008
-                nao_e_faixa = largura / max(altura, 1) < 3
-                if abaixo_do_corpo and alinhado and tamanho_relevante and nao_e_faixa:
-                    manter |= rotulos == indice
-            mascara = ndimage.binary_dilation(manter, iterations=2) & mascara_base
-            alpha_limpo = np.where(mascara, alpha_array, 0).astype(np.uint8)
-            alpha_limpo = np.asarray(
-                Image.fromarray(alpha_limpo, mode="L").filter(ImageFilter.GaussianBlur(.65))
-            )
-            recorte.putalpha(Image.fromarray(alpha_limpo, mode="L"))
+        sessao = _sessao_recorte()
+        entrada = rgba.convert("RGB").resize((320, 320), Image.Resampling.LANCZOS)
+        matriz = np.asarray(entrada, dtype=np.float32) / 255.0
+        matriz = (
+            matriz - np.array((.485, .456, .406), dtype=np.float32)
+        ) / np.array((.229, .224, .225), dtype=np.float32)
+        tensor = matriz.transpose((2, 0, 1))[None].astype(np.float32)
+        predicao = sessao.run(
+            None,
+            {sessao.get_inputs()[0].name: tensor},
+        )[0][:, 0, :, :]
+        predicao = np.squeeze(predicao)
+        intervalo = max(float(predicao.max() - predicao.min()), 1e-6)
+        predicao = (predicao - predicao.min()) / intervalo
+        alpha = Image.fromarray((predicao * 255).astype(np.uint8), mode="L")
+        alpha = alpha.resize(rgba.size, Image.Resampling.LANCZOS)
+        alpha = alpha.filter(ImageFilter.GaussianBlur(.8))
+        recorte = rgba.copy()
+        recorte.putalpha(alpha)
     except Exception as exc:
         logger.exception("Falha ao segmentar o fundo do colecionável")
         raise DioramaAIError("Não foi possível remover o fundo da foto do colecionável.") from exc

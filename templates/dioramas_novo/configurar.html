@@ -17,7 +17,7 @@
         <strong>{{ preset.nome }}</strong><small>{{ preset.descricao }}</small>
       </label>
     {% endfor %}
-  </div>{{ form.preset.errors }}<div class="dn-panel-actions"><button class="dn-button" id="dn-save-preset" type="submit"><span class="dn-label">Salvar Diorama Escolhido</span><span class="dn-loading">Salvando diorama...</span></button></div></section>
+  </div>{{ form.preset.errors }}<div class="dn-panel-actions"><button class="dn-button" id="dn-save-preset" type="submit" {% if not form.preset.value %}disabled{% endif %}><span class="dn-label">Salvar Diorama Escolhido</span><span class="dn-loading">Salvando diorama...</span></button></div></section>
   <section data-panel="personalizado" class="dn-panel">
     <h2>Descreva como você imagina o seu diorama</h2>
     <p>Dica: descreva o cenário, a luz e o clima de forma simples. Evite violência explícita. Ex.: "Cidade futurista ao entardecer, com luz suave e base de exposição."</p>
@@ -46,5 +46,5 @@
   </section>
   <div class="dn-actions"><a class="dn-button secondary" href="{% url 'dioramas_novo:selecionar' %}">Voltar</a></div>
 </form>
-<script src="{% static 'js/dioramas_novo.js' %}?v=20260922-2" defer></script>
+<script src="{% static 'js/dioramas_novo.js' %}?v=20261001-1" defer></script>
 {% endblock %}

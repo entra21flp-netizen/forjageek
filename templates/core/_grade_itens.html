@@ -4,8 +4,8 @@
   <a class="product-card-link" href="{% url 'core:produto' item_id=item.id %}" aria-label="Ver {{ item.modelo.nome_personagem }}">
     <div class="card-image">
       {% with imagem=item.imagens.first %}
-      {% if imagem.arquivo %}<img src="{{ imagem.arquivo.url }}" alt="{{ item.modelo.nome_personagem }}">
-      {% elif imagem.url_imagem %}<img src="{{ imagem.url_imagem }}" alt="{{ item.modelo.nome_personagem }}">
+      {% if imagem.arquivo %}<img src="{{ imagem.arquivo.url }}" alt="{{ item.modelo.nome_personagem }}" onerror="this.nextElementSibling.hidden=false;this.remove()"><div class="art" aria-label="Sem foto" hidden>📦</div>
+      {% elif imagem.url_imagem %}<img src="{{ imagem.url_imagem }}" alt="{{ item.modelo.nome_personagem }}" onerror="this.nextElementSibling.hidden=false;this.remove()"><div class="art" aria-label="Sem foto" hidden>📦</div>
       {% else %}<div class="art" aria-label="Sem foto">📦</div>{% endif %}
       {% endwith %}
     </div>
@@ -21,7 +21,7 @@
     </div>
   </a>
   {% if user.is_authenticated and item.usuario_id != user.id %}
-    <button type="button" class="card-wishlist{% if item.id in wishlist_ids %} adicionado{% endif %}" data-wishlist-item="{{ item.id }}" data-url="{% url 'core:alternar_wishlist' %}" aria-pressed="{% if item.id in wishlist_ids %}true{% else %}false{% endif %}" aria-label="{% if item.id in wishlist_ids %}Remover {{ item.modelo.nome_personagem }} da Wishlist{% else %}Adicionar {{ item.modelo.nome_personagem }} à Wishlist{% endif %}" title="{% if item.id in wishlist_ids %}Remover da Wishlist{% else %}Adicionar à Wishlist{% endif %}"><span aria-hidden="true">{% if item.id in wishlist_ids %}♥{% else %}♡{% endif %}</span></button>
+    <button type="button" class="card-wishlist{% if item.id in wishlist_ids %} adicionado{% endif %}" data-wishlist-item="{{ item.id }}" data-item-nome="{{ item.modelo.nome_personagem }}" data-url="{% url 'core:alternar_wishlist' %}" aria-pressed="{% if item.id in wishlist_ids %}true{% else %}false{% endif %}" aria-label="{% if item.id in wishlist_ids %}Remover {{ item.modelo.nome_personagem }} da Wishlist{% else %}Adicionar {{ item.modelo.nome_personagem }} à Wishlist{% endif %}" title="{% if item.id in wishlist_ids %}Remover da Wishlist{% else %}Adicionar à Wishlist{% endif %}"><span aria-hidden="true">{% if item.id in wishlist_ids %}♥{% else %}♡{% endif %}</span></button>
   {% endif %}
   {% if mostrar_negociacao %}
     {% if item.usuario_id != user.id and item.preco_anunciado != None %}

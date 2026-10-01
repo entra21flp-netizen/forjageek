@@ -155,23 +155,6 @@ class AvaliacaoEstante(models.Model):
         return f"{self.nota} estrelas para {self.estante}"
 
 
-class Diorama(models.Model):
-    """Cenário de uma das três prateleiras (fileiras) da estante virtual."""
-    estante = models.ForeignKey(EstanteVirtual, on_delete=models.CASCADE, related_name="dioramas")
-    titulo = models.CharField(max_length=100, default="Meu diorama")
-    descricao = models.CharField(max_length=180, blank=True)
-    ordem = models.PositiveSmallIntegerField()
-    configurado = models.BooleanField(default=False)
-
-    class Meta:
-        db_table = "dioramas_ia"
-        ordering = ["ordem"]
-        constraints = [models.UniqueConstraint(fields=["estante", "ordem"], name="uniq_diorama_por_posicao")]
-
-    def __str__(self):
-        return f"{self.titulo} ({self.estante})"
-
-
 class ItemEstante(models.Model):
     estante = models.ForeignKey(
         EstanteVirtual,

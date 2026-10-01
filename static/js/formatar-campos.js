@@ -21,14 +21,11 @@
     return `(${ddd}) ${numero.slice(0, corte)}-${numero.slice(corte)}`;
   };
 
-  const numeroMonetario = (valor) => {
-    const texto = String(valor || '').trim().replace(/\s/g, '').replace(/^R\$/, '');
-    if (!texto) return null;
-    let normalizado = texto;
-    if (texto.includes(',')) normalizado = texto.replace(/\./g, '').replace(',', '.');
-    normalizado = normalizado.replace(/[^\d.-]/g, '');
-    const numero = Number(normalizado);
-    return Number.isFinite(numero) ? numero : null;
+  const formatarCentavos = (valor) => {
+    const digitos = valor.replace(/\D/g, '').replace(/^0+(?=\d)/, '');
+    if (!digitos) return '';
+    const preenchido = digitos.padStart(3, '0');
+    return `${preenchido.slice(0, -2)},${preenchido.slice(-2)}`;
   };
 
   document.querySelectorAll('[data-mascara="cpf"]').forEach((campo) => {
@@ -61,14 +58,20 @@
   });
 
   document.querySelectorAll('.campo-moeda').forEach((campo) => {
-    const formatar = () => {
-      const numero = numeroMonetario(campo.value);
-      campo.value = numero === null ? '' : numero.toFixed(2).replace('.', ',');
-    };
+    // Valores vindos do servidor já representam reais, não centavos digitados.
+    const inicial = campo.value.trim();
+    if (inicial) {
+      const normalizado = inicial.includes(',')
+        ? inicial.replace(/\./g, '').replace(',', '.')
+        : inicial;
+      if (/^\d+(?:\.\d{1,2})?$/.test(normalizado)) {
+        const [reais, centavos = ''] = normalizado.split('.');
+        campo.value = formatarCentavos(reais + centavos.padEnd(2, '0'));
+      }
+    }
+    campo.inputMode = 'numeric';
     campo.addEventListener('input', () => {
-      campo.value = campo.value.replace(/[^\d,.]/g, '').replace(/(,.*),/g, '$1');
+      campo.value = formatarCentavos(campo.value);
     });
-    campo.addEventListener('blur', formatar);
-    formatar();
   });
 })();

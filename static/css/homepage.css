@@ -36,6 +36,8 @@
   padding: 16px 20px max(20px, env(safe-area-inset-bottom));
 }
 
+.homepage-marca-mobile { display: none; }
+
 .homepage-botao {
   display: inline-flex;
   align-items: center;
@@ -60,10 +62,20 @@
 .homepage-botao:hover { background: var(--accent-hover); }
 .homepage-botao:focus-visible { outline: 3px solid var(--text); outline-offset: 4px; }
 
-/* Keep all existing header controls reachable on narrow screens. */
 @media (max-width: 620px) {
-  .site-header { flex-wrap: wrap; }
-  .header-icons { flex-wrap: wrap; gap: 10px; justify-content: flex-end; flex: 1 1 240px; }
+  .homepage-arte img { object-position: 82% center; }
+  .homepage-marca-mobile {
+    position: absolute;
+    z-index: 2;
+    top: 34px;
+    left: 50%;
+    display: block;
+    width: min(230px, 72vw);
+    transform: translateX(-50%);
+    filter: drop-shadow(0 5px 18px #000);
+  }
+  .homepage-acoes { padding-inline: 16px; }
+  .homepage-botao { width: 100%; min-width: 0; }
 }
 
 /* The landing page ends at the hero. */

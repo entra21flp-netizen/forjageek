@@ -9,10 +9,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/layout.css' %}?v=5" />
+  <link rel="stylesheet" href="{% static 'css/layout.css' %}?v=6" />
   <link rel="stylesheet" href="{% static 'css/componentes.css' %}?v=13" />
   <link rel="stylesheet" href="{% static 'css/carrinho.css' %}?v=2" />
   {% block css_extra %}{% endblock %}
+  <link rel="stylesheet" href="{% static 'css/responsive.css' %}?v=1" />
 </head>
 <body>
   <div class="app">
@@ -29,11 +30,13 @@
         <input id="busca-global" type="search" name="q" value="{{ request.GET.q|default:'' }}" placeholder="Pesquisar colecionáveis, personagens..." maxlength="120" autocomplete="off">
         <button type="submit" aria-label="Pesquisar" title="Pesquisar"><span aria-hidden="true">⌕</span></button>
       </form>
-      <div class="header-icons">
-        <a href="{% url 'core:catalogo_figuras' %}">Catálogo</a>
+      <nav class="nav-principal" id="nav-principal" aria-label="Navegação principal">
+        <a href="{% url 'core:catalogo_figuras' %}">Exibição</a>
         <a href="{% url 'core:mercado' %}">Mercado</a>
         <a href="{% url 'core:buscar_colecionadores' %}">Colecionadores</a>
         <a href="{% url 'core:ranking_estantes' %}">Ranking</a>
+      </nav>
+      <div class="header-icons header-actions">
         {% if user.is_authenticated %}
           <div class="menu-conta">
             <button type="button" class="menu-conta-gatilho" aria-haspopup="true">Minha conta</button>
@@ -53,6 +56,7 @@
         {% endif %}
         <button type="button" class="carrinho-botao" id="abrir-carrinho" aria-controls="carrinho-lateral" aria-expanded="false"><span class="carrinho-icone" aria-hidden="true">🛒</span><span class="carrinho-texto">Carrinho</span><span class="carrinho-contagem" id="carrinho-contagem"{% if not carrinho_quantidade %} hidden{% endif %}>{{ carrinho_quantidade }}</span></button>
       </div>
+      <button type="button" class="menu-mobile-gatilho" aria-controls="nav-principal" aria-expanded="false"><span aria-hidden="true">☰</span><span class="sr-only">Abrir menu principal</span></button>
     </header>
 
     <main>
@@ -69,6 +73,7 @@
   <form id="carrinho-csrf" hidden>{% csrf_token %}</form>
   <p class="carrinho-status" id="carrinho-status" role="status" aria-live="polite"></p>
   <script src="{% static 'js/carrinho.js' %}?v=1" defer></script>
-  <script src="{% static 'js/wishlist.js' %}?v=1" defer></script>
+  <script src="{% static 'js/wishlist.js' %}?v=2" defer></script>
+  <script src="{% static 'js/menu-mobile.js' %}?v=1" defer></script>
 </body>
 </html>

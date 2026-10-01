@@ -18,6 +18,11 @@
       document.querySelectorAll(`[data-wishlist-item="${data.item_id}"]`).forEach((itemButton) => {
         itemButton.classList.toggle('adicionado', data.adicionado);
         itemButton.setAttribute('aria-pressed', String(data.adicionado));
+        const nome = itemButton.dataset.itemNome || 'item';
+        itemButton.setAttribute('aria-label', data.adicionado
+          ? `Remover ${nome} da Wishlist`
+          : `Adicionar ${nome} à Wishlist`);
+        itemButton.title = data.adicionado ? 'Remover da Wishlist' : 'Adicionar à Wishlist';
         const icon = itemButton.querySelector('span[aria-hidden="true"]');
         if (icon) icon.textContent = data.adicionado ? '♥' : '♡';
         const text = itemButton.querySelector('[data-wishlist-texto]');

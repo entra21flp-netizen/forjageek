@@ -2,7 +2,7 @@
 <div class="carrinho-lista">
   {% for item in carrinho_itens %}
   <article class="carrinho-item">
-    <a class="carrinho-item-foto" href="{% url 'core:produto' item_id=item.id %}">
+    <a class="carrinho-item-foto" href="{% url 'core:produto' item_id=item.id %}" aria-label="Ver {{ item.nome_personalizado|default:item.modelo.nome_modelo|default:item.modelo.nome_personagem }}">
       {% with imagem=item.imagens.first modelo_imagem=item.modelo.imagens.first %}
         {% if imagem.arquivo %}<img src="{{ imagem.arquivo.url }}" alt="">
         {% elif imagem.url_imagem %}<img src="{{ imagem.url_imagem }}" alt="">

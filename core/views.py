@@ -14,7 +14,7 @@ from django.views.decorators.http import require_POST
 from django.utils import timezone
 
 from catalogo.models import ModeloColecionavel, TipoColecionavel
-from inventario.models import AvaliacaoEstante, ColecionavelUsuario, EstanteVirtual, ItemEstante, Diorama, ItemWishlist
+from inventario.models import AvaliacaoEstante, ColecionavelUsuario, EstanteVirtual, ItemEstante, ItemWishlist
 from dioramas_novo.models import DioramaGeradoNovo
 from transacoes.models import AvaliacaoVenda
 from .carrinho import CHAVE_SESSAO_CARRINHO, contexto_carrinho, ids_do_carrinho
@@ -40,12 +40,12 @@ def _estante_selecionada(usuario, estante_id=None):
 
 
 def index(request):
-    """
-    Home do site = catálogo completo: sidebar de filtros (categoria,
-    franquia, personagem, fabricante, escala, estado) + destaques +
-    resultados. Antes isso era dividido entre index e busca — agora é
-    uma coisa só.
-    """
+    """Página inicial institucional do ForjaGeek."""
+    return render(request, "core/index.html")
+
+
+def _contexto_exibicao(request):
+    """Colecionáveis públicos e filtros usados pela página de Exibição."""
     tipos = TipoColecionavel.objects.all()
     tipo_selecionado = request.GET.get("tipo", "")
     franquia = request.GET.get("franquia", "").strip()
@@ -58,6 +58,7 @@ def index(request):
         ColecionavelUsuario.objects
         .filter(status_privacidade=ColecionavelUsuario.PRIVACIDADE_PUBLICO)
         .select_related("modelo", "modelo__tipo", "usuario")
+        .prefetch_related("imagens")
         .order_by("-data_inclusao")
     )
 
@@ -79,30 +80,11 @@ def index(request):
 
     itens = itens.distinct()
 
-    # "Em destaque": itens à venda (ou venda/troca) com preço definido.
-    # OBS: o banco não tem um campo de "preço original" pra calcular
-    # desconto de verdade — então isso é "em destaque", não "promoção com
-    # % off". Dá pra evoluir pra desconto real se um dia existir esse campo.
-    destaques = (
-        ColecionavelUsuario.objects
-        .filter(
-            status_privacidade=ColecionavelUsuario.PRIVACIDADE_PUBLICO,
-            status_negociacao__in=[
-                ColecionavelUsuario.NEGOCIACAO_VENDA,
-                ColecionavelUsuario.NEGOCIACAO_VENDA_OU_TROCA,
-            ],
-        )
-        .exclude(preco_anunciado__isnull=True)
-        .select_related("modelo", "modelo__tipo")
-        .order_by("-data_inclusao")[:6]
-    )
-
     wishlist_ids = set()
     if request.user.is_authenticated:
         wishlist_ids = set(ItemWishlist.objects.filter(usuario=request.user).values_list("colecionavel_usuario_id", flat=True))
-    contexto = {
+    return {
         "tipos": tipos,
-        "destaques": destaques,
         "filtros": {
             "tipo": tipo_selecionado,
             "franquia": franquia,
@@ -116,7 +98,6 @@ def index(request):
         "mostrar_negociacao": True,
         "mensagem_vazio": "Nenhum item encontrado com esses filtros.",
     }
-    return render(request, "core/index.html", contexto)
 
 
 def mercado(request):
@@ -376,6 +357,64 @@ def analisar_foto_cadastro(request):
 
 
 @login_required
+@require_POST
+def consultar_codigo_barras(request):
+    codigo = request.POST.get("codigo", "").strip()
+    if not codigo.isdigit() or len(codigo) not in range(8, 14):
+        return JsonResponse(
+            {"erro": "Digite um código EAN, JAN ou UPC com 8 a 13 números."},
+            status=400,
+        )
+
+    modelo = (
+        ModeloColecionavel.objects.filter(codigo_barras_ean_jan=codigo)
+        .select_related("tipo")
+        .prefetch_related("imagens")
+        .first()
+    )
+    if modelo:
+        imagem = next((registro.url_imagem for registro in modelo.imagens.all() if registro.url_imagem), "")
+        return JsonResponse({
+            "encontrado": True,
+            "origem": "catalogo_forjageek",
+            "mensagem": "Este produto já está no catálogo do ForjaGeek.",
+            "modelo_id": modelo.id,
+            "produto": {
+                "nome_modelo": modelo.nome_modelo,
+                "nome_personagem": modelo.nome_personagem,
+                "franquia": modelo.franquia,
+                "fabricante": modelo.fabricante,
+                "tipo_id": modelo.tipo_id,
+                "tipo_nome": modelo.tipo.nome_tipo,
+                "imagem_modelo": imagem,
+                "codigo_barras_ean_jan": codigo,
+            },
+        })
+
+    try:
+        from .consulta_codigo_barras import (
+            ConsultaCodigoBarrasIndisponivel,
+            consultar_upcitemdb,
+        )
+
+        produto = consultar_upcitemdb(codigo)
+    except ConsultaCodigoBarrasIndisponivel as exc:
+        return JsonResponse({"erro": str(exc)}, status=503)
+
+    if not produto:
+        return JsonResponse({
+            "encontrado": False,
+            "mensagem": "Não encontramos esse código. Você ainda pode preencher o cadastro manualmente.",
+        })
+    return JsonResponse({
+        "encontrado": True,
+        "origem": "upcitemdb",
+        "mensagem": "Encontramos uma referência externa. Revise os dados antes de salvar.",
+        "produto": produto,
+    })
+
+
+@login_required
 def prateleira(request):
     """A prateleira do PRÓPRIO usuário logado — vê tudo, público ou privado."""
     itens = list(
@@ -387,14 +426,6 @@ def prateleira(request):
     )
 
     estante = _estante_selecionada(request.user, request.GET.get("estante"))
-    for ordem in range(1, 4):
-        Diorama.objects.get_or_create(
-            estante=estante,
-            ordem=ordem,
-            defaults={"titulo": f"Diorama da prateleira {ordem}"},
-        )
-    dioramas = list(estante.dioramas.all())
-    dioramas_por_ordem = {diorama.ordem: diorama for diorama in dioramas}
     posicionamentos = list(
         ItemEstante.objects.filter(estante=estante)
         .select_related("colecionavel_usuario", "colecionavel_usuario__modelo", "diorama_novo")
@@ -420,7 +451,6 @@ def prateleira(request):
         prateleiras.append({
             "numero": numero,
             "slots": slots_da_prateleira,
-            "diorama": dioramas_por_ordem[numero],
             "diorama_gerado": dioramas_gerados_por_inicio.get(inicio + 1),
             "pecas": pecas,
             "nomes_pecas": [peca.modelo.nome_personagem for peca in pecas],
@@ -567,41 +597,6 @@ def remover_item_estante(request):
 
 @login_required
 @require_POST
-def salvar_dioramas(request):
-    """Cria ou edita o cenário da fileira indicada da estante."""
-    try:
-        ordem = int(request.POST.get("ordem", "0"))
-    except ValueError:
-        ordem = 0
-    if ordem not in range(1, 4):
-        return JsonResponse({"erro": "Prateleira inválida."}, status=400)
-    estante = _estante_selecionada(request.user, request.POST.get("estante_id"))
-    diorama, _ = Diorama.objects.get_or_create(estante=estante, ordem=ordem)
-    diorama.titulo = request.POST.get("titulo", "").strip()[:100] or f"Diorama da prateleira {ordem}"
-    diorama.descricao = request.POST.get("descricao", "").strip()[:180]
-    diorama.configurado = True
-    diorama.save(update_fields=["titulo", "descricao", "configurado"])
-    return JsonResponse({"ok": True, "ordem": ordem})
-
-
-@login_required
-@require_POST
-def selecionar_diorama_destaque(request):
-    """Define qual das três prateleiras terá seu diorama exibido no topo."""
-    try:
-        ordem = int(request.POST.get("ordem", "0"))
-    except ValueError:
-        ordem = 0
-    if ordem not in range(1, 4):
-        return JsonResponse({"erro": "Prateleira inválida."}, status=400)
-    estante = _estante_selecionada(request.user, request.POST.get("estante_id"))
-    estante.diorama_destaque = ordem
-    estante.save(update_fields=["diorama_destaque"])
-    return JsonResponse({"ok": True, "ordem": ordem})
-
-
-@login_required
-@require_POST
 def criar_estante(request):
     nome = request.POST.get("nome", "").strip()
     if not nome:
@@ -635,7 +630,6 @@ def prateleira_publica(request, username):
     ).select_related("colecionavel_usuario__modelo", "colecionavel_usuario__modelo__tipo").prefetch_related(
         "colecionavel_usuario__imagens", "colecionavel_usuario__modelo__imagens"
     ).order_by("posicao_slot", "id"))
-    dioramas_por_ordem = {diorama.ordem: diorama for diorama in estante.dioramas.all()}
     dioramas_gerados_publicos = {
         posicao.posicao_slot: posicao.diorama_novo
         for posicao in ItemEstante.objects.filter(
@@ -656,7 +650,6 @@ def prateleira_publica(request, username):
         prateleiras.append({
             "numero": numero,
             "slots": slots_da_prateleira,
-            "diorama": dioramas_por_ordem.get(numero),
             "diorama_gerado": dioramas_gerados_publicos.get((numero - 1) * 4 + 1),
             "pecas": pecas,
         })
@@ -899,45 +892,5 @@ def excluir_colecionavel(request, item_id):
 
 
 def catalogo_figuras(request):
-    from catalogo.models import ModeloColecionavel
-    modelos = ModeloColecionavel.objects.select_related('tipo').prefetch_related('imagens', 'unidades__imagens', 'valores_caracteristicas__caracteristica').order_by('franquia', 'pk')
-    busca = request.GET.get('q', '').strip()
-    franquia = request.GET.get('franquia', '')
-    figuras = []
-    sugestoes = set()
-    for modelo in modelos:
-        dados = {x.caracteristica.nome_caracteristica: x.valor for x in modelo.valores_caracteristicas.all()}
-        imagem = modelo.imagens.first()
-        nomes_unidades = [
-            unidade.nome_personalizado.strip()
-            for unidade in modelo.unidades.all()
-            if unidade.nome_personalizado and unidade.nome_personalizado.strip()
-        ]
-        if not imagem:
-            for unidade in modelo.unidades.all():
-                imagem = unidade.imagens.first()
-                if imagem:
-                    break
-        nome = dados.get('Nome', modelo.nome_modelo or modelo.nome_personagem)
-        termos_busca = [
-            nome,
-            modelo.nome_modelo,
-            modelo.nome_personagem,
-            modelo.franquia,
-            modelo.fabricante,
-            modelo.codigo_barras_ean_jan,
-            modelo.codigo_fabricante_sku,
-            modelo.tipo.nome_tipo,
-            *nomes_unidades,
-            *dados.values(),
-        ]
-        texto_busca = ' '.join(str(termo) for termo in termos_busca if termo)
-        sugestoes.update(
-            termo for termo in [nome, modelo.nome_modelo, modelo.nome_personagem, modelo.franquia, modelo.fabricante, *nomes_unidades]
-            if termo
-        )
-        figuras.append({'modelo': modelo, 'imagem': imagem, 'nome': nome, 'texto_busca': texto_busca, 'serie': dados.get('Série', ''), 'ano': dados.get('Ano de lançamento', ''), 'altura': dados.get('Altura (cm)', '').replace('.', ','), 'material': dados.get('Material', ''), 'ficha': [(k, 'Sim' if val == 'true' else 'Não' if val == 'false' else val.replace('.', ',') if k == 'Altura (cm)' else val) for k, val in dados.items() if k != 'Origem dos dados']})
-    franquias = sorted({f['modelo'].franquia for f in figuras})
-    total = len(figuras)
-    figuras = [f for f in figuras if (not franquia or f['modelo'].franquia == franquia) and (not busca or busca.casefold() in f['texto_busca'].casefold())]
-    return render(request, 'core/catalogo_figuras.html', {'figuras': figuras, 'total': total, 'busca': busca, 'franquia': franquia, 'franquias': franquias, 'sugestoes': sorted(sugestoes, key=str.casefold)})
+    """Exibe todas as unidades públicas cadastradas pelos colecionadores."""
+    return render(request, "core/catalogo_figuras.html", _contexto_exibicao(request))
