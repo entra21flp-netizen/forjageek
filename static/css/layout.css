@@ -188,7 +188,7 @@
   .header-icons { margin-left: 0; }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 620px) {
   .site-header {
     position: relative;
     display: grid;

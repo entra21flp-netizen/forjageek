@@ -103,7 +103,10 @@ WSGI_APPLICATION = 'ForjaGeek.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-NEON_DATABASE_URL = os.getenv('NEON_DATABASE_URL', '').strip()
+NEON_DATABASE_URL = (
+    os.getenv('NEON_DATABASE_URL_NOVA', '').strip()
+    or os.getenv('NEON_DATABASE_URL', '').strip()
+)
 USE_SQLITE = os.getenv('FORJAGEEK_USE_SQLITE', '').lower() in {'1', 'true', 'yes'} or 'test' in sys.argv
 
 if NEON_DATABASE_URL and not USE_SQLITE:

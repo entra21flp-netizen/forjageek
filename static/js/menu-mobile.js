@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') close();
   });
-  window.matchMedia('(min-width: 721px)').addEventListener('change', (event) => {
+  window.matchMedia('(min-width: 621px)').addEventListener('change', (event) => {
     if (event.matches) close();
   });
 });

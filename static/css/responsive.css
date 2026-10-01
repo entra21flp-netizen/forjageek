@@ -1,5 +1,11 @@
-/* Ajustes compartilhados entre páginas para telas de celular. */
-@media (max-width: 720px) {
+/* Ajustes compartilhados entre páginas para telas menores. */
+@media (max-width: 980px) {
+  .site-header {
+    align-items: center;
+  }
+}
+
+@media (max-width: 620px) {
   .site-header {
     align-items: center;
   }
