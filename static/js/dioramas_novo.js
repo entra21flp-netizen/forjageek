@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(!form)return;
   const type=document.querySelector('#id_tipo');
   const savePreset=document.querySelector('#dn-save-preset');
+  const presetInputs=[...form.querySelectorAll('input[name="preset"]')];
+  const description=form.elements.namedItem('descricao');
   const updatePresetButton=()=>{
     if(savePreset)savePreset.disabled=!form.querySelector('input[name="preset"]:checked');
   };
@@ -10,6 +12,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     type.value=mode;
     document.querySelectorAll('.dn-mode').forEach(el=>el.classList.toggle('active',el.dataset.mode===mode));
     document.querySelectorAll('.dn-panel').forEach(el=>el.classList.toggle('active',el.dataset.panel===mode));
+    const isPreset=mode==='predefinido';
+    presetInputs.forEach(input=>{
+      input.required=isPreset;
+      input.disabled=!isPreset;
+    });
+    if(description){
+      description.required=!isPreset;
+      description.disabled=isPreset;
+    }
   };
   document.querySelectorAll('.dn-mode').forEach(el=>el.addEventListener('click',()=>activate(el.dataset.mode)));
   form.querySelectorAll('input[name="preset"]').forEach(input=>input.addEventListener('change',()=>{

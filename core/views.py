@@ -44,6 +44,13 @@ def index(request):
     return render(request, "core/index.html")
 
 
+def _somente_colecionaveis_com_imagem(queryset):
+    """Oculta das grades os itens sem arquivo e sem URL de imagem válidos."""
+    possui_arquivo = Q(imagens__arquivo__gt="")
+    possui_url = Q(imagens__url_imagem__gt="")
+    return queryset.filter(possui_arquivo | possui_url).distinct()
+
+
 def _contexto_exibicao(request):
     """Colecionáveis públicos e filtros usados pela página de Exibição."""
     tipos = TipoColecionavel.objects.all()
@@ -54,7 +61,7 @@ def _contexto_exibicao(request):
     escala = request.GET.get("escala", "").strip()
     estado = request.GET.get("estado", "").strip()
 
-    itens = (
+    itens = _somente_colecionaveis_com_imagem(
         ColecionavelUsuario.objects
         .filter(status_privacidade=ColecionavelUsuario.PRIVACIDADE_PUBLICO)
         .select_related("modelo", "modelo__tipo", "usuario")
@@ -122,7 +129,7 @@ def mercado(request):
     if modalidade not in modalidades:
         modalidade = "todos"
 
-    itens = (
+    itens = _somente_colecionaveis_com_imagem(
         ColecionavelUsuario.objects
         .filter(
             status_privacidade=ColecionavelUsuario.PRIVACIDADE_PUBLICO,
@@ -170,7 +177,7 @@ def busca_global(request):
         visibilidade = Q(status_privacidade=ColecionavelUsuario.PRIVACIDADE_PUBLICO)
         if request.user.is_authenticated:
             visibilidade |= Q(usuario=request.user)
-        colecionaveis = (
+        colecionaveis = _somente_colecionaveis_com_imagem(
             ColecionavelUsuario.objects
             .filter(visibilidade)
             .filter(
@@ -185,8 +192,9 @@ def busca_global(request):
             .select_related("modelo", "modelo__tipo", "usuario")
             .prefetch_related("imagens")
             .distinct()
-            .order_by("-data_inclusao")[:24]
+            .order_by("-data_inclusao")
         )
+        colecionaveis = colecionaveis[:24]
         modelos = (
             ModeloColecionavel.objects
             .filter(
@@ -752,12 +760,12 @@ def ranking_estantes(request):
 
 @login_required
 def wishlist(request):
-    registros = ItemWishlist.objects.filter(usuario=request.user).select_related(
-        "colecionavel_usuario__modelo",
-        "colecionavel_usuario__modelo__tipo",
-        "colecionavel_usuario__usuario",
-    ).prefetch_related("colecionavel_usuario__imagens")
-    itens = [registro.colecionavel_usuario for registro in registros]
+    itens = _somente_colecionaveis_com_imagem(
+        ColecionavelUsuario.objects.filter(salvo_por__usuario=request.user)
+        .select_related("modelo", "modelo__tipo", "usuario")
+        .prefetch_related("imagens")
+        .order_by("-salvo_por__criado_em")
+    )
     return render(request, "core/wishlist.html", {
         "itens": itens,
         "wishlist_ids": {item.id for item in itens},

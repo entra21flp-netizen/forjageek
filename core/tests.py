@@ -5,7 +5,7 @@ from django.urls import reverse
 from unittest.mock import patch
 
 from catalogo.models import ModeloColecionavel, TipoColecionavel
-from inventario.models import ColecionavelUsuario
+from inventario.models import ColecionavelUsuario, ImagemColecionavel
 from inventario.models import EstanteVirtual
 
 
@@ -169,6 +169,11 @@ class CarrinhoTests(TestCase):
             status_privacidade=ColecionavelUsuario.PRIVACIDADE_PUBLICO,
             status_negociacao=ColecionavelUsuario.NEGOCIACAO_VENDA,
         )
+        ImagemColecionavel.objects.create(
+            colecionavel_usuario=self.item,
+            url_imagem="https://example.com/figura-de-teste.jpg",
+            imagem_principal=True,
+        )
         self.client.force_login(self.comprador)
 
     def test_adiciona_item_e_mantem_carrinho_entre_paginas(self):
@@ -211,3 +216,25 @@ class CarrinhoTests(TestCase):
 
         self.assertContains(resposta, "Figura de teste")
         self.assertNotContains(resposta, "Item privado")
+
+    def test_catalogo_e_mercado_ocultam_item_sem_imagem_sem_exclui_lo(self):
+        sem_imagem = ColecionavelUsuario.objects.create(
+            usuario=self.vendedor,
+            modelo=self.item.modelo,
+            nome_personalizado="Batman sem imagem",
+            estado_peca="Excelente",
+            condicao_caixa="Com caixa",
+            preco_pago="80.00",
+            preco_anunciado="120.00",
+            status_privacidade=ColecionavelUsuario.PRIVACIDADE_PUBLICO,
+            status_negociacao=ColecionavelUsuario.NEGOCIACAO_VENDA,
+        )
+
+        catalogo = self.client.get(reverse("core:catalogo_figuras"))
+        mercado = self.client.get(reverse("core:mercado"))
+
+        self.assertContains(catalogo, "Figura de teste")
+        self.assertNotContains(catalogo, "Batman sem imagem")
+        self.assertContains(mercado, "Figura de teste")
+        self.assertNotContains(mercado, "Batman sem imagem")
+        self.assertTrue(ColecionavelUsuario.objects.filter(pk=sem_imagem.pk).exists())
