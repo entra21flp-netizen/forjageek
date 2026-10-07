@@ -112,15 +112,37 @@ class CadastroColecionavelForm(forms.ModelForm):
         item.usuario=user
         item.save()
         if d.get('foto'):
+            print(">>> ENTROU NO BLOCO DE FOTOS")
+
             for ordem, foto in enumerate(d['foto']):
-                ImagemColecionavel.objects.create(
+                print(
+                    ">>> ANTES DE CRIAR IMAGEM:",
+                    foto.name,
+                    foto.size,
+                    foto.content_type
+                )
+
+                imagem = ImagemColecionavel.objects.create(
                     colecionavel_usuario=item,
                     arquivo=foto,
                     ordem_exibicao=ordem,
                     imagem_principal=ordem == 0,
                 )
+
+                print(
+                    ">>> IMAGEM CRIADA:",
+                    imagem.pk,
+                    imagem.arquivo.name,
+                    imagem.url_imagem
+                )
+
         elif d.get('imagem_peca'):
-            ImagemColecionavel.objects.create(colecionavel_usuario=item,url_imagem=d['imagem_peca'],imagem_principal=True)
+            ImagemColecionavel.objects.create(
+                colecionavel_usuario=item,
+                url_imagem=d['imagem_peca'],
+                imagem_principal=True
+            )
+
         return item
     def sections(self):
         groups=[('Identificação do modelo','modelo-novo',['tipo','nome_modelo','nome_personagem','franquia','fabricante','codigo_barras_ean_jan','codigo_fabricante_sku','imagem_modelo']),('Sua peça','',['nome_personalizado','personalizado','estado_peca','condicao_caixa','preco_pago','local_armazenamento','nota','imagem_peca']),('Privacidade e negociação','',['status_privacidade','status_negociacao','preco_anunciado','interesses_troca'])]
